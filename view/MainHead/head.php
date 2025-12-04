@@ -12,6 +12,12 @@
     
 	<link rel="stylesheet" href="../../public/css/lib/bootstrap-sweetalert/sweetalert.css">
 	<link rel="stylesheet" href="../../public/css/separate/vendor/sweet-alert-animations.min.css">
+	
+	<link rel="stylesheet" href="../../public/css/separate/vendor/fancybox.min.css">
+	<link rel="stylesheet" href="../../public/css/separate/pages/activity.min.css">
+
+	<link rel="stylesheet" href="../../public/css/lib/summernote/summernote.css"/>
+	<link rel="stylesheet" href="../../public/css/separate/pages/editor.min.css">
 
 	<link rel="stylesheet" href="../../public/css/lib/datatables-net/datatables.min.css">
 	<link rel="stylesheet" href="../../public/css/separate/vendor/datatables-net.min.css">

@@ -1,6 +1,9 @@
 <?php
     require_once("../config/conexion.php");
     require_once("../models/Consulta.php");
+    require_once("../controller/gemini.php");
+    require_once("../controller/storage.php");
+    require_once("../controller/documentai.php");
 
     $consulta = new Consulta();
 
@@ -44,5 +47,70 @@
                 echo json_encode($output);
             }
         break;
+
+        //PROMPT DE PRUEBA GEMINI
+        case "ai_prompt":
+            $prompt = $_POST["prompt"];
+    
+            $ai = new AIController();
+            $respuesta = $ai->procesarPrompt($prompt);
+    
+            echo $respuesta; // Se envía de regreso al frontend
+        break;
+
+        case "insertdetalle":
+            $datos = $consulta -> insert_detalle($_POST["cons_id"], $_POST["usu_id"], $_POST["det_contenido"]);
+        break;
+
+        case "listardetalle":
+            $datos = $consulta -> listar_detalle_x_consulta($_POST["cons_id"]);
+
+            ?>
+                <?php
+                    foreach($datos as $row){
+                        ?>
+                        <h1></h1>
+                            <article class="activity-line-item box-typical">
+                                <div class="activity-line-date">
+                                    <?php echo date("d/m/Y H:i", strtotime($row["fech_crea"])); ?>
+                                </div>
+                                <header class="activity-line-item-header">
+                                    <div class="activity-line-item-user">
+                                        <div class="activity-line-item-user-photo">
+                                            <a href="#">
+                                        
+                                            </a>
+                                        </div>
+                                        <div class="activity-line-item-user-name"><?php echo $row['usu_nom'].' '.$row['usu_ape']?></div>
+                                        <div class="activity-line-item-user-status">
+                                        
+
+                                        
+                                    </div>
+                                </header>
+                                <div class="activity-line-action-list">
+                                    <section class="activity-line-action">
+                                    <div class="time"><?php echo date("H:i", strtotime($row["fech_crea"])); ?></div>
+                                    <div class="cont">
+                                        <div class="cont-in">
+                                            <p>
+                                                <?php echo $row['det_contenido'];?>
+                                            </p>	
+
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </section><!--.activity-line-action-->
+
+                                
+                                </div>
+                            </article>
+                        <?php
+                    }
+                ?>
+            <?php
+        break;
+
     }
 ?>
