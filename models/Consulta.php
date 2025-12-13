@@ -51,8 +51,8 @@
         public function insert_detalle_ai ($cons_id, $usu_id, $det_contenido) {
             $conectar = parent::conexion();
             $sql="INSERT 
-                    INTO tm_detalle(cons_id, usu_id, det_contenido, fech_crea)
-                    VALUES (?, ?, ?, NOW());";
+                  INTO tm_detalle(cons_id, usu_id, det_contenido, fech_crea)
+                  VALUES (?, ?, ?, NOW());";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$cons_id);
             $sql->bindValue(2,$usu_id);
@@ -65,13 +65,27 @@
             $conectar= parent::conexion();
             parent::set_names();
             $sql="SELECT * FROM tm_detalle
-            INNER JOIN tm_usuario on tm_usuario.usu_id = tm_detalle.usu_id
-            WHERE cons_id = ?";
+                  INNER JOIN tm_usuario on tm_usuario.usu_id = tm_detalle.usu_id
+                  WHERE cons_id = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $cons_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        public function obtener_historial($cons_id) {
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT * 
+                    FROM tm_detalle 
+                    WHERE cons_id=? 
+                    ORDER BY fech_crea ASC";
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, $cons_id);
+            $sql->execute();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
     }
     
 ?>

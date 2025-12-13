@@ -8,10 +8,12 @@
     $consulta = new Consulta();
 
     switch($_GET["op"]) {
+        //CREAR UNA NUEVA CONSULTA
         case "insert":
             $datos = $consulta -> insert_consulta($_POST["usu_id"], $_POST["cons_nom"]);
         break;
 
+        //LISTAR LAS CONSULTAS QUE EL USUARIO HA CREADO
         case "listar_consultas":
             $datos = $consulta->listar_consultas($_POST["usu_id"]);
             $data = Array();
@@ -49,14 +51,37 @@
         break;
 
         //PROMPT DE PRUEBA GEMINI
+        // case "ai_prompt":
+        //     $prompt = $_POST["prompt"];
+    
+        //     $ai = new AIController();
+        //     $respuesta = $ai -> procesarPrompt($prompt);
+    
+        //     echo $respuesta; // Se envía de regreso al frontend
+        // break;
+
         case "ai_prompt":
-            $prompt = $_POST["prompt"];
-    
+
+            $mensajesRaw = $_POST["mensajes"] ?? null;
+        
+            if (!$mensajesRaw) {
+                echo json_encode(["error" => "No llegaron mensajes"]);
+                exit;
+            }
+        
+            // Convertir string JSON → array PHP
+            $mensajes = json_decode($mensajesRaw, true);
+        
+            // LOG para verificar
+            file_put_contents("debug_gemini.txt", print_r($mensajes, true));
+        
             $ai = new AIController();
-            $respuesta = $ai->procesarPrompt($prompt);
-    
-            echo $respuesta; // Se envía de regreso al frontend
-        break;
+            $respuesta = $ai->procesarPrompt($mensajes);
+        
+            echo $respuesta;
+            break;
+        
+        
 
         case "insertdetalle":
             $datos = $consulta -> insert_detalle($_POST["cons_id"], $_POST["usu_id"], $_POST["det_contenido"]);
@@ -112,5 +137,20 @@
             <?php
         break;
 
+        case "obtener_historial":
+            $datos = $consulta->obtener_historial($_POST["cons_id"]);
+            echo json_encode($datos);
+        break;
+
+        case "subir_archivos_cloud":
+            require_once "../vendor/autoload.php";
+            require_once "../models/CloudStorage.php";
+        
+            $cloud = new CloudStorage();
+            $uris = $cloud->subirArchivos($_FILES["files"]); //linea 149
+        
+            echo json_encode($uris);
+        break;
+        
     }
 ?>
