@@ -1,5 +1,7 @@
 {
     "require": {
-        "google/cloud-storage": "^1.48"
+        "google/cloud-language": "^1.1",
+        "google/cloud-storage": "^1.49",
+        "vlucas/phpdotenv": "^5.6"
     }
 }

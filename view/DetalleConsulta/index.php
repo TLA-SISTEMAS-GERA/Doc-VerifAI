@@ -1,5 +1,12 @@
 <?php
 	require_once("../../config/conexion.php");
+	require_once("../../vendor/autoload.php");
+
+	use Dotenv\Dotenv;
+
+	$config = App\Config::getInstance();
+    $dotenv = Dotenv::createImmutable($config->getEnvPath(), '.env.' . $config->getEnvironment());
+    $dotenv->load();
 	if(isset($_SESSION["usu_id"])){
 		
 ?>
@@ -75,7 +82,8 @@
 
 <?php
 	}else{
-		header("Location:"."http://localhost:80/TLA_Revision_Docs/"."index.php");  
+		$URL_FRONTEND = $_ENV['URL_FRONTEND'];
+		header("Location:"."$URL_FRONTEND"."index.php");  
 		//header("Location:"."https://support-tracking.tecnologisticaaduanal.com/"."index.php");
 	}
 
