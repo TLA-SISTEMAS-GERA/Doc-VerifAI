@@ -56,7 +56,7 @@ $("#btnenviar").on("click", function () {
             { prompt: prompt },
             function (response) {
     
-                console.log("Gemini dijo:", response);
+                console.log("Gemini dijo:",   );
                 mostrar(cons_id);
                 var json = JSON.parse(response);
                 var respuestaIA = json.candidates[0].content.parts[0].text;

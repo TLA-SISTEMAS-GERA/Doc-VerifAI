@@ -1,4 +1,16 @@
 <?php 
+
+    require_once dirname(__DIR__,1) . "/vendor/autoload.php";
+    require_once dirname(__DIR__,1) . "/config/config.php";
+    
+    use Dotenv\Dotenv;
+
+    $config = App\Config::getInstance();
+    $dotenv = Dotenv::createImmutable($config->getEnvPath(), '.env.' . $config->getEnvironment());
+    $dotenv->load();
+
+
+
     class AIController {
         private $apiKey;
 
@@ -14,7 +26,12 @@
                 "contents" => [
                     [
                         "parts" => [
-                            ["text" => $prompt]
+                            ["text" => $prompt],
+                            [ "file_data" => [
+                                "mime_type" => 'application/json',
+                                "file_uri" => 'files/0ptus11bupdk'
+                                ]
+                            ]
                         ]
                     ]
                 ]
