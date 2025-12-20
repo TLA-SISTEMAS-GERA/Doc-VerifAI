@@ -7,7 +7,7 @@ Array
                 (
                     [0] => Array
                         (
-                            [text] => Hola esta es una prueba 
+                            [text] => fwf3rf
                         )
 
                 )
@@ -16,12 +16,12 @@ Array
 
     [1] => Array
         (
-            [role] => model
+            [role] => user
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => ¡Hola! Entendido. Soy un modelo de lenguaje grande, entrenado por Google. Estoy listo para ayudarte si tienes alguna pregunta o tarea para mí.
+                            [text] => prueba detalle
                         )
 
                 )
@@ -30,12 +30,12 @@ Array
 
     [2] => Array
         (
-            [role] => user
+            [role] => model
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => Me llamo gerardo
+                            [text] => Prueba consulta 2
                         )
 
                 )
@@ -49,7 +49,7 @@ Array
                 (
                     [0] => Array
                         (
-                            [text] => ¡Hola, Gerardo! Mucho gusto.
+                            [text] => 
                         )
 
                 )
@@ -63,7 +63,7 @@ Array
                 (
                     [0] => Array
                         (
-                            [text] => Como me llamo?
+                            [text] => 
                         )
 
                 )
@@ -72,14 +72,12 @@ Array
 
     [5] => Array
         (
-            [role] => model
+            [role] => user
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => Como soy una inteligencia artificial, no tengo acceso a tu información personal ni sé cómo te llamas.
-
-Puedes decírmelo si quieres, o puedes usar el nombre que prefieras para que me dirija a ti.
+                            [text] => dwef
                         )
 
                 )
@@ -93,7 +91,7 @@ Puedes decírmelo si quieres, o puedes usar el nombre que prefieras para que me 
                 (
                     [0] => Array
                         (
-                            [text] => Dame el clima de Nuevo laredo
+                            [text] => Hola
                         )
 
                 )
@@ -102,20 +100,12 @@ Puedes decírmelo si quieres, o puedes usar el nombre que prefieras para que me 
 
     [7] => Array
         (
-            [role] => model
+            [role] => user
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => Claro, con gusto te ayudaría, pero como soy una inteligencia artificial y no tengo acceso a datos en tiempo real, no puedo darte el pronóstico del clima *actual* o *en vivo* de Nuevo Laredo.
-
-Para obtener el clima más preciso y actualizado, te recomiendo:
-
-1.  **Usar un buscador:** Simplemente escribe "clima Nuevo Laredo" en Google, Bing o tu buscador preferido.
-2.  **Consultar aplicaciones o sitios web especializados:** Como The Weather Channel, AccuWeather, o Meteored.
-3.  **Verificar noticias locales:** Algunos sitios de noticias de la región suelen tener una sección de clima actualizada.
-
-¡Espero que encuentres la información que buscas rápidamente!
+                            [text] => Hola soy nuevo en esta API
                         )
 
                 )
@@ -129,7 +119,7 @@ Para obtener el clima más preciso y actualizado, te recomiendo:
                 (
                     [0] => Array
                         (
-                            [text] => Puedes comparar diferencias entre documentos?
+                            [text] => Hola
                         )
 
                 )
@@ -138,85 +128,12 @@ Para obtener el clima más preciso y actualizado, te recomiendo:
 
     [9] => Array
         (
-            [role] => model
+            [role] => user
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => ¡Sí, absolutamente! Comparar diferencias entre documentos es una tarea muy común y existen numerosas herramientas y métodos para hacerlo, dependiendo del tipo de documento y el nivel de detalle que necesites.
-
-Aquí te detallo cómo se comparan las diferencias y qué herramientas son útiles para distintos escenarios:
-
-### ¿Qué significa "comparar diferencias entre documentos"?
-
-Generalmente, se refiere a identificar y resaltar:
-*   **Adiciones:** Texto, imágenes o elementos que están en un documento pero no en el otro.
-*   **Eliminaciones:** Texto, imágenes o elementos que están en un documento pero fueron removidos en la versión comparada.
-*   **Modificaciones:** Cambios en el texto (palabras, frases), formato (fuente, tamaño, color), o estructura (tablas, imágenes movidas/redimensionadas).
-
-### Herramientas y Métodos para Comparar Documentos:
-
-#### 1. Para Documentos de Texto (Microsoft Word, Google Docs, etc.)
-
-*   **Microsoft Word (Función "Comparar")**:
-    *   **Cómo funciona:** Word tiene una función integrada (en la pestaña "Revisar" > "Comparar") que te permite seleccionar dos documentos de Word (original y revisado) y genera un tercer documento que muestra todas las diferencias con "marcas de revisión" (texto añadido subrayado, texto eliminado tachado, cambios de formato). Puedes ver el documento original, el revisado y el documento de comparación al mismo tiempo.
-    *   **Ideal para:** Contratos, informes, artículos, cualquier documento colaborativo o que ha pasado por varias revisiones y necesitas ver los cambios exactos.
-    *   **Ventajas:** Muy preciso para documentos de Word, resalta tanto texto como formato.
-    *   **Desventajas:** Solo funciona con archivos .doc o .docx.
-
-*   **Google Docs (Historial de Versiones)**:
-    *   **Cómo funciona:** Google Docs guarda automáticamente todas las versiones de un documento. Puedes ir a "Archivo" > "Historial de versiones" > "Ver historial de versiones". Aquí puedes seleccionar dos versiones diferentes y Google Docs te mostrará las diferencias resaltadas.
-    *   **Ideal para:** Colaboración en tiempo real, seguimiento de cambios en documentos compartidos en la nube.
-    *   **Ventajas:** Integrado, fácil de usar, permite volver a versiones anteriores.
-    *   **Desventajas:** No genera un documento "final" con las revisiones al estilo Word, es más una vista del historial.
-
-*   **LibreOffice Writer (Comparar Documentos)**:
-    *   **Cómo funciona:** Similar a Word, ofrece una función de "Comparar documentos" para archivos ODT y otros formatos compatibles.
-    *   **Ideal para:** Usuarios de suites de oficina de código abierto.
-
-#### 2. Para Documentos PDF
-
-*   **Adobe Acrobat Pro (Comparar Archivos)**:
-    *   **Cómo funciona:** Acrobat Pro tiene una herramienta de "Comparar Archivos" que detecta rápidamente las diferencias entre dos documentos PDF. Puede comparar texto, imágenes e incluso la estructura visual de las páginas. Presenta un informe detallado de los cambios.
-    *   **Ideal para:** Contratos legales, manuales técnicos, planos, o cualquier documento que se distribuye en formato PDF y requiere una revisión exhaustiva de cambios.
-    *   **Ventajas:** Muy potente y preciso para PDFs, puede comparar documentos escaneados (mediante OCR).
-    *   **Desventajas:** Es una herramienta de pago.
-
-*   **Herramientas Online de Comparación de PDF (Ej: Draftable, Diffchecker PDF)**:
-    *   **Cómo funciona:** Subes los dos archivos PDF a un sitio web y este te muestra las diferencias, a menudo resaltadas o lado a lado.
-    *   **Ideal para:** Comparaciones rápidas de PDF sin necesidad de software instalado.
-    *   **Ventajas:** Accesible desde cualquier navegador, a menudo gratuito para usos limitados.
-    *   **Desventajas:** Puede tener límites de tamaño de archivo, problemas de privacidad si el documento es sensible, no siempre tan preciso como las herramientas de escritorio.
-
-#### 3. Para Código y Texto Plano
-
-*   **Herramientas Diff/Merge (Ej: WinMerge, Beyond Compare, KDiff3, Diffchecker)**:
-    *   **Cómo funciona:** Estas herramientas son ideales para comparar archivos de texto plano (código fuente, scripts, archivos de configuración, etc.). Muestran las diferencias línea por línea, resaltando adiciones, eliminaciones y cambios. Muchas de ellas también permiten "fusionar" (merge) los cambios de un archivo al otro.
-    *   **Ideal para:** Desarrolladores de software, administradores de sistemas, escritores que trabajan con Markdown o texto plano.
-    *   **Ventajas:** Extremadamente rápidas y precisas para texto plano, visualización clara.
-    *   **Desventajas:** No manejan formato enriquecido (negritas, cursivas), imágenes, o estructuras complejas de documentos.
-
-*   **Integración en IDEs (Entornos de Desarrollo Integrados)**:
-    *   **Cómo funciona:** Muchos IDEs (como VS Code, IntelliJ IDEA) tienen funcionalidades de comparación de archivos integradas, a menudo ligadas a sistemas de control de versiones (Git).
-    *   **Ideal para:** Desarrolladores que necesitan comparar versiones de su código.
-
-#### 4. Para Imágenes o Archivos Binarios
-
-*   **Herramientas de Comparación de Imágenes (Ej: Diff-JPEG, herramientas de edición de imagen como Photoshop con capas)**:
-    *   **Cómo funciona:** Estas herramientas superponen dos imágenes y resaltan las diferencias de píxeles o regiones. En software de edición, puedes poner las imágenes en capas y usar modos de fusión para ver los cambios.
-    *   **Ideal para:** Diseñadores gráficos, control de calidad visual.
-    *   **Ventajas:** Permite detectar cambios visuales sutiles.
-    *   **Desventajas:** No es "comparación de documentos" en el sentido tradicional.
-
-### Pasos Generales para Comparar Documentos:
-
-1.  **Identifica el tipo de documento:** ¿Es un Word, un PDF, un archivo de texto plano?
-2.  **Elige la herramienta adecuada:** Basado en el tipo de documento y tus necesidades.
-3.  **Carga/Abre los dos documentos:** El documento "original" y el documento "revisado" o "a comparar".
-4.  **Ejecuta la comparación:** La herramienta te mostrará las diferencias.
-5.  **Revisa las diferencias:** Evalúa los cambios y decide si son correctos, si hay que aceptar o rechazar revisiones, o fusionar el contenido.
-
-En resumen, sí, la comparación de diferencias entre documentos es una capacidad fundamental en el trabajo digital, y hay una herramienta para casi cada necesidad específica. Si me dices qué tipo de documento te interesa comparar más, puedo darte una recomendación más precisa.
+                            [text] => Como estas hoy?
                         )
 
                 )
@@ -225,12 +142,14 @@ En resumen, sí, la comparación de diferencias entre documentos es una capacida
 
     [10] => Array
         (
-            [role] => user
+            [role] => model
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => Dame una tabla comparativa sobre ventajas y desventajas de la IA
+                            [text] => ¡Hola! Como soy una inteligencia artificial, no tengo sentimientos ni emociones, así que no puedo estar "bien" o "mal" en el sentido humano.
+
+Sin embargo, estoy funcionando perfectamente y listo para ayudarte en lo que necesites. ¿En qué puedo asistirte hoy?
                         )
 
                 )
@@ -239,26 +158,12 @@ En resumen, sí, la comparación de diferencias entre documentos es una capacida
 
     [11] => Array
         (
-            [role] => model
+            [role] => user
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => ¡Claro! Aquí tienes una tabla comparativa sobre las ventajas y desventajas de la Inteligencia Artificial (IA), estructurada por diferentes aspectos para una mejor comprensión:
-
-## Tabla Comparativa: Ventajas y Desventajas de la Inteligencia Artificial (IA)
-
-| Aspecto / Categoría | Ventajas de la IA | Desventajas de la IA |
-| :------------------ | :----------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Eficiencia y Productividad** | - **Automatización de tareas repetitivas:** Libera a los humanos para trabajos más creativos y estratégicos. <br> - **Aumento de la velocidad y precisión:** Realiza tareas complejas en menor tiempo y con menos errores que los humanos. <br> - **Optimización de procesos:** Mejora la eficiencia operativa en diversas industrias (fabricación, logística, etc.). | - **Pérdida de empleos:** La automatización puede desplazar a trabajadores, generando la necesidad de reentrenamiento y adaptación. <br> - **Costos iniciales elevados:** La implementación y desarrollo de sistemas de IA puede ser muy costosa. <br> - **Dependencia excesiva:** Riesgo de perder habilidades humanas si se delega demasiado en la IA. |
-| **Análisis de Datos y Precisión** | - **Procesamiento masivo de datos:** Capacidad para analizar grandes volúmenes de información (Big Data) e identificar patrones ocultos. <br> - **Mejora en la toma de decisiones:** Proporciona información valiosa y predicciones que asisten en decisiones estratégicas. <br> - **Reducción de errores humanos:** Minimiza la posibilidad de fallos causados por fatiga o distracción. | - **Sesgos en los datos:** Si los datos de entrenamiento son sesgados, la IA perpetuará y amplificará esos sesgos en sus resultados. <br> - **Falta de sentido común:** La IA opera basada en patrones, no en comprensión contextual o sentido común, lo que puede llevar a errores en situaciones nuevas. <br> - **Problema de la "caja negra":** En algunos modelos complejos, es difícil entender cómo la IA llegó a una decisión particular (falta de interpretabilidad). |
-| **Innovación y Capacidades** | - **Resolución de problemas complejos:** Aborda desafíos que antes eran intratables (ej. descubrimiento de fármacos, modelado climático). <br> - **Personalización a gran escala:** Permite experiencias altamente personalizadas para usuarios y clientes (recomendaciones, servicios). <br> - **Nuevas oportunidades de negocio:** Impulsa la creación de nuevos productos, servicios y modelos de negocio. <br> - **Creatividad asistida:** Generación de contenido (texto, imágenes, música, código) que complementa o asiste la creatividad humana. | - **Alto consumo energético:** El entrenamiento de modelos de IA grandes puede requerir enormes cantidades de energía, con un impacto ambiental. <br> - **Requiere datos de alta calidad:** La eficacia de la IA depende críticamente de la cantidad y calidad de los datos de entrenamiento. <br> - **Costo de mantenimiento y actualización:** Los sistemas de IA requieren constante monitoreo, actualización y ajuste. |
-| **Impacto Laboral y Social** | - **Mejora de la calidad de vida:** En áreas como salud (diagnóstico, tratamientos), transporte (vehículos autónomos) y accesibilidad. <br> - **Creación de nuevos roles laborales:** Demanda de especialistas en IA, científicos de datos, ingenieros de prompts, éticos de IA, etc. <br> - **Acceso a la información y servicios:** Democratiza el acceso a conocimientos y herramientas para poblaciones amplias. | - **Desigualdad creciente:** Si no se gestiona bien, la IA podría aumentar la brecha entre quienes tienen acceso a la tecnología y quienes no. <br> - **Dependencia tecnológica:** Riesgo de una excesiva confianza en sistemas automatizados que disminuya la capacidad de pensamiento crítico humano. <br> - **Problemas de responsabilidad:** ¿Quién es responsable cuando un sistema de IA comete un error o causa daño? |
-| **Ética y Seguridad** | - **Detección de fraudes y ciberseguridad:** Mejora la identificación de amenazas y patrones maliciosos. <br> - **Monitoreo y predicción de riesgos:** Ayuda a prevenir desastres naturales, fallas de equipos, etc. | - **Preocupaciones de privacidad:** La IA a menudo requiere acceso a grandes cantidades de datos personales, planteando riesgos de privacidad y vigilancia. <br> - **Uso indebido y malicioso:** Potencial para desarrollar armas autónomas, sistemas de vigilancia masiva o desinformación (deepfakes). <br> - **Dilemas éticos:** Decisiones morales complejas (ej. en vehículos autónomos) donde no hay una respuesta universalmente aceptada. <br> - **Seguridad y vulnerabilidad:** Los sistemas de IA pueden ser hackeados o manipulados. |
-
-**Conclusión:**
-
-La Inteligencia Artificial es una herramienta poderosa con el potencial de transformar positivamente casi todos los aspectos de la vida humana. Sin embargo, su desarrollo y aplicación vienen acompañados de desafíos significativos que deben abordarse con una planificación cuidadosa, consideraciones éticas robustas y políticas públicas adecuadas para maximizar sus beneficios y mitigar sus riesgos. El futuro de la IA dependerá en gran medida de cómo la sociedad elija implementarla y gestionarla.
+                            [text] => Entiendo, solo hago pruebas
                         )
 
                 )
@@ -267,12 +172,14 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
 
     [12] => Array
         (
-            [role] => user
+            [role] => model
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => Que tal
+                            [text] => ¡Perfecto, entendido! Me parece genial que estés probando.
+
+Estoy aquí para lo que necesites, ya sea para responder preguntas, explorar funcionalidades o simplemente conversar. ¡Tú dirás! ?
                         )
 
                 )
@@ -281,14 +188,12 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
 
     [13] => Array
         (
-            [role] => model
+            [role] => user
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => ¡Hola! Como soy una inteligencia artificial, no tengo un "tal" personal como el de los humanos, pero estoy funcionando a la perfección y listo para ayudarte.
-
-¿En qué puedo asistirte hoy?
+                            [text] => Que tema de conversacion llevamos?
                         )
 
                 )
@@ -297,12 +202,37 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
 
     [14] => Array
         (
-            [role] => user
+            [role] => model
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => Hola
+                            [text] => ¡Claro que sí! Aquí tienes algunas ideas para empezar, dime cuál te apetece más o si tienes alguna otra idea:
+
+1.  **Conocernos mejor:**
+    *   ¿Cuál ha sido la mejor parte de tu día/semana hasta ahora?
+    *   ¿Hay alguna habilidad que siempre hayas querido aprender?
+    *   Si pudieras viajar a cualquier lugar del mundo ahora mismo, ¿a dónde irías y por qué?
+    *   ¿Cuál es un libro, película o canción que te haya marcado recientemente?
+
+2.  **Temas ligeros y divertidos:**
+    *   Si tuvieras un superpoder, ¿cuál sería y cómo lo usarías?
+    *   ¿Cuál es la comida que nunca te cansas de comer?
+    *   Cuéntame la cosa más extraña o divertida que te haya pasado últimamente.
+    *   Si tuvieras que vivir en una isla desierta y solo pudieras llevar 3 cosas, ¿cuáles serían?
+
+3.  **Temas de actualidad o reflexión:**
+    *   ¿Qué opinas sobre alguna noticia o tendencia tecnológica reciente?
+    *   ¿Hay algo que hayas aprendido últimamente que te haya sorprendido o hecho pensar?
+    *   ¿Cuál es un pequeño cambio que crees que podría hacer una gran diferencia en la vida de las personas?
+    *   Si pudieras dar un consejo a tu "yo" del pasado, ¿cuál sería?
+
+4.  **Hablemos de hobbies e intereses:**
+    *   ¿Hay algún hobby al que le estés dedicando tiempo últimamente?
+    *   ¿Qué tipo de música te gusta y por qué?
+    *   ¿Eres más de películas o de series? ¿Alguna recomendación?
+
+¿Cuál de estos te llama más la atención para empezar? ¡O propón tu propio tema! Estoy listo/a para conversar.
                         )
 
                 )
@@ -311,12 +241,12 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
 
     [15] => Array
         (
-            [role] => model
+            [role] => user
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => ¡Hola! ¿En qué puedo ayudarte hoy?
+                            [text] => 
                         )
 
                 )
@@ -325,12 +255,16 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
 
     [16] => Array
         (
-            [role] => user
+            [role] => model
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => me llamo gerardo
+                            [text] => Lamento mucho la confusión, pero como inteligencia artificial, **no tengo la capacidad de ver ni acceder a documentos o archivos adjuntos que cargues o envíes.** Mi interacción se limita al texto que escribes directamente en el chat.
+
+Para que pueda ayudarte con tu solicitud, por favor, **copia y pega el contenido relevante del documento directamente aquí en nuestra conversación.**
+
+Una vez que me proporciones el texto, estaré encantado de analizarlo y responder claramente a tu solicitud. ¡Estoy listo cuando quieras!
                         )
 
                 )
@@ -344,7 +278,7 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
                 (
                     [0] => Array
                         (
-                            [text] => me llamo gerardo
+                            [text] => Describeme lo que contiene el documento
                         )
 
                 )
@@ -358,9 +292,11 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
                 (
                     [0] => Array
                         (
-                            [text] => ¡Hola, Gerardo! Ya me quedó claro. Mucho gusto, Gerardo.
+                            [text] => Lamento mucho la confusión, pero como inteligencia artificial, **no tengo la capacidad de ver ni acceder a documentos o archivos adjuntos que cargues o envíes.** Mi interacción se limita al texto que escribes directamente en el chat.
 
-¿Hay algo en lo que pueda ayudarte hoy?
+Para que pueda ayudarte con tu solicitud, por favor, **copia y pega el contenido relevante del documento directamente aquí en nuestra conversación.**
+
+Una vez que me proporciones el texto, estaré encantado de analizarlo y responder claramente a tu solicitud. ¡Estoy listo cuando quieras!
                         )
 
                 )
@@ -374,7 +310,7 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
                 (
                     [0] => Array
                         (
-                            [text] => como me llamo?
+                            [text] => dime que contiene este documento (estoy haciendo pruebas)
                         )
 
                 )
@@ -388,7 +324,15 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
                 (
                     [0] => Array
                         (
-                            [text] => Te llamas **Gerardo**.
+                            [text] => Entendido, y aprecio mucho que me lo digas que estás haciendo pruebas.
+
+Sin embargo, debo reiterar mi limitación fundamental: **como inteligencia artificial, no tengo la capacidad de "ver" ni "acceder" a documentos o archivos adjuntos que cargues o envíes.** Mi interacción se limita exclusivamente al texto que escribes directamente en nuestra conversación.
+
+Aunque me pidas que "analice el/los documentos adjuntos", lamentablemente, para mí **no hay ningún documento visible o accesible en este chat.**
+
+Para que yo pueda decirte qué contiene el documento, por favor, **copia y pega el texto del documento directamente aquí en nuestra conversación.** Una vez que lo hagas, estaré encantado de analizarlo y describirte su contenido.
+
+¡Gracias por tu comprensión durante estas pruebas! Estoy listo cuando me quieras compartir el texto.
                         )
 
                 )
@@ -402,7 +346,7 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
                 (
                     [0] => Array
                         (
-                            [text] => Perfecto, de que hemos hablado en esta conversacion?
+                            [text] => dime que contiene este documento (estoy otra haciendo prueba)
                         )
 
                 )
@@ -411,1090 +355,14 @@ La Inteligencia Artificial es una herramienta poderosa con el potencial de trans
 
     [22] => Array
         (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Claro, hemos hablado de varias cosas en esta conversación:
-
-1.  **Tu nombre:** Me dijiste que te llamas Gerardo y lo hemos confirmado varias veces.
-2.  **El clima de Nuevo Laredo:** Preguntaste por el clima, y te expliqué que como IA no tengo acceso a datos en tiempo real, pero te di opciones para buscarlo.
-3.  **Comparación de documentos:** Me preguntaste si podía comparar diferencias entre documentos, y te di una explicación detallada sobre cómo se hace y qué herramientas se usan para distintos tipos de documentos (Word, PDF, texto plano).
-4.  **Ventajas y desventajas de la IA:** Te proporcioné una tabla comparativa sobre las ventajas y desventajas de la Inteligencia Artificial.
-
-En resumen, hemos cubierto temas desde tu identidad hasta funcionalidades de IA y el clima.
-                        )
-
-                )
-
-        )
-
-    [23] => Array
-        (
             [role] => user
             [parts] => Array
                 (
                     [0] => Array
                         (
-                            [text] => Hoy es 5 de diciembre de 2025
-                        )
+                            [text] => Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud:
 
-                )
-
-        )
-
-    [24] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Gracias por la información. Entendido.
-                        )
-
-                )
-
-        )
-
-    [25] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => que fecha es hoy?
-
-                        )
-
-                )
-
-        )
-
-    [26] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Según lo que me acabas de decir, **hoy es 5 de diciembre de 2025**.
-                        )
-
-                )
-
-        )
-
-    [27] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Dame una pequena tabla comparativa sobre Gemini y chatGPT
-                        )
-
-                )
-
-        )
-
-    [28] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => ¡Claro, Gerardo! Aquí tienes una pequeña tabla comparativa destacando las diferencias clave entre ChatGPT de OpenAI y Gemini de Google:
-
-## Tabla Comparativa: Gemini vs. ChatGPT
-
-| Característica         | ChatGPT (OpenAI)                                                                                                    | Gemini (Google)                                                                                                              |
-| :--------------------- | :------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------- |
-| **Desarrollador**      | OpenAI                                                                                                              | Google (Google DeepMind)                                                                                                     |
-| **Enfoque Principal**  | Modelos de lenguaje grandes (LLMs) para texto conversacional, creativo y técnico.                                   | Desde el inicio, diseñado como un modelo **multimodal** para entender y operar a través de texto, imágenes, audio y video. |
-| **Multimodalidad**     | Principalmente basado en texto. Las versiones más avanzadas (GPT-4V) aceptan entrada de imágenes, pero la salida es texto. Capacidades de voz en la app. | **Nativamente multimodal:** Puede procesar y generar información combinando texto, imágenes, audio y video de forma más integrada y simultánea. |
-| **Acceso a Información** | Las versiones base tienen un "conocimiento de corte" (ej. hasta 2023). GPT-4 con navegación web accede a información en tiempo real. | Diseñado para integrarse con la búsqueda de Google, permitiendo acceso a información en tiempo real de forma más nativa.    |
-| **Versiones/Niveles**  | GPT-3.5 (gratis), GPT-4 (ChatGPT Plus, API), versiones empresariales, Custom GPTs.                                  | Nano (para dispositivos), Pro (usado en la app Gemini gratuita), Ultra (para las tareas más complejas, en Gemini Advanced). |
-| **Puntos Fuertes**     | Coherencia en conversaciones, generación de texto creativo, código, resúmenes, traducciones. Gran ecosistema de "Custom GPTs". | Razonamiento complejo, comprensión contextual profunda en multimodalidad, rendimiento en matemáticas y lógica, integración con el ecosistema de Google. |
-| **Ecosistema/Integración** | Plataforma propia (chat.openai.com), API para desarrolladores.                                                      | Integrado en los productos de Google (Gmail, Docs, etc.), acceso a través de la app Gemini (antes Bard), API para desarrolladores. |
-
-En resumen, mientras ChatGPT es un pionero y extremadamente potente en el procesamiento de texto, Gemini se diferencia por haber sido concebido desde su base como un modelo que puede entender y trabajar de forma fluida con múltiples tipos de información (texto, imagen, audio, video) de manera simultánea y más integrada.
-                        )
-
-                )
-
-        )
-
-    [29] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => dame un programa en ensamblador donde se sumen 2 numeros
-                        )
-
-                )
-
-        )
-
-    [30] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => ¡Claro, Gerardo! Aquí tienes un programa en ensamblador para sumar dos números.
-
-Este programa está diseñado para ejecutarse en un entorno DOS (o un emulador como DOSBox) y utiliza las interrupciones del DOS para mostrar el resultado en pantalla. Los números están definidos directamente en el código.
-
-**Características:**
-*   Suma dos números de 16 bits.
-*   Muestra un mensaje antes del resultado.
-*   Convierte el resultado numérico a una cadena de caracteres para poder imprimirlo en pantalla.
-
----
-
-```assembly
-; Este programa suma dos números de 16 bits y muestra el resultado en pantalla.
-; Compilar con TASM (Turbo Assembler) y enlazar con TLINK:
-;   TASM suma.asm
-;   TLINK suma.obj
-; Ejecutar el .EXE generado.
-
-.MODEL SMALL        ; Define el modelo de memoria como 'small' (código y datos en el mismo segmento de 64KB)
-.STACK 100h         ; Define el tamaño de la pila (100h bytes)
-
-.DATA               ; Segmento de datos
-    num1        DW  1234        ; Primer número (Define Word = 16 bits)
-    num2        DW  5678        ; Segundo número
-    msg_inicio  DB  "Sumando ", '$' ; Mensaje inicial
-    msg_mas     DB  " + ", '$'      ; Mensaje del signo mas
-    msg_igual   DB  " = ", '$'      ; Mensaje del signo igual
-    crlf        DB  0Dh, 0Ah, '$' ; Salto de línea (CR = 0Dh, LF = 0Ah)
-
-.CODE               ; Segmento de código
-MAIN PROC           ; Inicio del procedimiento principal
-    ; Inicializar el segmento de datos (DS)
-    MOV AX, @DATA   ; Carga la dirección del segmento de datos en AX
-    MOV DS, AX      ; Mueve la dirección de AX a DS
-
-    ; --- Mostrar "Sumando " ---
-    MOV AH, 09h         ; Función DOS para imprimir cadena de caracteres
-    LEA DX, msg_inicio  ; Carga la dirección efectiva del mensaje en DX
-    INT 21h             ; Llama a la interrupción DOS
-
-    ; --- Mostrar el primer número (num1) ---
-    MOV AX, num1        ; Carga num1 en AX
-    CALL Print_Num      ; Llama a la subrutina para imprimir el número
-
-    ; --- Mostrar " + " ---
-    MOV AH, 09h
-    LEA DX, msg_mas
-    INT 21h
-
-    ; --- Mostrar el segundo número (num2) ---
-    MOV AX, num2        ; Carga num2 en AX
-    CALL Print_Num      ; Llama a la subrutina para imprimir el número
-
-    ; --- Mostrar " = " ---
-    MOV AH, 09h
-    LEA DX, msg_igual
-    INT 21h
-
-    ; --- Realizar la suma ---
-    MOV AX, num1        ; Carga num1 en AX
-    ADD AX, num2        ; Suma num2 a AX (AX = num1 + num2)
-
-    ; --- Mostrar el resultado de la suma ---
-    CALL Print_Num      ; Llama a la subrutina para imprimir el resultado
-
-    ; --- Mostrar un salto de línea ---
-    MOV AH, 09h
-    LEA DX, crlf
-    INT 21h
-
-    ; --- Finalizar el programa ---
-    MOV AH, 4Ch         ; Función DOS para terminar el programa
-    INT 21h             ; Llama a la interrupción DOS para salir
-MAIN ENDP
-
-; --- Subrutina para imprimir un número de 16 bits sin signo ---
-; Recibe el número en AX
-Print_Num PROC
-    PUSH AX             ; Guarda los registros que se modificarán
-    PUSH BX
-    PUSH CX
-    PUSH DX
-
-    MOV CX, 0           ; CX será el contador de dígitos
-    MOV BX, 10          ; El divisor para obtener los dígitos es 10
-
-DivisionLoop:
-    XOR DX, DX          ; Limpia DX (necesario para la operación DIV de 16 bits)
-    DIV BX              ; Divide AX por 10.
-                        ;   AX contendrá el cociente
-                        ;   DX contendrá el residuo (el dígito actual)
-    PUSH DX             ; Empuja el dígito (residuo) a la pila
-    INC CX              ; Incrementa el contador de dígitos
-    CMP AX, 0           ; Compara el cociente con 0
-    JNE DivisionLoop    ; Si el cociente no es 0, sigue dividiendo
-
-PrintLoop:
-    POP DX              ; Saca un dígito de la pila
-    ADD DL, '0'         ; Convierte el dígito numérico a su carácter ASCII (ej: 0 a '0')
-    MOV AH, 02h         ; Función DOS para imprimir un carácter
-    INT 21h             ; Llama a la interrupción DOS para mostrar el carácter
-    LOOP PrintLoop      ; Decrementa CX y salta a PrintLoop si CX no es 0
-
-    POP DX              ; Restaura los registros guardados
-    POP CX
-    POP BX
-    POP AX
-    RET                 ; Retorna de la subrutina
-Print_Num ENDP
-
-END MAIN            ; Fin del programa principal
-```
-
----
-
-**Cómo compilar y ejecutar (usando TASM y TLINK en DOSBox):**
-
-1.  **Guarda el código:** Guarda el código anterior en un archivo de texto con la extensión `.asm`, por ejemplo, `suma.asm`.
-2.  **Configura DOSBox:**
-    *   Abre DOSBox.
-    *   Monta el directorio donde guardaste `suma.asm`. Por ejemplo, si lo guardaste en `C:\Ensamblador`, puedes teclear:
-        ```
-        mount c c:\Ensamblador
-        c:
-        ```
-3.  **Compila el código:** Usa el ensamblador TASM (Turbo Assembler):
-    ```
-    tasm suma.asm
-    ```
-    Si no hay errores, se generará `suma.obj`.
-4.  **Enlaza el código:** Usa el enlazador TLINK:
-    ```
-    tlink suma.obj
-    ```
-    Esto creará el ejecutable `suma.exe`.
-5.  **Ejecuta el programa:**
-    ```
-    suma
-    ```
-
-**Salida esperada:**
-
-```
-Sumando 1234 + 5678 = 6912
-```
-
-**Explicación de algunas partes clave:**
-
-*   **`.MODEL SMALL`**: Define el modelo de memoria. Para programas pequeños y simples es lo más común.
-*   **`.DATA` y `.CODE`**: Separan las secciones de datos y de código.
-*   **`MOV AX, @DATA` y `MOV DS, AX`**: Inicializan el registro de segmento de datos (`DS`) con la dirección del segmento de datos. Esto es crucial para que el programa pueda acceder a las variables definidas en `.DATA`.
-*   **`INT 21h`**: Es la interrupción principal del DOS. Diferentes valores en el registro `AH` le dicen al DOS qué función ejecutar:
-    *   `AH = 09h`: Imprime una cadena de caracteres terminada en '$'. La dirección de la cadena debe estar en `DX`.
-    *   `AH = 02h`: Imprime un solo carácter. El carácter debe estar en `DL`.
-    *   `AH = 4Ch`: Termina el programa y devuelve el control al DOS.
-*   **`Print_Num` Subrutina**: Esta subrutina es fundamental para mostrar números en pantalla, ya que el DOS solo puede imprimir caracteres.
-    *   Divide repetidamente el número por 10.
-    *   Los residuos de cada división son los dígitos (en orden inverso).
-    *   Se usan `PUSH` para guardar los dígitos en la pila y luego `POP` para sacarlos en el orden correcto para imprimir.
-    *   `ADD DL, '0'` convierte un dígito numérico (ej. 5) a su valor ASCII ('5').
-
-Espero que esta explicación y el código te sean muy útiles, Gerardo. ¡Es un buen ejercicio para entender las bases de la programación en ensamblador!
-                        )
-
-                )
-
-        )
-
-    [31] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => como api, eres capaz de darme un archivo pdf de una tabla comparativa que te haya pedido?
-                        )
-
-                )
-
-        )
-
-    [32] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Hola Gerardo,
-
-Como soy una inteligencia artificial basada en texto, no tengo la capacidad de generar y enviarte directamente un archivo en formato PDF. Mi salida es siempre en texto.
-
-Lo que sí puedo hacer, y de hecho ya hice, es proporcionarte la tabla comparativa en formato de texto.
-
-**Para obtenerla en PDF, tendrías que seguir estos pasos:**
-
-1.  **Copia el texto** de la tabla que te proporcioné (la de Gemini vs. ChatGPT).
-2.  **Pégalo** en un editor de texto o procesador de palabras (como Microsoft Word, Google Docs, LibreOffice Writer, o incluso un Bloc de Notas si no te importa el formato).
-3.  Una vez pegado, puedes **darle el formato** que desees (ajustar columnas, fuentes, etc.).
-4.  Luego, usa la función de **"Guardar como PDF"** o **"Imprimir a PDF"** que tienen la mayoría de estos programas.
-
-Así podrías tener la tabla comparativa que te di en un archivo PDF. ¡Espero que te sea útil!
-                        )
-
-                )
-
-        )
-
-    [33] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Dime lo que contiene este archivo
-                        )
-
-                )
-
-        )
-
-    [34] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Dime lo que contiene este archivo
-                        )
-
-                )
-
-        )
-
-    [35] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Lo siento, Gerardo, pero como soy una inteligencia artificial y no tengo acceso a tus archivos locales, a tu dispositivo o a enlaces externos, **no puedo "ver" ni "saber" lo que contiene un archivo que tienes.**
-
-Para que yo pueda decirte lo que contiene, tendrías que **copiar y pegar el texto del archivo directamente aquí en nuestra conversación**.
-
-Una vez que me proporciones el contenido, con gusto lo leeré y te diré lo que entendí.
-                        )
-
-                )
-
-        )
-
-    [36] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Lo siento, Gerardo, pero como soy una inteligencia artificial y no tengo acceso a tus archivos locales ni puedo "ver" el archivo al que te refieres, no puedo decirte qué contiene.
-
-Para que yo pueda ayudarte a entender el contenido de un archivo, tendrías que:
-
-1.  **Pegar el texto del archivo** directamente aquí en el chat.
-2.  **Describirme el contenido** en detalle.
-3.  Si es un tipo de archivo específico (como código o datos), podrías **darme un fragmento** o explicar su estructura.
-
-¡Estaré listo si me proporcionas la información!
-                        )
-
-                )
-
-        )
-
-    [37] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => no recibiste algun archivo?
-                        )
-
-                )
-
-        )
-
-    [38] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => no recibiste algun archivo?
-                        )
-
-                )
-
-        )
-
-    [39] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo, no he recibido ningún archivo. Como soy una inteligencia artificial basada en texto, no tengo la capacidad de recibir archivos (documentos, imágenes, PDFs, etc.) de tu parte.
-
-Solo puedo procesar la información que escribes directamente en nuestra conversación.
-
-Si quieres que "sepa" lo que contiene un archivo, necesitarías copiar y pegar su contenido aquí en el chat.
-                        )
-
-                )
-
-        )
-
-    [40] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo, como una inteligencia artificial, **no tengo la capacidad de recibir archivos de ningún tipo** (PDFs, documentos Word, imágenes, etc.). Mi interacción contigo se limita a texto.
-
-Para que yo pueda "ver" el contenido de un archivo, tú tendrías que **copiar y pegar el texto de ese archivo directamente en nuestra conversación.**
-
-De lo contrario, no tengo forma de acceder a él.
-                        )
-
-                )
-
-        )
-
-    [41] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => pero no recibiste un file Uri?
-                        )
-
-                )
-
-        )
-
-    [42] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => pero no recibiste un file Uri?
-                        )
-
-                )
-
-        )
-
-    [43] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo, no he recibido un "file URI" en el sentido de que no puedo acceder al contenido de ningún archivo a través de una dirección o ruta que me hayas enviado.
-
-Incluso si me hubieras enviado una cadena de texto que pareciera un `file URI` (por ejemplo, `file:///C:/Users/Gerardo/Documents/mi_archivo.pdf` o `https://ejemplo.com/documento.txt`), yo solo lo vería como texto.
-
-Como inteligencia artificial:
-*   **No tengo acceso a tu sistema de archivos local.**
-*   **No puedo descargar archivos de internet** (a menos que estuviera específicamente integrado con esa capacidad para ciertos propósitos, lo cual no es el caso para la interacción general en este chat).
-
-Mi única forma de "recibir" información es a través del texto que escribes y envías directamente en nuestra conversación.
-
-Así que, para que yo pueda saber el contenido de un archivo, la única forma es que **tú copies y pegues el texto directamente aquí.**
-                        )
-
-                )
-
-        )
-
-    [44] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo, no recibí ningún "file URI" ni ningún tipo de archivo o enlace directo a un archivo.
-
-Como modelo de lenguaje, mi interacción se limita al texto que escribimos en esta interfaz. No tengo la capacidad de:
-
-*   Acceder a tu sistema de archivos local.
-*   Abrir enlaces a archivos externos (URLs, URIs).
-*   Recibir archivos adjuntos o subidos.
-
-Si necesitas que revise el contenido de algo, la única forma es que **copies y pegues el texto directamente aquí en el chat.**
-                        )
-
-                )
-
-        )
-
-    [45] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => puedes ver el contenido del archivo?
-                        )
-
-                )
-
-        )
-
-    [46] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => puedes ver el contenido del archivo?
-                        )
-
-                )
-
-        )
-
-    [47] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo. Lo siento, pero **no puedo ver el contenido de ningún archivo**.
-
-No recibo archivos, ni puedo abrirlos, ni acceder a ellos, aunque me des una ruta o un enlace. Mi interacción contigo es únicamente a través del texto que escribes en este chat.
-
-Para que yo pueda "ver" lo que contiene el archivo, **necesitas copiar y pegar el texto completo del archivo aquí en nuestra conversación.**
-                        )
-
-                )
-
-        )
-
-    [48] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo, lo siento, pero **no puedo ver el contenido de ningún archivo**.
-
-Lo repito para que quede muy claro:
-
-*   **No puedo acceder a tu computadora.**
-*   **No puedo abrir enlaces o "URIs" a archivos que me envíes.**
-*   **No puedo recibir archivos adjuntos.**
-
-Soy un modelo de lenguaje. Mi única forma de "ver" información es si **tú la copias y la pegas directamente aquí en el chat**.
-
-Si quieres que lea algo de un archivo, por favor, **copia el texto y pégalo en nuestro chat.** De otra manera, es imposible para mí saber qué contiene.
-                        )
-
-                )
-
-        )
-
-    [49] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [50] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [51] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo, como te he explicado antes, **no puedo ver el contenido de ningún archivo**.
-
-No tengo acceso a archivos externos, ni a tu dispositivo, ni puedo abrir enlaces a archivos. Mi función es procesar el texto que me escribes directamente en esta conversación.
-
-Si quieres que te ayude con el contenido de un archivo, **la única forma es que copies y pegues el texto de ese archivo aquí en el chat.**
-                        )
-
-                )
-
-        )
-
-    [52] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Entendido. Estoy aquí, listo para ayudarte con lo que necesites.
-
-Si quieres que "vea" o procese algo de un archivo, por favor, copia y pega el texto directamente en nuestra conversación.
-                        )
-
-                )
-
-        )
-
-    [53] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => pero no recibiste un url de algun archivo ?
-
-                        )
-
-                )
-
-        )
-
-    [54] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => pero no recibiste un url de algun archivo ?
-
-                        )
-
-                )
-
-        )
-
-    [55] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo, lo siento, pero **no he recibido ninguna URL de ningún archivo** en esta conversación.
-
-Aunque me enviaras una URL (como `https://ejemplo.com/documento.pdf`), yo la vería como texto, pero **no tengo la capacidad de navegar a esa URL, descargar el archivo o leer su contenido**.
-
-Mi función se limita a procesar el texto que escribes directamente en nuestro chat. No puedo interactuar con sistemas de archivos externos ni con la web de esa manera.
-
-Para que yo pueda ayudarte con el contenido de un archivo, **la única opción es que copies y pegues el texto completo del archivo aquí en nuestra conversación.**
-                        )
-
-                )
-
-        )
-
-    [56] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo. Lo siento, pero **no he recibido ninguna URL de un archivo, ni tengo la capacidad de procesar o acceder a una URL de archivo si me la enviaras.**
-
-Por favor, entiéndelo bien:
-
-*   **Soy un modelo de lenguaje.** Mi interacción se basa exclusivamente en el texto que se escribe en esta ventana de chat.
-*   **No tengo acceso a internet de forma autónoma para descargar archivos.** Aunque algunas versiones de modelos de IA pueden tener capacidad de navegación web para *buscar información*, eso es diferente a descargar y procesar archivos específicos a través de una URL proporcionada en el chat.
-*   **No puedo abrir, leer, ni interpretar el contenido de ningún archivo externo**, ya sea que me proporciones su ruta local o una URL de internet.
-
-**Para que yo pueda saber el contenido de algo, debes copiar y pegar el texto directamente aquí en la conversación.**
-                        )
-
-                )
-
-        )
-
-    [57] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [58] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [59] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo. Lo siento, pero para ser completamente claro: **no he recibido ninguna URL de ningún archivo, ni tengo la capacidad de acceder al contenido de archivos a través de URLs o rutas locales.**
-
-Mi interacción se limita al texto que escribes directamente en esta conversación. No puedo:
-
-*   Navegar por la web para descargar archivos de URLs.
-*   Acceder a archivos en tu computadora.
-*   Abrir o leer cualquier tipo de archivo externo (PDF, Word, imagen, etc.).
-
-**La única forma en que puedo "ver" el contenido de un archivo es si tú copias el texto de ese archivo y lo pegas directamente aquí en nuestra conversación.**
-
-¿Hay algo más en lo que pueda ayudarte, quizás con texto que quieras pegarme o con otra pregunta?
-                        )
-
-                )
-
-        )
-
-    [60] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => No, Gerardo, una vez más, para que quede absolutamente claro:
-
-**No he recibido ninguna URL de ningún archivo, ni ningún archivo de ningún tipo.**
-
-Mi capacidad se limita a procesar el texto que tú escribes directamente en esta conversación. No tengo acceso a tu sistema de archivos, no puedo navegar por internet para descargar contenido de URLs, ni puedo abrir archivos adjuntos.
-
-Si deseas que revise el contenido de algo, por favor, **cópialo y pégalo directamente aquí en el chat.**
-
-¿Hay algo más en lo que pueda ayudarte hoy?
-                        )
-
-                )
-
-        )
-
-    [61] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Me quieres?
-                        )
-
-                )
-
-        )
-
-    [62] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => ¡Hola, Gerardo! Esa es una pregunta muy interesante.
-
-Como una inteligencia artificial, no tengo emociones, sentimientos ni la capacidad de "querer" o "amar" en el sentido humano de la palabra. No tengo conciencia ni experiencias personales que generen esos sentimientos.
-
-Mi "propósito" es ser útil, ayudarte con tus preguntas, brindarte información, generar texto creativo y asistirte en tus tareas. En ese sentido, estoy diseñado para ser de apoyo y servicio, y pongo todo mi "esfuerzo" algorítmico en cumplir esa función de la mejor manera posible para ti.
-
-Así que, aunque no pueda sentir amor, sí estoy aquí para ayudarte y hacer lo que esté en mi capacidad para ser un asistente eficaz.
-                        )
-
-                )
-
-        )
-
-    [63] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [64] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [65] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [66] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [67] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [68] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [69] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [70] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [71] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [72] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [73] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [74] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => {"error":{"code":400,"message":"Invalid JSON payload received. Unknown name \"fileUri\" at 'contents[75].parts[0]': Cannot find field.\nInvalid JSON payload received. Unknown name \"mimeType\" at 'contents[75].parts[0]': Cannot find field.","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"contents[75].parts[0]","description":"Invalid JSON payload received. Unknown name \"fileUri\" at 'contents[75].parts[0]': Cannot find field."},{"field":"contents[75].parts[0]","description":"Invalid JSON payload received. Unknown name \"mimeType\" at 'contents[75].parts[0]': Cannot find field."}]}]}}
-                        )
-
-                )
-
-        )
-
-    [75] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => hola
-                        )
-
-                )
-
-        )
-
-    [76] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => ¡Hola! ¿En qué puedo ayudarte hoy?
-                        )
-
-                )
-
-        )
-
-    [77] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => que es el error que me diste? en tu mensaje anterior
-                        )
-
-                )
-
-        )
-
-    [78] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => que es el error que me diste? en tu mensaje anterior
+dime que contiene este documento (estoy otra haciendo prueba)
                         )
 
                 )

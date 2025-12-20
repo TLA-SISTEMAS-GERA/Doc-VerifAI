@@ -17,13 +17,8 @@ $("#btnenviar").on("click", function () {
     var usu_id = $('#user_idx').val();
     var prompt = $('#prompt').val();
 
-    // Validación
-    // if (!prompt.trim()) {
-    //     Swal.fire("Advertencia", "No puedes enviar un mensaje vacío", "warning");
-    //     return;
-    // }
 
-    // -------- 1. GUARDAR MENSAJE DEL USUARIO --------
+    // 1 GUARDAR MENSAJE DEL USUARIO
     var formData = new FormData();
     formData.append('cons_id', cons_id);
     formData.append('usu_id', usu_id);
@@ -31,12 +26,14 @@ $("#btnenviar").on("click", function () {
 
     let files = $("#fileElem")[0].files;
     for (let i = 0; i < files.length; i++) {
+        console.log(files[i].name);
         formData.append("files[]", files[i]);
     }
 
     $('#btnenviar').prop("disabled", true);
     $('#btnenviar').html('<i class="fa fa-spinner fa-spin"></i> Enviando...');
 
+    
     $.ajax({
         url: "../../controller/consulta.php?op=insertdetalle",
         type: "POST",
@@ -47,7 +44,7 @@ $("#btnenviar").on("click", function () {
 
             mostrar(cons_id); // Recarga chat del usuario
 
-            // -------- 2. OBTENER HISTORIAL --------
+            // 2 OBTENER HISTORIAL
             $.post(
                 "../../controller/consulta.php?op=obtener_historial",
                 { cons_id: cons_id },
@@ -59,14 +56,8 @@ $("#btnenviar").on("click", function () {
                         parts: [{ text: row.det_contenido }]
                     }));
 
-                    // -------- 4. AGREGAR EL ÚLTIMO MENSAJE DEL USUARIO --------
-                    mensajes.push({
-                        role: "user",
-                        parts: [{ text: prompt }]
-                    });
-                    //console.log("Historial enviado a Gemini:", mensajes);
 
-                    // -------- 5. ENVIAR A GEMINI --------
+                    // 5 ENVIAR A GEMINI
                     if (files.length > 0) {
                         let uploadData = new FormData();
                         for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
@@ -78,18 +69,33 @@ $("#btnenviar").on("click", function () {
                             processData: false,
                             contentType: false,
                             success: function (uploadedURIsRaw) {
-                                console.log("RESPONSE:", uploadedURIsRaw);
-                                console.log("response.urisAdjuntos:", uploadedURIsRaw.urisAdjuntos);
+                                
+                                let resp = JSON.parse(uploadedURIsRaw);
+                                
+                                console.log("RESPONSE:", resp);
+                                // FORMACION DEL MENSAJE Se agrega cada parte de la solicitud a gemini
+                                let partes = [];
+                                
+                                //Agregar texto al prompt
+                                partes.push({
+                                    text: `Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud:\n\n${prompt}`
+                                });
 
-                                let urisAdjuntos = JSON.parse(uploadedURIsRaw);
-
-                                // Añadir cada archivo como parte separada (role user + fileUri)
-                                urisAdjuntos.forEach(uri => {
-                                    mensajes.push({
-                                        role: "user",
-                                        parts: [{ fileUri: uri, mimeType: "application/pdf" }]
+                                // Agregar archivos (file_id)
+                                resp.forEach(a => {
+                                    partes.push({
+                                        file_data: {
+                                            mime_type: "application/pdf",
+                                            file_uri: `https://generativelanguage.googleapis.com/v1beta/${a.file_id}`
+                                        }
                                     });
                                 });
+
+
+                                mensajes.push({
+                                    role: "user",
+                                    parts: partes
+                                })
 
                                 // 4) Enviar a Gemini con historial+archivos+prompt
                                 enviarAGeminiYGuardar(mensajes, cons_id);
@@ -117,22 +123,36 @@ $("#btnenviar").on("click", function () {
 
 });
 
-// ---------- Función que envía a Gemini y guarda la respuesta ----------
+//Funcion que envia a Gemini y guarda la respuesta
 function enviarAGeminiYGuardar(mensajes, cons_id) {
-
-    // LOG (opcional)
-    console.log("Enviar a Gemini -> mensajes:", mensajes);
 
     $.post("../../controller/consulta.php?op=ai_prompt",
         { mensajes: JSON.stringify(mensajes) },
         function (response) {
             console.log("Gemini respondió:", response);
 
-            try {
+            try { 
+                // var json = JSON.parse(response);
+                // var respuestaIA = json.candidates && json.candidates[0].content.parts[0].text
+                //     ? json.candidates[0].content.parts[0].text
+                //     : JSON.stringify(json);
+
                 var json = JSON.parse(response);
-                var respuestaIA = json.candidates && json.candidates[0].content.parts[0].text
-                    ? json.candidates[0].content.parts[0].text
-                    : JSON.stringify(json);
+
+                let respuestaIA = "⚠ Gemini no devolvió contenido textual.";
+
+                if (
+                    json.candidates &&
+                    json.candidates.length > 0 &&
+                    json.candidates[0].content &&
+                    json.candidates[0].content.parts &&
+                    json.candidates[0].content.parts.length > 0
+                ) {
+                    const textoPart = json.candidates[0].content.parts.find(p => p.text);
+                    if (textoPart) {
+                        respuestaIA = textoPart.text;
+                    }
+                }
 
                 // Guardar la respuesta IA en BD (usu_id = 2)
                 $.post("../../controller/consulta.php?op=insertdetalle",
