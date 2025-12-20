@@ -1,26 +1,29 @@
 <?php
+
+require dirname(__DIR__ ,1) . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
+$dotenv->load();
 use Google\Cloud\Storage\StorageClient;
 
+putenv('GOOGLE_APPLICATION_CREDENTIALS' . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
 class CloudStorage {
 
     private $credentials;
 
-    public function __construct() {
-        // Ruta a credentials.json
-        $this->credentials = __DIR__ . "/../config/credentials.json";
-    }
-
-    /**
-     * Crea un bucket con el nombre basado en el archivo
-     */
+    // public function __construct() {
+    //     // Ruta a credentials.json
+    //     $this->credentials = __DIR__ . "/../config/credentials.json";
+    // }
+    // Crea un bucket con el nombre basado en el archivo 
     private function crearBucketDinamico($nombreArchivoOriginal) {
 
-        if (!file_exists($this->credentials)) {
-            return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
-        }
+        // if (!file_exists($this->credentials)) {
+        //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
+        // }
 
         $storage = new StorageClient([
-            'keyFilePath' => $this->credentials
+            'projectId' => '416462877074'
         ]);
 
         // Convertir nombre.pdf → nombre sin extensión
@@ -43,12 +46,12 @@ class CloudStorage {
      */
     public function subirArchivos($files) {
 
-        if (!file_exists($this->credentials)) {
-            return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
-        }
+        // if (!file_exists($this->credentials)) {
+        //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
+        // }
 
         $storage = new StorageClient([ //linea 50
-            'keyFilePath' => $this->credentials
+            'projectId' => '416462877074'
         ]);
 
         $resultados = [];
@@ -83,11 +86,11 @@ class CloudStorage {
                 ]
             );
 
-            // Regresar info para Gemini
+            // Regresar info para Gemini 
             $resultados[] = [
                 "bucket" => $bucketName,
                 "file"   => $objectName,
-                "signedUrl" => $signedUrl
+                "signedUrl" => $signedUrl //esta es la URL autenticada
             ];
         }
 

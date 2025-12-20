@@ -61,14 +61,12 @@
         // break;
 
         case "ai_prompt":
-
             $mensajesRaw = $_POST["mensajes"] ?? null;
         
             if (!$mensajesRaw) {
                 echo json_encode(["error" => "No llegaron mensajes"]);
                 exit;
             }
-        
             // Convertir string JSON → array PHP
             $mensajes = json_decode($mensajesRaw, true);
         
@@ -79,9 +77,7 @@
             $respuesta = $ai->procesarPrompt($mensajes);
         
             echo $respuesta;
-            break;
-        
-        
+        break;
 
         case "insertdetalle":
             $datos = $consulta -> insert_detalle($_POST["cons_id"], $_POST["usu_id"], $_POST["det_contenido"]);
@@ -143,13 +139,43 @@
         break;
 
         case "subir_archivos_cloud":
-            require_once "../vendor/autoload.php";
             require_once "../models/CloudStorage.php";
-        
+            require_once "../models/GeminiFiles.php";
+            require_once "../vendor/autoload.php";
+
             $cloud = new CloudStorage();
-            $uris = $cloud->subirArchivos($_FILES["files"]); //linea 149
+            $geminiFiles = new GeminiFiles();
+
+            $archivos = $cloud->subirArchivos($_FILES["files"]); //linea 149
         
-            echo json_encode($uris);
+            $resultado = [];
+
+            //REGISTRAR ARCHIVO/S EN GEMINI FILES
+            foreach ( $archivos as $a ) {
+                $resp = $geminiFiles -> registrarArchivo (
+                    $a["signedUrl"],
+                    $a["file"]
+                );
+
+                if (isset($resp["name"])) {
+                    $resultado [] = [
+                        "file_id" => $resp["name"],
+                        "bucket" => $a["bucket"],
+                        "file" => $a["file"]
+                    ];
+                }
+            }
+
+            file_put_contents(
+                __DIR__ . "/debug_files_api.json",
+                json_encode($resp, JSON_PRETTY_PRINT)
+            );
+              
+
+            error_log("RESPUESTA FINAL:");
+            error_log(json_encode($resultado));
+
+            echo json_encode($resultado);
         break;
         
     }
