@@ -8,10 +8,12 @@
     $consulta = new Consulta();
 
     switch($_GET["op"]) {
+        //CREAR UNA NUEVA CONSULTA
         case "insert":
             $datos = $consulta -> insert_consulta($_POST["usu_id"], $_POST["cons_nom"]);
         break;
 
+        //LISTAR LAS CONSULTAS QUE EL USUARIO HA CREADO
         case "listar_consultas":
             $datos = $consulta->listar_consultas($_POST["usu_id"]);
             $data = Array();
@@ -49,13 +51,32 @@
         break;
 
         //PROMPT DE PRUEBA GEMINI
+        // case "ai_prompt":
+        //     $prompt = $_POST["prompt"];
+    
+        //     $ai = new AIController();
+        //     $respuesta = $ai -> procesarPrompt($prompt);
+    
+        //     echo $respuesta; // Se envía de regreso al frontend
+        // break;
+
         case "ai_prompt":
-            $prompt = $_POST["prompt"];
-    
+            $mensajesRaw = $_POST["mensajes"] ?? null;
+        
+            if (!$mensajesRaw) {
+                echo json_encode(["error" => "No llegaron mensajes"]);
+                exit;
+            }
+            // Convertir string JSON → array PHP
+            $mensajes = json_decode($mensajesRaw, true);
+        
+            // LOG para verificar
+            file_put_contents("debug_gemini.txt", print_r($mensajes, true));
+        
             $ai = new AIController();
-            $respuesta = $ai->procesarPrompt($prompt);
-    
-            echo $respuesta; // Se envía de regreso al frontend
+            $respuesta = $ai->procesarPrompt($mensajes);
+        
+            echo $respuesta;
         break;
 
         case "insertdetalle":
@@ -112,5 +133,50 @@
             <?php
         break;
 
+        case "obtener_historial":
+            $datos = $consulta->obtener_historial($_POST["cons_id"]);
+            echo json_encode($datos);
+        break;
+
+        case "subir_archivos_cloud":
+            require_once "../models/CloudStorage.php";
+            require_once "../models/GeminiFiles.php";
+            require_once "../vendor/autoload.php";
+
+            $cloud = new CloudStorage();
+            $geminiFiles = new GeminiFiles();
+
+            $archivos = $cloud->subirArchivos($_FILES["files"]); //linea 149
+        
+            $resultado = [];
+
+            //REGISTRAR ARCHIVO/S EN GEMINI FILES
+            foreach ( $archivos as $a ) {
+                $resp = $geminiFiles -> registrarArchivo (
+                    $a["signedUrl"],
+                    $a["file"]
+                );
+
+                if (isset($resp["name"])) {
+                    $resultado [] = [
+                        "file_id" => $resp["name"],
+                        "bucket" => $a["bucket"],
+                        "file" => $a["file"]
+                    ];
+                }
+            }
+
+            file_put_contents(
+                __DIR__ . "/debug_files_api.json",
+                json_encode($resp, JSON_PRETTY_PRINT)
+            );
+              
+
+            error_log("RESPUESTA FINAL:");
+            error_log(json_encode($resultado));
+
+            echo json_encode($resultado);
+        break;
+        
     }
 ?>
