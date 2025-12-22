@@ -1,9 +1,15 @@
 <?php
 
-require dirname(__DIR__ ,1) . '/vendor/autoload.php';
+require_once dirname(__DIR__,1) . "/vendor/autoload.php";
+require_once dirname(__DIR__,1) . "/config/config.php";
 
-$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
+use Dotenv\Dotenv;
+
+$config = App\Config::getInstance();
+$dotenv = Dotenv::createImmutable($config->getEnvPath(), '.env.' . $config->getEnvironment());
+
 $dotenv->load();
+
 use Google\Cloud\Storage\StorageClient;
 
 putenv('GOOGLE_APPLICATION_CREDENTIALS' . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
@@ -21,9 +27,9 @@ class CloudStorage {
         // if (!file_exists($this->credentials)) {
         //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
         // }
-
+        $PROJECT_ID = $_ENV['PROJECT_ID'];
         $storage = new StorageClient([
-            'projectId' => '416462877074'
+            'projectId' => $PROJECT_ID
         ]);
 
         // Convertir nombre.pdf → nombre sin extensión

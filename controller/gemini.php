@@ -19,26 +19,17 @@
             $this->apiKey = $config['API_KEY'];
         }
 
-        public function procesarPrompt($prompt) {
+        public function procesarPrompt($mensajes) {
+
             $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
-
+        
+            // Aquí $mensajes ya ES un array con "role" y "parts"
             $data = [
-                "contents" => [
-                    [
-                        "parts" => [
-                            ["text" => $prompt],
-                            [ "file_data" => [
-                                "mime_type" => 'application/json',
-                                "file_uri" => 'files/0ptus11bupdk'
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                "contents" => $mensajes
             ];
-
+        
             $ch = curl_init($url);
-
+        
             curl_setopt_array($ch, [
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_POST => true,
@@ -46,12 +37,12 @@
                     "Content-Type: application/json",
                     "x-goog-api-key: $this->apiKey"
                 ],
-                CURLOPT_POSTFIELDS => json_encode($data)
+                CURLOPT_POSTFIELDS => json_encode($data, JSON_UNESCAPED_UNICODE)
             ]);
-
+        
             $response = curl_exec($ch);
             curl_close($ch);
-
+        
             return $response;
         }
     }
