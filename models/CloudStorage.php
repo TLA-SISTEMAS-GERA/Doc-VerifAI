@@ -1,10 +1,14 @@
 <?php
 
-require dirname(__DIR__ ,1) . '/vendor/autoload.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
-$dotenv->load();
+require_once dirname(__DIR__ ,1) . '/vendor/autoload.php';
+require_once dirname(__DIR__ ,1) . '/config/conexion.php';
+use Dotenv\Dotenv;
 use Google\Cloud\Storage\StorageClient;
+$config = App\Config::getInstance();
+$dotenv = Dotenv::createImmutable($config->getEnvPath(), '.env.' . $config->getEnvironment());
+
+$dotenv->load();
+
 
 putenv('GOOGLE_APPLICATION_CREDENTIALS' . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
 class CloudStorage {
@@ -16,27 +20,55 @@ class CloudStorage {
     //     $this->credentials = __DIR__ . "/../config/credentials.json";
     // }
     // Crea un bucket con el nombre basado en el archivo 
-    private function crearBucketDinamico($nombreArchivoOriginal) {
+    // private function crearBucketDinamico($nombreArchivoOriginal) {
 
-        // if (!file_exists($this->credentials)) {
-        //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
-        // }
+    //     // if (!file_exists($this->credentials)) {
+    //     //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
+    //     // }
+
+    //     $storage = new StorageClient([
+    //         'projectId' => '416462877074'
+    //     ]);
+
+    //     // Convertir nombre.pdf → nombre sin extensión
+    //     $base = pathinfo($nombreArchivoOriginal, PATHINFO_FILENAME);
+
+    //     // Normalizar a bucket-name-válido
+    //     $bucketName = strtolower($base);
+    //     $bucketName = preg_replace('/[^a-z0-9\-]/', '-', $bucketName); // Solo minúsculas y guiones
+    //     $bucketName = substr($bucketName, 0, 50); // Limitar tamaño
+    //     $bucketName .= "-" . uniqid(); // Evitar duplicados globales
+
+    //     // Crear bucket
+    //     $bucket = $storage->createBucket($bucketName);
+
+    //     return $bucketName;
+    // }
+
+    public function crearBucketDinamico($nombreConsultaReferencia) {
 
         $storage = new StorageClient([
             'projectId' => '416462877074'
         ]);
 
         // Convertir nombre.pdf → nombre sin extensión
-        $base = pathinfo($nombreArchivoOriginal, PATHINFO_FILENAME);
-
+        $base = pathinfo($nombreConsultaReferencia, PATHINFO_FILENAME);
         // Normalizar a bucket-name-válido
         $bucketName = strtolower($base);
         $bucketName = preg_replace('/[^a-z0-9\-]/', '-', $bucketName); // Solo minúsculas y guiones
-        $bucketName = substr($bucketName, 0, 50); // Limitar tamaño
-        $bucketName .= "-" . uniqid(); // Evitar duplicados globales
+        $bucketName = trim($bucketName, '-');  //LINEA 63
+        $bucketName = substr($bucketName, 0, 40) . '-' . uniqid();
 
-        // Crear bucket
-        $bucket = $storage->createBucket($bucketName);
+        try {
+            $storage->createBucket($bucketName, [
+                'location' => 'US'
+            ]);
+            
+
+            error_log("[GCS] Bucket creado correctamente: " . $bucketName);
+        } catch (\Exception $e) {
+            return ["ERROR" => $e->getMessage()];
+        }
 
         return $bucketName;
     }
