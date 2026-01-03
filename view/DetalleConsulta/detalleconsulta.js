@@ -17,7 +17,6 @@ $("#btnenviar").on("click", function () {
     var usu_id = $('#user_idx').val();
     var prompt = $('#prompt').val();
 
-
     // 1 GUARDAR MENSAJE DEL USUARIO
     var formData = new FormData();
     formData.append('cons_id', cons_id);
@@ -33,7 +32,6 @@ $("#btnenviar").on("click", function () {
     $('#btnenviar').prop("disabled", true);
     $('#btnenviar').html('<i class="fa fa-spinner fa-spin"></i> Enviando...');
 
-    
     $.ajax({
         url: "../../controller/consulta.php?op=insertdetalle",
         type: "POST",
@@ -42,24 +40,27 @@ $("#btnenviar").on("click", function () {
         processData: false,
         success: function () {
 
-            mostrar(cons_id); // Recarga chat del usuario
+            console.log("insert detalle ejecutado");
 
+            mostrar(cons_id); // Recarga chat del usuario
             // 2 OBTENER HISTORIAL
             $.post(
                 "../../controller/consulta.php?op=obtener_historial",
                 { cons_id: cons_id },
                 function (historialRaw) {
-
+                    
                     let historial = JSON.parse(historialRaw);
                     let mensajes = historial.map(row => ({
                         role: (row.usu_id == 2 ? "model" : "user"),
                         parts: [{ text: row.det_contenido }]
                     }));
 
-
                     // 5 ENVIAR A GEMINI
                     if (files.length > 0) {
                         let uploadData = new FormData();
+
+                        uploadData.append("cons_id", cons_id);
+                        
                         for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
 
                         $.ajax({
@@ -90,7 +91,6 @@ $("#btnenviar").on("click", function () {
                                         }
                                     });
                                 });
-
 
                                 mensajes.push({
                                     role: "user",
@@ -124,6 +124,8 @@ $("#btnenviar").on("click", function () {
 });
 
 //Funcion que envia a Gemini y guarda la respuesta
+// mensajes = Archivos + Prompt
+// cons_id = id de la consulta a la que se enviara mensajes
 function enviarAGeminiYGuardar(mensajes, cons_id) {
 
     $.post("../../controller/consulta.php?op=ai_prompt",
@@ -132,15 +134,7 @@ function enviarAGeminiYGuardar(mensajes, cons_id) {
             console.log("Gemini respondió:", response);
 
             try { 
-                // var json = JSON.parse(response);
-                // var respuestaIA = json.candidates && json.candidates[0].content.parts[0].text
-                //     ? json.candidates[0].content.parts[0].text
-                //     : JSON.stringify(json);
-
                 var json = JSON.parse(response);
-
-                let respuestaIA = "⚠ Gemini no devolvió contenido textual.";
-
                 if (
                     json.candidates &&
                     json.candidates.length > 0 &&

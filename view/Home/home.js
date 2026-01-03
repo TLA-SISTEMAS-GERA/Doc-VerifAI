@@ -16,7 +16,7 @@ function guardar(e) {
     e.preventDefault();
 
     var formData = new FormData($("#consul_form")[0]);
-
+    
     formData.append("usu_id", usu_id);
 
     if ($("#cons_nom").val() == " ") {
