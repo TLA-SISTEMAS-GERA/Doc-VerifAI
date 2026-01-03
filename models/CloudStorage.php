@@ -22,27 +22,57 @@ class CloudStorage {
     //     $this->credentials = __DIR__ . "/../config/credentials.json";
     // }
     // Crea un bucket con el nombre basado en el archivo 
-    private function crearBucketDinamico($nombreArchivoOriginal) {
+    // private function crearBucketDinamico($nombreArchivoOriginal) {
 
-        // if (!file_exists($this->credentials)) {
-        //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
-        // }
+    //     // if (!file_exists($this->credentials)) {
+    //     //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
+    //     // }
+
+    //     $storage = new StorageClient([
+    //         'projectId' => '416462877074'
+    //     ]);
+
+    //     // Convertir nombre.pdf → nombre sin extensión
+    //     $base = pathinfo($nombreArchivoOriginal, PATHINFO_FILENAME);
+
+    //     // Normalizar a bucket-name-válido
+    //     $bucketName = strtolower($base);
+    //     $bucketName = preg_replace('/[^a-z0-9\-]/', '-', $bucketName); // Solo minúsculas y guiones
+    //     $bucketName = substr($bucketName, 0, 50); // Limitar tamaño
+    //     $bucketName .= "-" . uniqid(); // Evitar duplicados globales
+
+    //     // Crear bucket
+    //     $bucket = $storage->createBucket($bucketName);
+
+    //     return $bucketName;
+    // }
+
+    public function crearBucketDinamico($nombreConsultaReferencia) {
+        //putenv('GOOGLE_APPLICATION_CREDENTIALS' . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
         $PROJECT_ID = $_ENV['PROJECT_ID'];
-        $storage = new StorageClient([
+        $storage = new StorageClient([            
             'projectId' => $PROJECT_ID
         ]);
 
         // Convertir nombre.pdf → nombre sin extensión
-        $base = pathinfo($nombreArchivoOriginal, PATHINFO_FILENAME);
-
+        $base = pathinfo($nombreConsultaReferencia, PATHINFO_FILENAME);
+        echo "[GCS] Iniciando creación de bucket para consulta: " . $base;
         // Normalizar a bucket-name-válido
         $bucketName = strtolower($base);
         $bucketName = preg_replace('/[^a-z0-9\-]/', '-', $bucketName); // Solo minúsculas y guiones
-        $bucketName = substr($bucketName, 0, 50); // Limitar tamaño
-        $bucketName .= "-" . uniqid(); // Evitar duplicados globales
+        $bucketName = trim($bucketName, '-');  //LINEA 63
+        $bucketName = substr($bucketName, 0, 40) . '-' . uniqid();
+        echo "[GCS] Nombre de bucket generado: " . $bucketName;
+        echo "[GCS] ID del Proyecto: " . $PROJECT_ID;
 
-        // Crear bucket
-        $bucket = $storage->createBucket($bucketName);
+        try {
+            $bucket = $storage->createBucket($bucketName);
+            //error_log("[GCS] Bucket creado correctamente: " . $bucke->name());
+            echo "[GCS] Bucket creado correctamente: " . $bucket->name();
+        } catch (\Exception $e) {
+             echo "[GCS] Error al crear bucket: " . $e->getMessage();
+            return ["ERROR" => $e->getMessage()];
+        }
 
         return $bucketName;
     }
@@ -60,7 +90,7 @@ class CloudStorage {
             'projectId' => '416462877074'
         ]);
 
-        $resultados = [];
+        $resultados = [];    
 
         foreach ($files['tmp_name'] as $i => $tmpFile) {
 

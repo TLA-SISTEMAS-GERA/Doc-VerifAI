@@ -1,16 +1,31 @@
 <?php
-    require_once("../config/conexion.php");
-    require_once("../models/Consulta.php");
-    require_once("../controller/gemini.php");
-    require_once("../controller/storage.php");
-    require_once("../controller/documentai.php");
+    // require_once("../config/conexion.php");
+    require_once dirname(__DIR__ ,1) . '/config/conexion.php';
+    // require_once("../models/Consulta.php");
+    require_once dirname(__DIR__ ,1) . '/models/Consulta.php';
+    // require_once("../controller/gemini.php");
+    require_once dirname(__DIR__ ,1) . '/controller/gemini.php';
+    // require_once("../controller/storage.php");
+    require_once dirname(__DIR__ ,1) . '/controller/storage.php';
+    // require_once("../controller/documentai.php");
+    require_once dirname(__DIR__ ,1) . '/controller/documentai.php';
+    // require_once("../models/CloudStorage.php");
+    require_once dirname(__DIR__ ,1) . '/models/CloudStorage.php';
 
     $consulta = new Consulta();
 
     switch($_GET["op"]) {
-        //CREAR UNA NUEVA CONSULTA
+        //CREAR UNA NUEVA CONSULTA Y BUCKET CON EL NOMBRE DE LA CONSULTA
         case "insert":
             $datos = $consulta -> insert_consulta($_POST["usu_id"], $_POST["cons_nom"]);
+            $cloud = new CloudStorage();
+
+            $bucket = $cloud ->crearBucketDinamico($_POST["cons_nom"]);
+            if (is_array($resultado) && isset($resultado['ERROR'])) {
+                error_log("Error creando bucket: " . $resultado['ERROR']);
+                echo $resultado['ERROR'];
+                exit;
+            }
         break;
 
         //LISTAR LAS CONSULTAS QUE EL USUARIO HA CREADO
@@ -146,7 +161,7 @@
             $cloud = new CloudStorage();
             $geminiFiles = new GeminiFiles();
 
-            $archivos = $cloud->subirArchivos($_FILES["files"]); //linea 149
+            $archivos = $cloud->subirArchivos($_FILES["files"]); 
         
             $resultado = [];
 
