@@ -12,20 +12,22 @@
     // require_once("../models/CloudStorage.php");
     require_once dirname(__DIR__ ,1) . '/models/CloudStorage.php';
 
+    require_once("../models/Documento.php");
+
+    $documento= new Documento();
     $consulta = new Consulta();
 
     switch($_GET["op"]) {
         //CREAR UNA NUEVA CONSULTA Y BUCKET CON EL NOMBRE DE LA CONSULTA
         case "insert":
-            $datos = $consulta -> insert_consulta($_POST["usu_id"], $_POST["cons_nom"]);
+            // SE CREA UN BUCKET CON EL NOMBRE DE LA CONSULTA RECIEN CREADA
             $cloud = new CloudStorage();
-
             $bucket = $cloud ->crearBucketDinamico($_POST["cons_nom"]);
-            if (is_array($resultado) && isset($resultado['ERROR'])) {
-                error_log("Error creando bucket: " . $resultado['ERROR']);
+            if (!empty($resultado['ERROR'])) {
                 echo $resultado['ERROR'];
-                exit;
             }
+            //INSERCCION DE CONSULTA + NOMBRE BUCKET
+            $datos = $consulta -> insert_consulta($_POST["usu_id"], $_POST["cons_nom"], $bucket);
         break;
 
         //LISTAR LAS CONSULTAS QUE EL USUARIO HA CREADO
@@ -64,17 +66,7 @@
                 echo json_encode($output);
             }
         break;
-
-        //PROMPT DE PRUEBA GEMINI
-        // case "ai_prompt":
-        //     $prompt = $_POST["prompt"];
-    
-        //     $ai = new AIController();
-        //     $respuesta = $ai -> procesarPrompt($prompt);
-    
-        //     echo $respuesta; // Se envía de regreso al frontend
-        // break;
-
+        
         case "ai_prompt":
             $mensajesRaw = $_POST["mensajes"] ?? null;
         
@@ -96,6 +88,39 @@
 
         case "insertdetalle":
             $datos = $consulta -> insert_detalle($_POST["cons_id"], $_POST["usu_id"], $_POST["det_contenido"]);
+
+            if (is_array($datos) && count($datos) > 0){
+                foreach ($datos as $row) {
+
+                    $output["det_id"] = $row["det_id"];
+                    $output["cons_id"] = $row["cons_id"];
+
+                    if(isset($_FILES['files']) && !empty($_FILES['files']['name'][0])) {
+                        $countfiles = count($_FILES['files']['name']);
+                        // La carpeta usa el ID de cada consulta
+                        // Ahi se almacenan los documentos que se cargan a la consulta
+                        $ruta = "../public/document_detalle/" . $output["cons_id"] . "/";
+
+                        echo $ruta;
+                        if (!file_exists($ruta)) {
+                            mkdir($ruta, 0777, true);
+                        }
+
+                        for ($index = 0; $index < $countfiles; $index++) {
+                            $doc1 = $_FILES['files']['tmp_name'][$index];
+                            $destino = $ruta . $_FILES['files']['name'][$index];
+
+                            $documento->insert_documento_detalle(
+                                $output["det_id"],
+                                $_FILES['files']['name'][$index]
+                            );
+    
+                            move_uploaded_file($doc1, $destino);
+                        }
+                    }
+                }
+            }
+            echo json_encode($datos);
         break;
 
         case "listardetalle":
@@ -155,35 +180,35 @@
 
         case "subir_archivos_cloud":
             require_once "../models/CloudStorage.php";
-            require_once "../models/GeminiFiles.php";
+            //require_once "../models/GeminiFiles.php";
             require_once "../vendor/autoload.php";
 
             $cloud = new CloudStorage();
-            $geminiFiles = new GeminiFiles();
+            //$geminiFiles = new GeminiFiles();
 
-            $archivos = $cloud->subirArchivos($_FILES["files"]); 
+            $archivos = $cloud -> subirArchivos($_POST["cons_id"], $_FILES["files"]); 
         
             $resultado = [];
 
             //REGISTRAR ARCHIVO/S EN GEMINI FILES
-            foreach ( $archivos as $a ) {
-                $resp = $geminiFiles -> registrarArchivo (
-                    $a["signedUrl"],
-                    $a["file"]
-                );
+            // foreach ( $archivos as $a ) {
+            //     $resp = $geminiFiles -> registrarArchivo (
+            //         $a["signedUrl"],
+            //         $a["file"]
+            //     );
 
-                if (isset($resp["name"])) {
-                    $resultado [] = [
-                        "file_id" => $resp["name"],
-                        "bucket" => $a["bucket"],
-                        "file" => $a["file"]
-                    ];
-                }
-            }
+            //     if (isset($resp["name"])) {
+            //         $resultado [] = [
+            //             "file_id" => $resp["name"],
+            //             "bucket" => $a["bucket"],
+            //             "file" => $a["file"]
+            //         ];
+            //     }
+            // }
 
             file_put_contents(
                 __DIR__ . "/debug_files_api.json",
-                json_encode($resp, JSON_PRETTY_PRINT)
+                json_encode($resultado, JSON_PRETTY_PRINT)
             );
               
 
