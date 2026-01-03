@@ -1,13 +1,14 @@
 <?php 
     class Consulta extends Conectar {
-        public function insert_consulta ($usu_id, $cons_nom) {
+        public function insert_consulta ($usu_id, $cons_nom, $nom_bucket) {
             $conectar = parent::conexion();
             $sql="INSERT 
-                    INTO tm_consulta(usu_id, cons_nom, fech_crea)
-                    VALUES (?, ?, NOW());";
+                    INTO tm_consulta(usu_id, cons_nom, nom_bucket, fech_crea)
+                    VALUES (?, ?, ?, NOW());";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$usu_id);
             $sql->bindValue(2,$cons_nom);
+            $sql->bindValue(3,$nom_bucket);
             $sql->execute();
             return $resultado = $sql->fetchAll();
         }
@@ -80,6 +81,15 @@
                     FROM tm_detalle 
                     WHERE cons_id=? 
                     ORDER BY fech_crea ASC";
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, $cons_id);
+            $sql->execute();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function obtenerBucketPorConsulta($cons_id) {
+            $conectar = parent::conexion();
+            $sql = "SELECT nom_bucket FROM tm_consulta WHERE cons_id = ?";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $cons_id);
             $sql->execute();
