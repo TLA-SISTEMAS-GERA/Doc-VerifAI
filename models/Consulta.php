@@ -45,7 +45,12 @@
             $sql->bindValue(2,$usu_id);
             $sql->bindValue(3,$det_contenido);
             $sql->execute();
-            return $resultado = $sql->fetchAll();
+
+            $sql1 = "SELECT LAST_INSERT_ID() AS det_id, ? AS cons_id;";
+            $sql1=$conectar->prepare($sql1);
+            $sql1->bindValue(1,$cons_id);
+            $sql1->execute();
+            return $resultado = $sql1->fetchAll();
 
         }
 
@@ -90,6 +95,21 @@
         public function obtenerBucketPorConsulta($cons_id) {
             $conectar = parent::conexion();
             $sql = "SELECT nom_bucket FROM tm_consulta WHERE cons_id = ?";
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, $cons_id);
+            $sql->execute();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function obtenerNombreBucketyArchivo($cons_id){
+            $conectar = parent::conexion();
+            $sql = "SELECT tm_consulta.nom_bucket, td_documento_detalle.doc_nom
+                    FROM tm_consulta
+                    INNER JOIN tm_detalle
+                    ON tm_consulta.cons_id = tm_detalle.cons_id
+                    INNER JOIN td_documento_detalle
+                    ON tm_detalle.det_id = td_documento_detalle.det_id
+                    WHERE tm_consulta.cons_id = ?";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $cons_id);
             $sql->execute();
