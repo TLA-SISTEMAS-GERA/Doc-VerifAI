@@ -180,31 +180,13 @@
 
         case "subir_archivos_cloud":
             require_once "../models/CloudStorage.php";
-            //require_once "../models/GeminiFiles.php";
             require_once "../vendor/autoload.php";
 
             $cloud = new CloudStorage();
-            //$geminiFiles = new GeminiFiles();
 
             $archivos = $cloud -> subirArchivos($_POST["cons_id"], $_FILES["files"]); 
         
             $resultado = [];
-
-            //REGISTRAR ARCHIVO/S EN GEMINI FILES
-            // foreach ( $archivos as $a ) {
-            //     $resp = $geminiFiles -> registrarArchivo (
-            //         $a["signedUrl"],
-            //         $a["file"]
-            //     );
-
-            //     if (isset($resp["name"])) {
-            //         $resultado [] = [
-            //             "file_id" => $resp["name"],
-            //             "bucket" => $a["bucket"],
-            //             "file" => $a["file"]
-            //         ];
-            //     }
-            // }
 
             file_put_contents(
                 __DIR__ . "/debug_files_api.json",
@@ -217,6 +199,10 @@
 
             echo json_encode($resultado);
         break;
-        
+
+        case "obtener_nombre_bucket_archivo":
+            $datos = $consulta -> obtenerNombreBucketyArchivo($_POST["cons_id"]);
+            echo json_encode($datos);
+        break;
     }
 ?>
