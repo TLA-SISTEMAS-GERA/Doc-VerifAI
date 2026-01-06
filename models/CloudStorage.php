@@ -109,8 +109,8 @@ class CloudStorage {
                 $nombreOriginal = $nombreOriginal[0];
             }
 
-            // Crear un nombre único para el archivo dentro del bucket
-            $objectName = uniqid() . "_" . basename($nombreOriginal);
+            // Se toma el nombre del archivo para subir al bucket
+            $objectName = basename($nombreOriginal);
 
             // SUBIDA DE ARCHIVO/S AL BUCKET ACTUAL
             $bucket->upload(

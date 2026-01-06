@@ -45,7 +45,21 @@
             $sql->bindValue(2,$usu_id);
             $sql->bindValue(3,$det_contenido);
             $sql->execute();
-            return $resultado = $sql->fetchAll();
+
+            // $sql1 = "SELECT tm_detalle.det_id, tm_detalle.cons_id 
+            //          FROM tm_detalle
+            //          INNER JOIN tm_consulta ON tm_consulta.cons_id = tm_detalle.cons_id  
+            //          WHERE tm_detalle.cons_id = ?;";
+            // $sql1=$conectar->prepare($sql1);
+            // $sql1->bindValue(1,$cons_id);
+            // $sql1->execute();
+            // return $resultado = $sql1->fetchAll();
+
+            $sql1 = "SELECT LAST_INSERT_ID() AS det_id, ? AS cons_id;";
+            $sql1=$conectar->prepare($sql1);
+            $sql1->bindValue(1,$cons_id);
+            $sql1->execute();
+            return $resultado = $sql1->fetchAll();
 
         }
 

@@ -91,9 +91,9 @@
 
             if (is_array($datos) && count($datos) > 0){
                 foreach ($datos as $row) {
-
                     $output["det_id"] = $row["det_id"];
                     $output["cons_id"] = $row["cons_id"];
+                    
 
                     if(isset($_FILES['files']) && !empty($_FILES['files']['name'][0])) {
                         $countfiles = count($_FILES['files']['name']);
@@ -189,22 +189,6 @@
             $archivos = $cloud -> subirArchivos($_POST["cons_id"], $_FILES["files"]); 
         
             $resultado = [];
-
-            //REGISTRAR ARCHIVO/S EN GEMINI FILES
-            // foreach ( $archivos as $a ) {
-            //     $resp = $geminiFiles -> registrarArchivo (
-            //         $a["signedUrl"],
-            //         $a["file"]
-            //     );
-
-            //     if (isset($resp["name"])) {
-            //         $resultado [] = [
-            //             "file_id" => $resp["name"],
-            //             "bucket" => $a["bucket"],
-            //             "file" => $a["file"]
-            //         ];
-            //     }
-            // }
 
             file_put_contents(
                 __DIR__ . "/debug_files_api.json",

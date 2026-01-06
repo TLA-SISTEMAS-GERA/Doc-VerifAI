@@ -38,9 +38,9 @@ $("#btnenviar").on("click", function () {
         data: formData,
         contentType: false,
         processData: false,
-        success: function () {
+        success: function (data) {
 
-            console.log("insert detalle ejecutado");
+            console.log(data);
 
             mostrar(cons_id); // Recarga chat del usuario
             // 2 OBTENER HISTORIAL
