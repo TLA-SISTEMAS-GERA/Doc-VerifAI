@@ -14,38 +14,6 @@ use Google\Cloud\Storage\StorageClient;
 putenv('GOOGLE_APPLICATION_CREDENTIALS' . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
 class CloudStorage {
 
-    private $credentials;
-
-    // public function __construct() {
-    //     // Ruta a credentials.json
-    //     $this->credentials = __DIR__ . "/../config/credentials.json";
-    // }
-    // Crea un bucket con el nombre basado en el archivo 
-    // private function crearBucketDinamico($nombreArchivoOriginal) {
-
-    //     // if (!file_exists($this->credentials)) {
-    //     //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
-    //     // }
-
-    //     $storage = new StorageClient([
-    //         'projectId' => '416462877074'
-    //     ]);
-
-    //     // Convertir nombre.pdf → nombre sin extensión
-    //     $base = pathinfo($nombreArchivoOriginal, PATHINFO_FILENAME);
-
-    //     // Normalizar a bucket-name-válido
-    //     $bucketName = strtolower($base);
-    //     $bucketName = preg_replace('/[^a-z0-9\-]/', '-', $bucketName); // Solo minúsculas y guiones
-    //     $bucketName = substr($bucketName, 0, 50); // Limitar tamaño
-    //     $bucketName .= "-" . uniqid(); // Evitar duplicados globales
-
-    //     // Crear bucket
-    //     $bucket = $storage->createBucket($bucketName);
-
-    //     return $bucketName;
-    // }
-
     public function crearBucketDinamico($nombreConsultaReferencia) {
         $PROJECT_ID = $_ENV['PROJECT_ID'];
         $storage = new StorageClient([
@@ -76,9 +44,9 @@ class CloudStorage {
      * Sube archivos a un bucket único basado en su nombre
      */
     public function subirArchivos($cons_id, $files) {
-
-        $storage = new StorageClient([ //linea 50
-            'projectId' => '416462877074'
+        $PROJECT_ID = $_ENV['PROJECT_ID'];
+        $storage = new StorageClient([
+            'projectId' => $PROJECT_ID
         ]);
 
         $consulta = new Consulta();
@@ -111,33 +79,44 @@ class CloudStorage {
             }
 
             // Crear un nombre único para el archivo dentro del bucket
-            $objectName = uniqid() . "_" . basename($nombreOriginal);
+            $objectName = basename($nombreOriginal);
 
             // SUBIDA DE ARCHIVO/S AL BUCKET ACTUAL
             $bucket->upload(
                 fopen($tmpFile, 'r'),
                 ['name' => $objectName]
             );
-            
-            // Crear Signed URL válida 24h (la que Gemini SÍ acepta)
-            $file = $bucket->object($objectName);
-
-            $signedUrl = $file->signedUrl(
-                new \DateTime('+24 hours'),
-                [
-                    'version' => 'v4',
-                    'method' => 'GET'
-                ]
-            );
 
             // Regresar info para Gemini 
             $resultados[] = [
                 "bucket" => $bucket,
-                "file"   => $objectName,
-                "signedUrl" => $signedUrl //esta es la URL autenticada
+                "file"   => $objectName
             ];
         }
 
         return $resultados;
+    }
+
+    public function obtenerContentTypeyGsutil($cons_id) {
+        $PROJECT_ID = $_ENV['PROJECT_ID'];
+        $storage = new StorageClient([
+            'projectId' => $PROJECT_ID
+        ]);
+        $consulta = new Consulta();
+        $data = $consulta->obtenerBucketPorConsulta($cons_id);
+        $bucket = $storage->bucket($data[0]['nom_bucket']);
+        $contentType_GSutil = [];
+        foreach ($bucket -> objects() as $object) {
+            $nombreObjeto = $object->name();
+            $file = $bucket->object($nombreObjeto);
+            $info = $file->info();
+            $gsUtil = $file->gcsUri();
+
+            $contentType_GSutil[] = [
+                "contentType" => $info['contentType'],
+                "gs_util" => $gsUtil
+            ];
+        }
+        return $contentType_GSutil;
     }
 }
