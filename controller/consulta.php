@@ -5,6 +5,7 @@
     require_once dirname(__DIR__ ,1) . '/models/Consulta.php';
     // require_once("../controller/gemini.php");
     require_once dirname(__DIR__ ,1) . '/controller/gemini.php';
+    require_once dirname(__DIR__ ,1) . '/controller/vertex.php';
     // require_once("../controller/storage.php");
     require_once dirname(__DIR__ ,1) . '/controller/storage.php';
     // require_once("../controller/documentai.php");
@@ -80,9 +81,10 @@
             // LOG para verificar
             file_put_contents("debug_gemini.txt", print_r($mensajes, true));
         
-            $ai = new AIController();
-            $respuesta = $ai->procesarPrompt($mensajes);
-        
+            // $ai = new AIController();
+            // $respuesta = $ai->procesarPrompt($mensajes);
+            $vertex = new VertexAI();
+            $respuesta = $vertex->generarRespuestaVertex($mensajes);
             echo $respuesta;
         break;
 
@@ -143,10 +145,7 @@
                                             </a>
                                         </div>
                                         <div class="activity-line-item-user-name"><?php echo $row['usu_nom'].' '.$row['usu_ape']?></div>
-                                        <div class="activity-line-item-user-status">
-                                        
-
-                                        
+                                        <div class="activity-line-item-user-status">                                        
                                     </div>
                                 </header>
                                 <div class="activity-line-action-list">
@@ -156,15 +155,10 @@
                                         <div class="cont-in">
                                             <p>
                                                 <?php echo $row['det_contenido'];?>
-                                            </p>	
-
-                                            
-                                            
+                                            </p>	                                            
                                         </div>
                                     </div>
-                                </section><!--.activity-line-action-->
-
-                                
+                                </section><!--.activity-line-action-->                                
                                 </div>
                             </article>
                         <?php
@@ -181,28 +175,22 @@
         case "subir_archivos_cloud":
             require_once "../models/CloudStorage.php";
             require_once "../vendor/autoload.php";
-
             $cloud = new CloudStorage();
-
-            $archivos = $cloud -> subirArchivos($_POST["cons_id"], $_FILES["files"]); 
-        
+            $archivos = $cloud -> subirArchivos($_POST["cons_id"], $_FILES["files"]);         
             $resultado = [];
-
             file_put_contents(
                 __DIR__ . "/debug_files_api.json",
                 json_encode($resultado, JSON_PRETTY_PRINT)
-            );
-              
-
+            );            
             error_log("RESPUESTA FINAL:");
             error_log(json_encode($resultado));
-
             echo json_encode($resultado);
         break;
 
-        case "obtener_nombre_bucket_archivo":
-            $datos = $consulta -> obtenerNombreBucketyArchivo($_POST["cons_id"]);
-            echo json_encode($datos);
+        case "obtener_Info_Gsutil":
+            $cloud = new CloudStorage();
+            $contentType_GSutilresult = $cloud -> obtenerContentTypeyGsutil($_POST["cons_id"]);
+            echo json_encode($contentType_GSutilresult);
         break;
     }
 ?>
