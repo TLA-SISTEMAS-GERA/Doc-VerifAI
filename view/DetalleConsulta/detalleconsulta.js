@@ -33,6 +33,7 @@ $("#btnenviar").on("click", function () {
     $('#btnenviar').html('<i class="fa fa-spinner fa-spin"></i> Enviando...');
 
     $.ajax({
+        //INSERTAR EL DETALLE/MENSAJE EN LA BDD
         url: "../../controller/consulta.php?op=insertdetalle",
         type: "POST",
         data: formData,
@@ -43,19 +44,21 @@ $("#btnenviar").on("click", function () {
             console.log(data);
 
             mostrar(cons_id); // Recarga chat del usuario
-            // 2 OBTENER HISTORIAL
+            // 2 OBTENER HISTORIAL DE LOS MENSAJES
             $.post(
                 "../../controller/consulta.php?op=obtener_historial",
                 { cons_id: cons_id },
                 function (historialRaw) {
                     
+                    //DETECTAR SI EL MENSAJE DEL HISTORIAL EL USUARIO 2 O DIFERENTE
+                    //SI EL USUARIO ES USU_ID = 2 ENTONCES EL ROL ES MODEL (GEMINI) SI NO, ES UN USUARIO
                     let historial = JSON.parse(historialRaw);
                     let mensajes = historial.map(row => ({
                         role: (row.usu_id == 2 ? "model" : "user"),
                         parts: [{ text: row.det_contenido }]
                     }));
 
-                    // 5 ENVIAR A GEMINI
+                    //VERIFICA SI HAY ARCHIVOS
                     if (files.length > 0) {
                         let uploadData = new FormData();
 
@@ -81,6 +84,8 @@ $("#btnenviar").on("click", function () {
                                 partes.push({
                                     text: `Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud:\n\n${prompt}`
                                 });
+
+                                //   AQUI SE AGREGA OBTENER ARCHIVOS INFO DE consulta.php
 
                                 // Agregar archivos (file_id)
                                 resp.forEach(a => {
@@ -108,16 +113,14 @@ $("#btnenviar").on("click", function () {
                         });
 
                     } else {
-                        // No hay archivos → enviamos historial inmediatamente
+                        // No hay archivos → enviamos historial + prompt inmediatamente
                         enviarAGeminiYGuardar(mensajes, cons_id);
                     }
                 }
             );
-
             $('#btnenviar').prop("disabled", false);
             $('#btnenviar').html('Enviar');
             $('#prompt').val('');
-
         }
     });
 
@@ -142,6 +145,7 @@ function enviarAGeminiYGuardar(mensajes, cons_id) {
                     json.candidates[0].content.parts &&
                     json.candidates[0].content.parts.length > 0
                 ) {
+                    //OBTENGO LO QUE ME DEVUELVE GEMINI
                     const textoPart = json.candidates[0].content.parts.find(p => p.text);
                     if (textoPart) {
                         respuestaIA = textoPart.text;

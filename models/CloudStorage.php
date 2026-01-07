@@ -2,7 +2,7 @@
 
 require_once dirname(__DIR__ ,1) . '/vendor/autoload.php';
 require_once dirname(__DIR__ ,1) . '/config/conexion.php';
-//require_once dirname(__DIR__ ,1) . '/models/Consulta.php';
+require_once dirname(__DIR__ ,1) . '/models/Consulta.php';
 use Dotenv\Dotenv;
 
 $config = App\Config::getInstance();
@@ -12,39 +12,14 @@ $dotenv->load();
 
 use Google\Cloud\Storage\StorageClient;
 putenv('GOOGLE_APPLICATION_CREDENTIALS' . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
+
+$cloud = new CloudStorage();
+$cons = 36;
+$data  = $cloud->obtenerInfoArchivos($cons);
+
 class CloudStorage {
 
     private $credentials;
-
-    // public function __construct() {
-    //     // Ruta a credentials.json
-    //     $this->credentials = __DIR__ . "/../config/credentials.json";
-    // }
-    // Crea un bucket con el nombre basado en el archivo 
-    // private function crearBucketDinamico($nombreArchivoOriginal) {
-
-    //     // if (!file_exists($this->credentials)) {
-    //     //     return ["ERROR" => "credentials.json NO encontrado en: $this->credentials"];
-    //     // }
-
-    //     $storage = new StorageClient([
-    //         'projectId' => '416462877074'
-    //     ]);
-
-    //     // Convertir nombre.pdf → nombre sin extensión
-    //     $base = pathinfo($nombreArchivoOriginal, PATHINFO_FILENAME);
-
-    //     // Normalizar a bucket-name-válido
-    //     $bucketName = strtolower($base);
-    //     $bucketName = preg_replace('/[^a-z0-9\-]/', '-', $bucketName); // Solo minúsculas y guiones
-    //     $bucketName = substr($bucketName, 0, 50); // Limitar tamaño
-    //     $bucketName .= "-" . uniqid(); // Evitar duplicados globales
-
-    //     // Crear bucket
-    //     $bucket = $storage->createBucket($bucketName);
-
-    //     return $bucketName;
-    // }
 
     public function crearBucketDinamico($nombreConsultaReferencia) {
         $PROJECT_ID = $_ENV['PROJECT_ID'];
@@ -133,10 +108,52 @@ class CloudStorage {
             $resultados[] = [
                 "bucket" => $bucket,
                 "file"   => $objectName,
-                "signedUrl" => $signedUrl //esta es la URL autenticada
+                "gcs_uri" => $gcsUri 
             ];
         }
 
         return $resultados;
+    }
+
+    public function obtenerInfoArchivos($cons_id) {
+        $storage = new StorageClient([ 
+            'projectId' => '416462877074'
+        ]);
+
+        $consulta = new Consulta();
+        //CONSULTA EL NOMBRE EL BUCKET
+        $data = $consulta->obtenerBucketPorConsulta($cons_id);
+
+        //VERIFICA EXISTENCIA DEL NOMBRE DEL BUCKET
+        if (!$data || !isset($data[0]['nom_bucket'])) {
+
+            throw new \Exception("No se encontró bucket para la consulta $cons_id");
+        }
+
+        //SE TOMA EL NOMBRE DEL BUCKET EN $nom_bucket
+        //$nom_bucket = $data[0]['nom_bucket'];
+        $nom_bucket = 'bucket-prueba-cons-694f136359c32';
+
+        $bucket = $storage->bucket($nom_bucket);
+
+        $resultado = [];
+        //RECORRIDO A CADA UNO DE LOS OBJETOS DEL BUCKET
+        foreach ($bucket -> objects() as $object) {
+            $nombreObjeto = $object->name();
+            
+            $file = $bucket->object($nombreObjeto);
+            $info = $file->info();
+            $gsUtil = $file->gcsUri();
+        
+            echo "Nombre: " . $nombreObjeto . "<br> Tipo " . $info['contentType']. "<br> GS URI: " . $file->gcsUri() . "<br><br>";
+
+            // OBTENER TYPE DE ARCHIVO Y EL GSUTIL DEL OBJETO/ARCHIVO
+            $resultado[] = [
+                "contentType" => $info['contentType'],
+                "gs_util " => $gsUtil
+            ];
+
+        }
+        echo $resultado;
     }
 }
