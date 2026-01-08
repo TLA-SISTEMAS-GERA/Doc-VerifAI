@@ -7,407 +7,69 @@ Array
                 (
                     [0] => Array
                         (
-                            [text] => Hola
+                            [text] => Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud;
+
+Dime que contiene este ultimo pdf
                         )
 
-                )
-
-        )
-
-    [1] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
+                    [1] => Array
                         (
-                            [text] => 
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consulta-enero7-695eed3d3f2ce/CONSTANCIA_GERARDO ALBERTO CRUZ.pdf
+                                )
+
                         )
 
-                )
-
-        )
-
-    [2] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
+                    [2] => Array
                         (
-                            [text] => 
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consulta-enero7-695eed3d3f2ce/MENSAJE NAVIDAD TECNO CLIENTES.pdf
+                                )
+
                         )
 
-                )
-
-        )
-
-    [3] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
+                    [3] => Array
                         (
-                            [text] => 
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consulta-enero7-695eed3d3f2ce/NRSI132-52045 - Anexo hoja calculo FIRMA.pdf
+                                )
+
                         )
 
-                )
-
-        )
-
-    [4] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
+                    [4] => Array
                         (
-                            [text] => 
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consulta-enero7-695eed3d3f2ce/NRSI132-52045 - Hojas calculo firma.pdf
+                                )
+
                         )
 
-                )
-
-        )
-
-    [5] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
+                    [5] => Array
                         (
-                            [text] => 
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consulta-enero7-695eed3d3f2ce/NRSI132-52045 - Manifestacion FIRMA.pdf
+                                )
+
                         )
 
-                )
-
-        )
-
-    [6] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
+                    [6] => Array
                         (
-                            [text] => 
-                        )
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consulta-enero7-695eed3d3f2ce/qr-6750d2d72556cf565fd4ac40.pdf
+                                )
 
-                )
-
-        )
-
-    [7] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [8] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [9] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [10] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [11] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Hola
-                        )
-
-                )
-
-        )
-
-    [12] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => ¡Hola! ¿Cómo estás?
-                        )
-
-                )
-
-        )
-
-    [13] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Me llamo gerardo
-                        )
-
-                )
-
-        )
-
-    [14] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => ¡Hola, Gerardo! Es un gusto conocerte. ¿Hay algo en lo que pueda ayudarte hoy?
-                        )
-
-                )
-
-        )
-
-    [15] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [16] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [17] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [18] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [19] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [20] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [21] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [22] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [23] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [24] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [25] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Lo siento, Gerardo, pero como soy una inteligencia artificial, no tengo la capacidad de ver o acceder a documentos adjuntos en tu ordenador o en este chat. Mi interacción es puramente textual.
-
-Para que pueda ayudarte, por favor, **copia y pega el contenido del documento directamente aquí en nuestra conversación**, o descríbeme detalladamente la información que contiene.
-
-Una vez que me proporciones el texto o la información, estaré encantado de analizarlo y responder a tu solicitud.
-                        )
-
-                )
-
-        )
-
-    [26] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => 
-                        )
-
-                )
-
-        )
-
-    [27] => Array
-        (
-            [role] => model
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => Lo siento, Gerardo, pero como soy una inteligencia artificial, no tengo la capacidad de ver o acceder a documentos adjuntos en tu ordenador o en este chat. Mi interacción es puramente textual.
-
-Para que pueda ayudarte, por favor, **copia y pega el contenido del documento directamente aquí en nuestra conversación**, o descríbeme detalladamente la información que contiene.
-
-Una vez que me proporciones el texto o la información, estaré encantado de analizarlo y responder a tu solicitud.
-                        )
-
-                )
-
-        )
-
-    [28] => Array
-        (
-            [role] => user
-            [parts] => Array
-                (
-                    [0] => Array
-                        (
-                            [text] => ok
                         )
 
                 )
