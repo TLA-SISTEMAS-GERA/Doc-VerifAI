@@ -2,6 +2,25 @@ function init() {
 
 }
 
+function mostrarBarra() {
+    $("#barra_progreso").val(0).show();
+}
+
+function actualizarBarra(valor, texto = "") {
+    $("#barra_progreso").val(valor);
+    if (texto) {
+        $("#barra_progreso").attr("title", texto);
+    }
+}
+
+function ocultarBarra() {
+    $("#barra_progreso").val(100);
+    setTimeout(() => {
+        $("#barra_progreso").hide().val(0);
+    }, 500);
+}
+
+
 $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
@@ -11,6 +30,9 @@ $(document).ready(function() {
 });
 
 $("#btnenviar").on("click", function () {
+
+    mostrarBarra();
+    actualizarBarra(5, "Enviando mensaje...");
 
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
@@ -33,7 +55,6 @@ $("#btnenviar").on("click", function () {
     $('#btnenviar').prop("disabled", true);
     $('#btnenviar').html('<i class="fa fa-spinner fa-spin"></i> Enviando...');
 
-    
     $.ajax({
         url: "../../controller/consulta.php?op=insertdetalle",
         type: "POST",
@@ -41,6 +62,7 @@ $("#btnenviar").on("click", function () {
         contentType: false,
         processData: false,
         success: function () {
+            actualizarBarra(15, "Mensaje guardado");
 
             mostrar(cons_id); // Recarga chat del usuario
 
@@ -49,12 +71,14 @@ $("#btnenviar").on("click", function () {
                 "../../controller/consulta.php?op=obtener_historial",
                 { cons_id: cons_id },
                 function (historialRaw) {
-
+                    
                     let historial = JSON.parse(historialRaw);
                     let mensajes = historial.map(row => ({
                         role: (row.usu_id == 2 ? "model" : "user"),
                         parts: [{ text: row.det_contenido }]
                     }));
+
+                    actualizarBarra(25, "Historial cargado");
 
 
                     // 5 ENVIAR A GEMINI
@@ -70,23 +94,27 @@ $("#btnenviar").on("click", function () {
                             processData: false,
                             contentType: false,
                             success: function (uploadedURIsRaw) {
-                                
+                                actualizarBarra(55, "Archivos procesados");
+
                                 let resp = JSON.parse(uploadedURIsRaw);                               
                                 // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
                                 
                                 $.post(
+                                    //OBTENEMOS INFORMACION DE LOS OBJETOS DEL BUCKET/CONSULTA: mime-type + gsUtil
                                     "../../controller/consulta.php?op=obtener_Info_Gsutil",
                                     { cons_id: cons_id },
                                     function (contentType_GSutilRaw) {
+                                        actualizarBarra(65, "Preparando documentos para IA");
+
                                         let contentType_GSutil = JSON.parse(contentType_GSutilRaw);
-                                        //console.log("Nombres de bucket y archivo:", contentType_GSutil);
+                                        
                                         let partes = [];
-                                        //Agregar texto al prompt
+                                        //AGREGAR TEXTO ASIGNADO POR EL USUARIO AL PROMPT
                                         partes.push({
                                             text: `Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud;\n\n${prompt}`
                                         });
+                                        //SE AGREGAN LOS RECURSOS PARA QUE GEMINI LEA LOS ARCHIVOS
                                         contentType_GSutil.forEach(element => {
-                                            //console.log("Tipo Archivo: " + element.contentType + " GSUtil: " + element.gs_util);
                                             partes.push({
                                                 file_data: {
                                                     mime_type: element.contentType,
@@ -95,11 +123,15 @@ $("#btnenviar").on("click", function () {
                                             });
                                         });
                                         let mensajes = [];
+                                        //SE ADJUNTA TODO EL CONTENIDO DEL MENSAJE + ROL USER
                                         mensajes.push({
                                             role: "user",
                                             parts: partes
                                         });
                                         console.log("Partes de archivos para Gemini:", mensajes);
+                                        //SE ENVIA TODO EL CONTENIDO A VERTEX/GEMINI + ID DE LA CONSULTA
+                                        actualizarBarra(75, "Analizando Documentos...");
+
                                         enviarAGeminiYGuardar(mensajes, cons_id);
                                     })
 
@@ -113,7 +145,9 @@ $("#btnenviar").on("click", function () {
 
                     } else {
                         // No hay archivos → enviamos historial inmediatamente
+                        actualizarBarra(75, "Generando respuesta...");
                         enviarAGeminiYGuardar(mensajes, cons_id);
+
                     }
                 }
             );
@@ -124,6 +158,7 @@ $("#btnenviar").on("click", function () {
 
         }
     });
+    
 
 });
 
@@ -135,6 +170,7 @@ function enviarAGeminiYGuardar(mensajes, cons_id) {
         function (response) {
             //console.log("Gemini respondió unas cosas:", response);
 
+            actualizarBarra(100, "Finalizado");
             try {
                 var json = JSON.parse(response);
 

@@ -155,15 +155,59 @@
                                         <div class="cont-in">
                                             <p>
                                                 <?php echo $row['det_contenido'];?>
-                                            </p>	                                            
+                                            </p>
+
+                                            <br>
+                                            
+                                            <!-- LISTAR NOMBRES DE LOS DOCUMENTOS ADJUNTOS -->
+                                            <?php
+                                    
+                                                $datos_det = $documento -> get_documento_detalle_x_det($row["det_id"]);
+                                                
+                                                if(is_array($datos_det) == true and count($datos_det) > 0){
+                                                    ?>
+                                                        <p><strong>Documentos adjuntos</strong></p>
+                                                        <p>
+                                                            <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                                                                <!-- ENCABEZADO DE LA TABLA -->
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width: 60%;">Nombre</th>
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <tbody>    
+                                                                    <?php
+                                                                        foreach($datos_det as $row_det){
+                                                                        
+                                                                            ?>     
+                                                                                <td>
+                                                                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                                                    <?php echo $row_det["doc_nom"];?>
+                                                                                
+                                                                                </td>
+                                                                            <?php
+                                                                        }
+                                                                    ?>
+                                                                    
+                                                                </tbody>
+                                                            </table>
+                                                        </p>
+                                                    <?php
+                                                }
+                                            ?>
+                                            
                                         </div>
                                     </div>
                                 </section><!--.activity-line-action-->                                
                                 </div>
                             </article>
-                        <?php
+                            <?php
                     }
-                ?>
+                    ?>
+
+                    <progress id="barra_progreso" class="progress progress-success" value="0" max="100"></progress>
             <?php
         break;
 

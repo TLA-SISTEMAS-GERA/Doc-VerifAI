@@ -37,7 +37,7 @@
 
 					<div class="col-lg-12">
 						<fieldset class="form-group">
-								<label class="form-label semibold" for="fileElem">Adjuntar Pedimento</label>
+								<label class="form-label semibold" for="fileElem">Adjuntar Documentos</label>
 								<input type="file" name="fileElem" id="fileElem" class="form-control" multiple>
 						</fieldset>
 						
