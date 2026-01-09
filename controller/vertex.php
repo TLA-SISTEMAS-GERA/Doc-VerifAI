@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__DIR__,1) . "/vendor/autoload.php";
 require_once dirname(__DIR__,1) . "/config/config.php";
+require_once dirname(__DIR__,1) . "/models/Prompt.php";
     
 use Dotenv\Dotenv;
 use Google\Auth\ApplicationDefaultCredentials;
@@ -16,7 +17,6 @@ class VertexAI {
     public function generarRespuestaVertex($mensajes) {
         try {
             // 1. Configurar autenticación
-            //echo  "[Vertex AI] Iniciando solicitud a Vertex AI...";
             $auth = ApplicationDefaultCredentials::getCredentials('https://www.googleapis.com/auth/cloud-platform');
             $token = $auth->fetchAuthToken();
             $accessToken = $token['access_token'];
@@ -24,12 +24,29 @@ class VertexAI {
             $PROJECTID = $_ENV['PROJECT_ID'];
             $LOCATION = $_ENV['LOCATION'];
 
+            //2. Obtener el prompt desde el archivo
+            $promptObj = new PromptVertex();
+            $prompt = $promptObj->obtenerPromptVertexAI();
+
+            // 3. Configurar la solicitud
             $url = "https://{$LOCATION}-aiplatform.googleapis.com/v1/projects/{$PROJECTID}/locations/{$LOCATION}/publishers/google/models/gemini-2.5-flash:generateContent";
             $data = [
-                "contents" => $mensajes
+                "contents" => $mensajes,
+                "systemInstruction" => [
+                    "role" => "system",
+                    "parts" => [
+                        [
+                            "text" => $prompt
+                        ]
+                    ]
+                ],
+                "generationConfig" => [
+                    "temperature" => 0.1,
+                    "topP" => 0.8,
+                    "topK" => 40
+                ]
             ];
-            //echo "Informacion que contiene el mensaje: " . json_encode($data);
-            // 3. Realizar la solicitud
+            // 4. Realizar la solicitud
             $ch = curl_init($url);
 
             curl_setopt_array($ch, [
