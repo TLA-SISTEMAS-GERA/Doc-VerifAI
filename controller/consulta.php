@@ -179,9 +179,7 @@
                                             
                                             <!-- LISTAR NOMBRES DE LOS DOCUMENTOS ADJUNTOS -->
                                             <?php
-                                    
                                                 $datos_det = $documento -> get_documento_detalle_x_det($row["det_id"]);
-                                                
                                                 if(is_array($datos_det) == true and count($datos_det) > 0){
                                                     ?>
                                                         <p><strong>Documentos adjuntos</strong></p>
@@ -190,7 +188,7 @@
                                                                 <!-- ENCABEZADO DE LA TABLA -->
                                                                 <thead>
                                                                     <tr>
-                                                                        <th style="width: 60%;">Nombre</th>
+                                                                        <th style="width: 40%;">Nombre</th>
                                                                         
                                                                     </tr>
                                                                 </thead>
@@ -199,15 +197,17 @@
                                                                     <?php
                                                                         foreach($datos_det as $row_det){
                                                                         
-                                                                            ?>     
+                                                                            ?>    
+                                                                            <tr>
                                                                                 <td>
                                                                                     <i class="fa fa-paperclip" aria-hidden="true"></i>
                                                                                     <?php echo $row_det["doc_nom"];?>
                                                                                 
                                                                                 </td>
+                                                                            </tr> 
                                                                             <?php
                                                                         }
-                                                                    ?>
+                                                                        ?>
                                                                     
                                                                 </tbody>
                                                             </table>
