@@ -21,12 +21,75 @@ function ocultarBarra() {
 }
 
 
+
 $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
     //console.log(cons_id);
     
     mostrar(cons_id);
+});
+
+$("#btncargar").on("click", function () {
+    const params = new URLSearchParams(window.location.search);
+    const cons_id = params.get("ID");
+    var usu_id = $('#user_idx').val();
+    var prompt = $('#prompt').val();
+
+    var formData = new FormData();
+
+    formData.append('cons_id', cons_id);
+    formData.append('usu_id', usu_id);
+    formData.append('det_contenido', prompt);
+
+    let files = $("#fileElem")[0].files;
+    for (let i = 0; i < files.length; i++) {
+        console.log("Archivos encontrados"+files[i].name);
+        formData.append("files[]", files[i]);
+    }
+
+    $.ajax({
+        //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
+        url: "../../controller/consulta.php?op=insertdetalle",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function () {
+            mostrar(cons_id);
+
+            //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
+            if (files.length > 0) {
+                let uploadData = new FormData();
+                //OBTENGO EL ID DE LA CONSULTA
+                uploadData.append("cons_id", cons_id);
+                for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
+        
+                $.ajax({
+                    url: "../../controller/consulta.php?op=subir_archivos_cloud",
+                    type: "POST",
+                    data: uploadData,
+                    processData: false,
+                    contentType: false,
+                    success: function (uploadedURIsRaw) {
+                        //actualizarBarra(55, "Archivos procesados");
+        
+                        let resp = JSON.parse(uploadedURIsRaw);                               
+                        // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
+        
+                    },
+                    error: function(err){
+                        console.error("Error subiendo archivos:", err);
+                        // aún así intentamos enviar historial sin archivos
+                        //enviarAGeminiYGuardar(mensajes, cons_id);
+                    }
+                });
+        
+            }
+
+        }
+    });
+
 });
 
 $("#btnenviar").on("click", function () {
@@ -78,82 +141,84 @@ $("#btnenviar").on("click", function () {
                         parts: [{ text: row.det_contenido }]
                     }));
 
-                    actualizarBarra(25, "Historial cargado");
+                    actualizarBarra(25, "Historial cagado");
 
 
+                    $.post(
+                        //OBTENEMOS INFORMACION DE LOS OBJETOS DEL BUCKET/CONSULTA: mime-type + gsUtil
+                        "../../controller/consulta.php?op=obtener_Info_Gsutil",
+                        { cons_id: cons_id },
+                        function (contentType_GSutilRaw) {
+                            actualizarBarra(65, "Preparando documentos para IA");
+
+                            let contentType_GSutil = JSON.parse(contentType_GSutilRaw);
+                            
+                            let partes = [];
+                            //AGREGAR TEXTO ASIGNADO POR EL USUARIO AL PROMPT
+                            partes.push({
+                                text: `Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud;\n\n${prompt}`
+                            });
+                            //SE AGREGAN LOS RECURSOS PARA QUE GEMINI LEA LOS ARCHIVOS
+                            contentType_GSutil.forEach(element => {
+                                partes.push({
+                                    file_data: {
+                                        mime_type: element.contentType,
+                                        file_uri: element.gs_util
+                                    }
+                                });
+                            });
+                            let mensajes = [];
+                            //SE ADJUNTA TODO EL CONTENIDO DEL MENSAJE + ROL USER
+                            mensajes.push({
+                                role: "user",
+                                parts: partes
+                            });
+                            console.log("Partes de archivos para Gemini:", mensajes);
+                            //SE ENVIA TODO EL CONTENIDO A VERTEX/GEMINI + ID DE LA CONSULTA
+                            actualizarBarra(75, "Analizando Documentos...");
+
+                            enviarAGeminiYGuardar(mensajes, cons_id);
+                        }
+                        
+                    );
                     // 5 ENVIAR A GEMINI
-                    if (files.length > 0) {
-                        let uploadData = new FormData();
-                        uploadData.append("cons_id", cons_id);
-                        for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
+                    // if (files.length > 0) {
+                    //     let uploadData = new FormData();
+                    //     uploadData.append("cons_id", cons_id);
+                    //     for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
 
-                        $.ajax({
-                            url: "../../controller/consulta.php?op=subir_archivos_cloud",
-                            type: "POST",
-                            data: uploadData,
-                            processData: false,
-                            contentType: false,
-                            success: function (uploadedURIsRaw) {
-                                actualizarBarra(55, "Archivos procesados");
+                    //     $.ajax({
+                    //         url: "../../controller/consulta.php?op=subir_archivos_cloud",
+                    //         type: "POST",
+                    //         data: uploadData,
+                    //         processData: false,
+                    //         contentType: false,
+                    //         success: function (uploadedURIsRaw) {
+                    //             actualizarBarra(55, "Archivos procesados");
 
-                                let resp = JSON.parse(uploadedURIsRaw);                               
-                                // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
+                    //             let resp = JSON.parse(uploadedURIsRaw);                               
+                    //             // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
                                 
-                                $.post(
-                                    //OBTENEMOS INFORMACION DE LOS OBJETOS DEL BUCKET/CONSULTA: mime-type + gsUtil
-                                    "../../controller/consulta.php?op=obtener_Info_Gsutil",
-                                    { cons_id: cons_id },
-                                    function (contentType_GSutilRaw) {
-                                        actualizarBarra(65, "Preparando documentos para IA");
 
-                                        let contentType_GSutil = JSON.parse(contentType_GSutilRaw);
-                                        
-                                        let partes = [];
-                                        //AGREGAR TEXTO ASIGNADO POR EL USUARIO AL PROMPT
-                                        partes.push({
-                                            text: `Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud;\n\n${prompt}`
-                                        });
-                                        //SE AGREGAN LOS RECURSOS PARA QUE GEMINI LEA LOS ARCHIVOS
-                                        contentType_GSutil.forEach(element => {
-                                            partes.push({
-                                                file_data: {
-                                                    mime_type: element.contentType,
-                                                    file_uri: element.gs_util
-                                                }
-                                            });
-                                        });
-                                        let mensajes = [];
-                                        //SE ADJUNTA TODO EL CONTENIDO DEL MENSAJE + ROL USER
-                                        mensajes.push({
-                                            role: "user",
-                                            parts: partes
-                                        });
-                                        console.log("Partes de archivos para Gemini:", mensajes);
-                                        //SE ENVIA TODO EL CONTENIDO A VERTEX/GEMINI + ID DE LA CONSULTA
-                                        actualizarBarra(75, "Analizando Documentos...");
+                    //         },
+                    //         error: function(err){
+                    //             console.error("Error subiendo archivos:", err);
+                    //             // aún así intentamos enviar historial sin archivos
+                    //             //enviarAGeminiYGuardar(mensajes, cons_id);
+                    //         }
+                    //     });
 
-                                        enviarAGeminiYGuardar(mensajes, cons_id);
-                                    })
+                    // } else {
+                    //     // No hay archivos → enviamos historial inmediatamente
+                    //     actualizarBarra(75, "Generando respuesta...");
+                    //     enviarAGeminiYGuardar(mensajes, cons_id);
 
-                            },
-                            error: function(err){
-                                console.error("Error subiendo archivos:", err);
-                                // aún así intentamos enviar historial sin archivos
-                                //enviarAGeminiYGuardar(mensajes, cons_id);
-                            }
-                        });
-
-                    } else {
-                        // No hay archivos → enviamos historial inmediatamente
-                        actualizarBarra(75, "Generando respuesta...");
-                        enviarAGeminiYGuardar(mensajes, cons_id);
-
-                    }
+                    // }
                 }
             );
 
             $('#btnenviar').prop("disabled", false);
-            $('#btnenviar').html('Enviar');
+            $('#btnenviar').html('Enviar y Procesar');
             $('#prompt').val('');
 
         }

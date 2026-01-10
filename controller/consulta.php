@@ -99,18 +99,8 @@
 
                     if(isset($_FILES['files']) && !empty($_FILES['files']['name'][0])) {
                         $countfiles = count($_FILES['files']['name']);
-                        // La carpeta usa el ID de cada consulta
-                        // Ahi se almacenan los documentos que se cargan a la consulta
-                        $ruta = "../public/document_detalle/" . $output["cons_id"] . "/";
-
-                        echo $ruta;
-                        if (!file_exists($ruta)) {
-                            mkdir($ruta, 0777, true);
-                        }
 
                         for ($index = 0; $index < $countfiles; $index++) {
-                            $doc1 = $_FILES['files']['tmp_name'][$index];
-                            $destino = $ruta . $_FILES['files']['name'][$index];
 
                             $documento->insert_documento_detalle(
                                 $output["det_id"],
@@ -123,6 +113,34 @@
                 }
             }
             echo json_encode($datos);
+        break;
+
+        // case "insertdetalle":
+        //     $datos = $consulta -> insert_detalle($_POST["cons_id"], $_POST["usu_id"], $_POST["det_contenido"]);
+            
+        //     $output["det_id"] = $datos["det_id"];
+        //     $output["cons_id"] = $datos["cons_id"];
+
+        //     if(isset($_FILES['files']) && !empty($_FILES['files']['name'][0])) {
+        //         $countfiles = count($_FILES['files']['name']);
+        //         // La carpeta usa el ID de cada consulta
+        //         // Ahi se almacenan los documentos que se cargan a la consulta
+            
+        //         for ($index = 0; $index < $countfiles; $index++) {
+
+        //             $documento->insert_documento_detalle(
+        //                 $output["det_id"],
+        //                 $_FILES['files']['name'][$index]
+        //             );
+
+                    
+        //         }
+        //     }
+        //     echo json_encode($datos);
+        // break;
+
+        case "insertarDocumentosDet":
+            
         break;
 
         case "listardetalle":
@@ -216,12 +234,29 @@
             echo json_encode($datos);
         break;
 
+        // case "subir_archivos_cloud":
+        //     require_once "../models/CloudStorage.php";
+        //     require_once "../vendor/autoload.php";
+        //     $cloud = new CloudStorage();
+        //     $archivos = $cloud -> subirArchivos($_POST["cons_id"], $_FILES["files"]);         
+        //     $resultado = [];
+        //     file_put_contents(
+        //         __DIR__ . "/debug_files_api.json",
+        //         json_encode($resultado, JSON_PRETTY_PRINT)
+        //     );            
+        //     error_log("RESPUESTA FINAL:");
+        //     error_log(json_encode($resultado));
+        //     echo json_encode($resultado);
+        // break;
+
         case "subir_archivos_cloud":
             require_once "../models/CloudStorage.php";
             require_once "../vendor/autoload.php";
             $cloud = new CloudStorage();
+
             $archivos = $cloud -> subirArchivos($_POST["cons_id"], $_FILES["files"]);         
             $resultado = [];
+
             file_put_contents(
                 __DIR__ . "/debug_files_api.json",
                 json_encode($resultado, JSON_PRETTY_PRINT)
