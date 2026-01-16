@@ -49,7 +49,8 @@
 					<input type="hidden" id="user_idx" value="<?php echo $_SESSION["usu_id"] ?>"><!-- ID del Usuario-->
 
 					<div class="dropdown dropdown-typical">	
-							<i class="fa fa-user" aria-hidden="true"></i>
+							<!-- <i class="fa fa-user" aria-hidden="true"></i> -->
+							👤
 							<span class="lblcontactonomx"><?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"];?></span>	
 					</div> <!--AQUI ME QUEDE -->      
 	                    </div><!--.site-header-collapsed-in-->

@@ -33,19 +33,26 @@
             return $resultado = $sql->fetchAll();
         }
 
-        // public function cargar_documento($det_id,$doc_nom, $cons_id) {
-        //     $conectar= parent::conexion();
-        //     $sql ="INSERT INTO td_documento_detalle (docd_id,det_id,doc_nom,est) VALUES (null,?,?,1);";
-        //     $sql = $conectar->prepare($sql);
-        //     $sql->bindParam(1,$doc_nom);
-        //     $sql->execute();
+        public function obtener_documento_det($docd_id) {
+            $conectar= parent::conexion();
+            $sql ="SELECT * 
+                   FROM td_documento_detalle
+                   WHERE docd_id= ?;";
+            $sql = $conectar->prepare($sql);
+            $sql->bindParam(1,$docd_id);
+            $sql->execute();
+            return $resultado = $sql->fetchAll();
+        }
 
-        //     $sql1 = "SELECT LAST_INSERT_ID() AS det_id, ? AS cons_id;";
-        //     $sql1=$conectar->prepare($sql1);
-        //     $sql1->bindValue(1,$cons_id);
-        //     $sql1->execute();
-        //     return $resultado = $sql1->fetchAll();
-        // }
+        public function delete_documento($docd_id) {
+            $conectar= parent::conexion();
+            $sql ="DELETE 
+                   FROM td_documento_detalle 
+                   WHERE docd_id = ?;";
+            $sql = $conectar->prepare($sql);
+            $sql->bindParam(1,$docd_id);
+            $sql->execute();
+        }
     }
 
 

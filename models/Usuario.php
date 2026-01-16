@@ -34,6 +34,7 @@
                         $_SESSION[ "usu_id" ] = $resultado[ "usu_id" ];
                         $_SESSION[ "usu_nom" ] = $resultado[ "usu_nom" ];
                         $_SESSION[ "usu_ape" ] = $resultado[ "usu_ape" ];
+                        $_SESSION[ "rol_id" ] = $resultado[ "rol_id" ];
                         // SE DIRECCIONA A LA RUTA view/Home
                         header("Location:".Conectar::ruta() . "view/Home/");
                     } else {

@@ -24,7 +24,11 @@
     <?php require_once("../MainNav/nav.php"); ?>
 
 	<div class="page-content">
-		<h2>Mis Consultas</h2>
+        
+		<h2>
+            🧾      
+            Mis Consultas
+        </h2>
 		<div class="box-typical box-typical-padding">
             
         <div class="box-typical box-typical-padding" id="table">

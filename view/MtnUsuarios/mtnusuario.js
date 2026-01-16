@@ -1,15 +1,11 @@
 var tabla;
-var usu_id = $('#user_idx').val();
 
-function init(){
-    $("#ticket_form").on("submit",function(e){
-        //guardar(e);
-    });
+function init() {
+
 }
 
-$(document).ready(function() {
-    $('#viewuser').hide();
-    tabla=$('#cons_data').dataTable({ 
+$(document).ready(function(){ 
+    tabla=$('#usuario_data').dataTable({
         "aProcessing": true,
         "aServerSide": true,
         dom: 'Bfrtip',
@@ -23,15 +19,13 @@ $(document).ready(function() {
                 'pdfHtml5'
                 ],
         "ajax":{
-            url: '../../controller/consulta.php?op=listar_consultas',
+            url: '../../controller/usuario.php?op=listar',
             type : "post",
-            dataType : "json",	
-            data:{ usu_id : usu_id },						
+            dataType : "json",							
             error: function(e){
                 console.log(e.responseText);	
             }
         },
-        "ordering": false,
         "bDestroy": true,
         "responsive": true,
         "bInfo":true,
@@ -40,10 +34,10 @@ $(document).ready(function() {
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron consultas",
-            "sEmptyTable":     "Ninguna consulta disponible en esta tabla",
-            "sInfo":           "Mostrando un total de _TOTAL_ consultas",
-            "sInfoEmpty":      "Mostrando un total de 0 consultas",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando un total de 0 registros",
             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
             "sInfoPostFix":    "",
             "sSearch":         "Buscar:",
@@ -62,17 +56,4 @@ $(document).ready(function() {
             }
         }     
     }).DataTable(); 
-});
-
-$(document).on("click",".btn-inline","url-inline", function(){
-    const realId = $(this).data("real-id");
-
-    const ciphertext = $(this).attr("id");
-
-    console.log(ciphertext);
-    //DATO TEMPORAL (MIENTRAS EL USUARIO ENTRE A LA CONSULTA, EL VALOR EXISTIRÁ)
-    sessionStorage.setItem("id_real", realId); 
-    
-    window.open('http://localhost:80/Doc-VerifAI/view/DetalleConsulta/?ID='+ciphertext+'');
-    
 });

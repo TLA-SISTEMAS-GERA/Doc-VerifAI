@@ -33,6 +33,10 @@ $(document).ready(function() {
 $("#btncargar").on("click", function () {
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
+    const decoded_id =  decodeURIComponent(cons_id);
+    const encodedCiphertext = encodeURIComponent(cons_id);
+    const id = decoded_id.replace(/\s/g, '+'); 
+
     var usu_id = $('#user_idx').val();
     var prompt = $('#prompt').val();
 
@@ -47,6 +51,7 @@ $("#btncargar").on("click", function () {
         console.log("Archivos encontrados"+files[i].name);
         formData.append("files[]", files[i]);
     }
+    console.log(id);
 
     $.ajax({
         //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
@@ -74,7 +79,7 @@ $("#btncargar").on("click", function () {
                     success: function (uploadedURIsRaw) {
                         //actualizarBarra(55, "Archivos procesados");
         
-                        let resp = JSON.parse(uploadedURIsRaw);                               
+                        //let resp = JSON.parse(uploadedURIsRaw);                               
                         // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
         
                     },
@@ -149,6 +154,7 @@ $("#btnenviar").on("click", function () {
                         "../../controller/consulta.php?op=obtener_Info_Gsutil",
                         { cons_id: cons_id },
                         function (contentType_GSutilRaw) {
+                            if (contentType_GSutilRaw.length > 0){}
                             actualizarBarra(65, "Preparando documentos para IA");
 
                             let contentType_GSutil = JSON.parse(contentType_GSutilRaw);
@@ -227,9 +233,76 @@ $("#btnenviar").on("click", function () {
 
 });
 
+//ESCUCHO EL CLIC DE UN BOTON CREADO DINAMICAMENTE
+$(document).on("click", ".btnEliminarDoc", function () {
+    const params = new URLSearchParams(window.location.search);
+    const cons_id = params.get("ID");
+    let docd_id = $(this).data("docid");
+
+    let uploadData = new FormData();
+    uploadData.append('cons_id', cons_id);
+    uploadData.append('docd_id', docd_id);
+
+    swal(
+        {
+            title: "¿Eliminar Documento?",
+            text: "Se eliminará este documento de la consulta",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-warning",
+            confirmButtonText: "Si",    
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                swal.close();
+                console.log("Doc ID:", docd_id);
+
+                $.ajax({
+                    url: "../../controller/consulta.php?op=eliminar_archivo_bucket",
+                    type: "POST",
+                    data: uploadData,
+                    processData: false,
+                    contentType: false,
+                    success: function (uploadedURIsRaw) {
+                        //actualizarBarra(55, "Archivos procesados");
+        
+                        //let resp = JSON.parse(uploadedURIsRaw);                               
+                        // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
+        
+                        $.ajax({
+                            url:"../../controller/documento.php?op=delete_documento",
+                            type: "POST",
+                            data: {docd_id: docd_id},
+                            success: function(datos){
+                                console.log(datos);
+        
+                                refrescar_detalle(cons_id);
+                                
+                                $.unblockUI();
+        
+                            },
+                        });
+                    },
+                    error: function(err){
+                        console.error("Error subiendo archivos:", err);
+                        // aún así intentamos enviar historial sin archivos
+                        //enviarAGeminiYGuardar(mensajes, cons_id);
+                    }
+                });
+
+                
+            }
+        }
+    );
+
+
+});
+
 //Funcion que envia a Gemini y guarda la respuesta
 function enviarAGeminiYGuardar(mensajes, cons_id) {
-
+    
     $.post("../../controller/consulta.php?op=ai_prompt",
         { mensajes: JSON.stringify(mensajes) },
         function (response) {
@@ -284,10 +357,9 @@ function mostrar(id) {
     $.post("../../controller/consulta.php?op=listardetalle", {cons_id: id}, function (data){
         //console.log("Respuesta del detalle:", data);
         $('#lbldetalle').html(data);
-
+        
         // Ahora buscamos todos los mensajes del contenido
         $('#lbldetalle p').each(function () {
-
             
             let raw = $(this).text().trim(); // Obtener texto plano del mensaje
             let html = marked.parse(raw);    // Convertir Markdown → HTML
@@ -299,9 +371,34 @@ function mostrar(id) {
     });
 
     $.post("../../controller/consulta.php?op=mostrar", {cons_id: id}, function (data) {
-        data = JSON.parse(data);
+        //console.log(data.cons_nom);
+        data = JSON.parse(data); 
 
-        console.log(data);
+        $('#lblnomconsulta').html("Consulta: " + data.cons_nom);
+    });
+}
+
+function refrescar_detalle(id) {
+
+    $.post("../../controller/consulta.php?op=listardetalle", {cons_id: id}, function (data){
+        //console.log("Respuesta del detalle:", data);
+        $('#lbldetalle').html(data);
+        
+        // Ahora buscamos todos los mensajes del contenido
+        $('#lbldetalle p').each(function () {
+            
+            let raw = $(this).text().trim(); // Obtener texto plano del mensaje
+            let html = marked.parse(raw);    // Convertir Markdown → HTML
+            let cleanHtml = DOMPurify.sanitize(html); // Seguridad
+            
+            $(this).html(cleanHtml); // Reemplazar texto por HTML renderizado
+        });
+        
+    });
+
+    $.post("../../controller/consulta.php?op=mostrar", {cons_id: id}, function (data) {
+        //console.log(data.cons_nom);
+        data = JSON.parse(data); //line
 
         $('#lblnomconsulta').html("Consulta: " + data.cons_nom);
     });
@@ -313,5 +410,7 @@ function scrollToBottom() {
         behavior: 'smooth'
     });
 }
+
+
 
 init();

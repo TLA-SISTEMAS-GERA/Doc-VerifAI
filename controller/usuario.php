@@ -1,24 +1,17 @@
 <?php
-    require_once dirname(__DIR__ ,1) . '/config/conexion.php';
+    require_once("../config/conexion.php");
+    require_once("../models/Usuario.php");
     require_once dirname(__DIR__, 1) . '/config/config.php';
-    require_once dirname(__DIR__ ,1) . '/models/Documento.php';
-
-    $documento= new Documento();
-    //$consulta = new Consulta();
 
     use Dotenv\Dotenv;
     $config = App\Config::getInstance();
     $dotenv = Dotenv::createImmutable($config->getEnvPath(), '.env.' . $config->getEnvironment());
     $dotenv->load();
 
+    $usuario=new Usuario();
+
     $key = $_ENV['APP_ENCRIPT_KEY'];
     $cipher = "aes-256-cbc";
     $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
-
-    switch($_GET["op"]){
-        case "delete_documento":
-            $documento -> delete_documento($_POST["docd_id"]);
-        break;
-    }
 
 ?>

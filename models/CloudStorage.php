@@ -40,9 +40,7 @@ class CloudStorage {
         return $bucketName;
     }
 
-    /**
-     * Sube archivos a un bucket único basado en su nombre
-     */
+    //SUBIR ARCHIVO/S A UN BUCKET BASADO EN SU NOMBRE
     public function subirArchivos($cons_id, $files) {
         $PROJECT_ID = $_ENV['PROJECT_ID'];
         $storage = new StorageClient([
@@ -85,8 +83,7 @@ class CloudStorage {
             $bucket->upload(
                 fopen($tmpFile, 'r'),
                 ['name' => $objectName]
-            );
-
+            ); 
             // Regresar info para Gemini 
             $resultados[] = [
                 "bucket" => $bucket,
@@ -97,6 +94,46 @@ class CloudStorage {
         return $resultados;
     }
 
+    public function eliminarArchivo($cons_id, $docd_id){
+        $PROJECT_ID = $_ENV['PROJECT_ID'];
+        $storage = new StorageClient([
+            'projectId' => $PROJECT_ID
+        ]);
+
+        //CONSULTO EL NOMBRE DEL BUCKET DESDE LA CONSULTA
+        $consulta = new Consulta();
+        $data = $consulta->obtenerBucketPorConsulta($cons_id);
+
+        if (!$data || !isset($data[0]['nom_bucket'])) {
+            throw new \Exception("No se encontró bucket para la consulta $cons_id");
+        }
+        //GUARDO EL NOMBRE DEL BUCKET
+        $nom_bucket = $data[0]['nom_bucket'];
+
+        $documento = new Documento();
+        $data_doc = $documento->obtener_documento_det($docd_id);   
+
+        $objectName = $data_doc[0]['doc_nom'];
+        //OBTENER BUCKET
+        $bucket = $storage->bucket($nom_bucket);
+        //OBTENER OBJETO
+        $object = $bucket->object($objectName);
+
+        if (!$object->exists()) {
+            throw new \Exception("El archivo no existe en el bucket");
+        }
+
+        $object->delete();
+
+        return [
+            "status" => "ok",
+            "bucket" => $nom_bucket,
+            "object" => $objectName
+        ];
+    }
+
+
+    //OBTENER CONTENTTYPE (TIPO DE ARCHIVO) / GSUTIL
     public function obtenerContentTypeyGsutil($cons_id) {
         $PROJECT_ID = $_ENV['PROJECT_ID'];
         $storage = new StorageClient([

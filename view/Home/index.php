@@ -24,7 +24,10 @@
     <?php require_once("../MainNav/nav.php"); ?>
 
 	<div class="page-content">
-		<h2>Inicio</h2>
+		<h2>
+			🏠
+			Inicio
+		</h2>
 		<div class="box-typical box-typical-padding">
 			
 				<h5 class="m-t-lg with-border">Crea una consulta nueva</h5>
@@ -45,7 +48,8 @@
 							
 						<div class="col-lg-12">
 							<button type="submit" id="btnguardar"name="action" value="add" class="btn btn-rounded btn-inline btn_primary">
-							<i class="fa fa-floppy-o" aria-hidden="true"></i>	
+							<!-- <i class="fa fa-floppy-o" aria-hidden="true"></i>	 -->
+							💾
 							Guardar y Crear</button>
 						</div>
 					</form>
