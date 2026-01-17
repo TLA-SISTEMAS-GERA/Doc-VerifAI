@@ -40,7 +40,7 @@
 			</nav><!--.side-menu-->
 
 <?php 
-	} else if ($_SESSION["rol_id"] == 2) {
+	} else if ($_SESSION["rol_id"] == 2) { // SESION DE ADMINISTRADOR
 		?>
 			<nav class="side-menu">
 				<ul class="side-menu-list">

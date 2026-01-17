@@ -69,8 +69,8 @@
 </html>
 <?php
 	}else{
-		header("Location:"."http://localhost:80/Doc_VerifAI/"."index.php");
-		//header("Location:"."https://support-tracking.tecnologisticaaduanal.com/"."index.php");
+		//header("Location:"."http://localhost:80/Doc_VerifAI/"."index.php");
+		header("Location:"."https://support-tracking.tecnologisticaaduanal.com/"."index.php");
 	}
 
 ?>
