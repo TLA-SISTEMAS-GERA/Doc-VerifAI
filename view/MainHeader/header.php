@@ -2,8 +2,8 @@
 	    <div class="container-fluid">
 	
 	        <a href="#" class="site-logo">
-	            <img class="hidden-md-down" src="img/logo-2.png" alt="">
-	            <img class="hidden-lg-up" src="img/logo-2-mob.png" alt="">
+	            <img class="hidden-md-down" src="../../public/img/DOCVERIFAI_ICON.jpg" alt="">
+	            <img class="hidden-lg-up" src="../../public/img/DOCVERIFAI_ICON_RED.jpg" alt="">
 	        </a>
 	
 	        <button id="show-hide-sidebar-toggle" class="show-hide-sidebar">
