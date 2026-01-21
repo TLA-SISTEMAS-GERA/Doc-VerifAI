@@ -2,27 +2,21 @@
 <script src="../../public/js/lib/tether/tether.min.js"></script>
 <script src="../../public/js/lib/bootstrap/bootstrap.min.js"></script>
 <script src="../../public/js/plugins.js"></script>
-<script src="/public/js/app.js"></script>
-
-<!-- <script src="../../public/js/lib/datatables-net/datatables.min.js"></script>
-
-<script src="../../public/js/lib/summernote/summernote.min.js"></script>
-<script src="../../public/js/lib/fancybox/jquery.fancybox.pack.js"></script>
-
-<script src="../../public/js/lib/bootstrap-sweetalert/sweetalert.min.js"></script> -->
+<script src="../../public/js/app.js"></script>
 
 <script src="../../public/js/lib/datatables-net/datatables.min.js"></script>
 
-	<script src="../../public/js/lib/bootstrap-sweetalert/sweetalert.min.js"></script>
+<script src="../../public/js/lib/bootstrap-sweetalert/sweetalert.min.js"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script src="../../public/js/lib/summernote/summernote.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script> -->
 
-	<script src="../../public/js/lib/fancybox/jquery.fancybox.pack.js"></script>
+<script src="../../public/js/lib/fancybox/jquery.fancybox.pack.js"></script>
 
-	<script src="../../public/js/summernote-ES.js"></script>
+<script src="../../public/js/summernote-ES.js"></script>
 
-	<script src="../../public/js/lib/select2/select2.full.min.js"></script>
-	
-	<script src="../../public/js/lib/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="../../public/js/lib/select2/select2.full.min.js"></script>
 
-	<script type="text/javascript" src="../../public/js/lib/blockUI/jquery.blockUI.js"></script>
+<script src="../../public/js/lib/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<script type="text/javascript" src="../../public/js/lib/blockUI/jquery.blockUI.js"></script>

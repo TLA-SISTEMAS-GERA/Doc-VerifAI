@@ -2,7 +2,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
+	<link rel="shortcut icon" href="../../public/img/DOCVERIFAI_ICON.png" type="image/x-icon">
+
 	<link href="img/favicon.144x144.png" rel="apple-touch-icon" type="image/png" sizes="144x144">
 	<link href="img/favicon.114x114.png" rel="apple-touch-icon" type="image/png" sizes="114x114">
 	<link href="img/favicon.72x72.png" rel="apple-touch-icon" type="image/png" sizes="72x72">
@@ -16,8 +18,7 @@
 	<link rel="stylesheet" href="../../public/css/separate/vendor/fancybox.min.css">
 	<link rel="stylesheet" href="../../public/css/separate/pages/activity.min.css">
 
-	<link rel="stylesheet" href="../../public/css/lib/summernote/summernote.css"/>
-	<link rel="stylesheet" href="../../public/css/separate/pages/editor.min.css">
+	
 
 	<link rel="stylesheet" href="../../public/css/lib/datatables-net/datatables.min.css">
 	<link rel="stylesheet" href="../../public/css/separate/vendor/datatables-net.min.css">
@@ -34,7 +35,7 @@
 	<link rel="stylesheet" href="../../public/css/separate/vendor/fancybox.min.css">
 	<link rel="stylesheet" href="../../public/css/separate/pages/activity.min.css">
 	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"/>
+	<link rel="stylesheet" href="../../public/css/lib/summernote/summernote.css"/>
 	<link rel="stylesheet" href="../../public/css/separate/pages/editor.min.css">
 	
 	<link rel="stylesheet" href="../../public/css/lib/bootstrap-sweetalert/sweetalert.css">
