@@ -16,7 +16,7 @@
 						<a href="..\MisConsultas\">
 							<span>
 								<!-- <i class="fa fa-table" aria-hidden="true"></i> -->
-								🧾
+								📃
 								<span class="lbl">Mis Consultas</span>
 							</span>  
 						
@@ -57,13 +57,13 @@
 						<a href="..\MisConsultas\">
 							<span>
 								<!-- <i class="fa fa-table" aria-hidden="true"></i> -->
-								🧾
+								📃
 								<span class="lbl">Mis Consultas</span>
 							</span>  
 						
 						</a> 
 
-						<a href="..\MtnUsuarios\">
+						<a href="..\MtnUsuario\">
 							<span>
 								<!-- <i class="fa fa-table" aria-hidden="true"></i> -->
 								👥
