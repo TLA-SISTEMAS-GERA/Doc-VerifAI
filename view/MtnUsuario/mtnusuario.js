@@ -8,6 +8,8 @@ function init() {
 
 //LISTADO PRE CARGADO AL ABRIR EL DOCUMENTO HTML
 $(document).ready(function(){ 
+
+    console.log(["LISTANDO USUARIOS"]);
     //LISTADO DE TODOS LOS USUARIOS
     tabla=$('#usuario_data').dataTable({
         "aProcessing": true,
