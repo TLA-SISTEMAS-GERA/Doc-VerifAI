@@ -1,10 +1,14 @@
 var tabla;
 
 function init() {
-
+    $("#usuario_form").on("submit",function(e){
+        guardaryeditar(e);
+    });
 }
 
+//LISTADO PRE CARGADO AL ABRIR EL DOCUMENTO HTML
 $(document).ready(function(){ 
+    //LISTADO DE TODOS LOS USUARIOS
     tabla=$('#usuario_data').dataTable({
         "aProcessing": true,
         "aServerSide": true,
@@ -56,6 +60,85 @@ $(document).ready(function(){
             }
         }     
     }).DataTable(); 
+});
+
+function guardaryeditar(e) {
+    e.preventDefault();
+
+    var formData = new FormData($("#usuario_form")[0]);
+
+    $.ajax({
+        url: "../../controller/usuario.php?op=guardaryeditar",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(datos){    
+            if(datos == 1){
+                console.log("Nuevo usuario agregado"); 
+                $("#usu_id").val("");
+                $('#usuario_form')[0].reset();
+                $("#modalmantenimiento").modal('hide');
+                $('#usuario_data').DataTable().ajax.reload();
+    
+                swal({
+                    title: "TLA: Doc VerifAI",
+                    text: "Usuario Registrado correctamente.",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });    
+            }else if(datos == 2){
+                console.log("Usuario editado"); 
+                $("#usu_id").val("");
+                $('#usuario_form')[0].reset();
+                $("#modalmantenimiento").modal('hide');
+                $('#usuario_data').DataTable().ajax.reload();
+    
+                swal({
+                    title: "TLA: Doc VerifAI",
+                    text: "Usuario actualizado correctamente.",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });    
+            }else if(datos == 0){
+                $("#usu_correo").addClass("form-control-error");
+                $("<small class='text-muted text-danger'>El correo que introduciste ya existe.</small>").insertAfter("#usu_correo");
+            }
+            
+        }
+
+    });
+}
+
+function editar(usu_id){
+    $('#mdltitulo').html('Editar datos del usuario');
+
+    $("#usu_correo").removeClass("form-control-error");
+    $("#usu_correo + small").remove();
+
+    $.post("../../controller/usuario.php?op=mostrar", {usu_id: usu_id}, function (data){
+        data = JSON.parse(data);
+
+        console.log(data.usu_pass);
+        $('#usu_id').val(data.usu_id);
+        $('#usu_nom').val(data.usu_nom);
+        $('#usu_ape').val(data.usu_ape);
+        $('#usu_correo').val(data.usu_correo);
+        $('#usu_pass').val(data.usu_pass);
+        $('#rol_id').val(data.rol_id).trigger('change');
+        
+    });
+    $('#modalmantenimiento').modal('show');
+}
+
+$(document).on("click","#btnnuevo",function(){
+    $('#mdltitulo').html('Nuevo Usuario');
+    $('#usuario_form')[0].reset();
+
+    $("#usu_correo").removeClass("form-control-error");
+    $("#usu_correo + small").remove();
+
+    $('#modalmantenimiento').modal('show');
 });
 
 init();

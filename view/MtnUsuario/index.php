@@ -1,5 +1,12 @@
 <?php
 	require_once("../../config/conexion.php");
+	require_once("../../vendor/autoload.php");
+
+	use Dotenv\Dotenv;
+
+	$config = App\Config::getInstance();
+    $dotenv = Dotenv::createImmutable($config->getEnvPath(), '.env.' . $config->getEnvironment());
+    $dotenv->load();
 	if(isset($_SESSION["usu_id"])){
 		
 ?>
@@ -50,9 +57,8 @@
 						
 						</tbody>
 					</table>
-					<button id="btnnuevo" type="button" class="btn btn-inline btn-primary">
-						<i class="fa fa-user-plus" aria-hidden="true"></i>	
-						Nuevo
+					<button id="btnnuevo" type="button" class="btn btn-rounded btn-inline btn-primary-outline">
+					➕ Nuevo
 					</button>
 			</div>
 		</div><!--.container-fluid-->
@@ -69,8 +75,9 @@
 </html>
 <?php
 	}else{
-		//header("Location:"."http://localhost:80/Doc_VerifAI/"."index.php");
-		header("Location:"."http://Doc_VerifAI.tecnologisticaaduanal.com/"."index.php");
+		$URL_FRONTEND = $_ENV['URL_FRONTEND'];
+		header("Location:"."$URL_FRONTEND"."index.php"); 
+		
 	}
 
 ?>
