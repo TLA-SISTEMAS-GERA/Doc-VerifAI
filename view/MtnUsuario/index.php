@@ -66,7 +66,7 @@
 
 
 	<?php require_once("modalmantenimiento.php");?>
-	<?php require_once("../MainJS/js.php");?>
+	<?php require_once("../MainJs/js.php");?>
 	<script type="text/javascript" src="mtnusuario.js"></script>
 	
 
