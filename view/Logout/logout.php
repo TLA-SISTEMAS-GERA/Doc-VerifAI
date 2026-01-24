@@ -8,6 +8,6 @@
     $dotenv = Dotenv::createImmutable($config->getEnvPath(), '.env.' . $config->getEnvironment());
     $dotenv->load();
     session_destroy();
-    header("Location:"."http://localhost:80/TLA_Revision_Docs/"."index.php");  
-
+    //header("Location:"."http://localhost:80/TLA_Revision_Docs/"."index.php");  
+    header("Location:"."http://doc-verifai.tecnologisticaaduanal.com/"."index.php");  
 ?>

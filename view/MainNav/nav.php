@@ -16,7 +16,7 @@
 						<a href="..\MisConsultas\">
 							<span>
 								<!-- <i class="fa fa-table" aria-hidden="true"></i> -->
-								🧾
+								📃
 								<span class="lbl">Mis Consultas</span>
 							</span>  
 						
@@ -40,7 +40,7 @@
 			</nav><!--.side-menu-->
 
 <?php 
-	} else if ($_SESSION["rol_id"] == 2) {
+	} else if ($_SESSION["rol_id"] == 2) { // SESION DE ADMINISTRADOR
 		?>
 			<nav class="side-menu">
 				<ul class="side-menu-list">
@@ -57,13 +57,13 @@
 						<a href="..\MisConsultas\">
 							<span>
 								<!-- <i class="fa fa-table" aria-hidden="true"></i> -->
-								🧾
+								📃
 								<span class="lbl">Mis Consultas</span>
 							</span>  
 						
 						</a> 
 
-						<a href="..\MtnUsuarios\">
+						<a href="..\MtnUsuario\">
 							<span>
 								<!-- <i class="fa fa-table" aria-hidden="true"></i> -->
 								👥
