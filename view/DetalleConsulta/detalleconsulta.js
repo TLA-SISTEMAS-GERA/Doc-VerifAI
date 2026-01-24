@@ -75,6 +75,7 @@ $("#btncargar").on("click", function () {
 
     var usu_id = $('#user_idx').val();
     var prompt = $('#prompt').val();
+    var btnenviar = $('#btnenviar');
 
     var formData = new FormData();
 
@@ -97,7 +98,14 @@ $("#btncargar").on("click", function () {
         contentType: false,
         processData: false,
         success: function () {
+
+            //Se muestra el detalle
             mostrar(cons_id);
+
+            $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
+
+            console.log("BOTON DE PROCESAR ACTIVADO");
+            
 
             //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
             if (files.length > 0) {
@@ -114,8 +122,9 @@ $("#btncargar").on("click", function () {
                     contentType: false,
                     success: function (uploadedURIsRaw) {
                         //actualizarBarra(55, "Archivos procesados");
+                        console.log("Archivos Subidos");                          
         
-                        //let resp = JSON.parse(uploadedURIsRaw);                               
+                        let resp = JSON.parse(uploadedURIsRaw);     
                         // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
         
                     },
@@ -127,6 +136,8 @@ $("#btncargar").on("click", function () {
                 });
         
             }
+            //Se RESETEA el file Elem (bandeja de documentos)
+            $('#fileElem').val('');
 
         }
     });
@@ -169,7 +180,8 @@ $("#btnenviar").on("click", function () {
             actualizarBarra(15, "Mensaje guardado");
 
             mostrar(cons_id); // Recarga chat del usuario
-
+            $('#fileElem').val('');
+            $('#prompt').summernote('reset');
             // 2 OBTENER HISTORIAL
             $.post(
                 "../../controller/consulta.php?op=obtener_historial",
@@ -182,7 +194,7 @@ $("#btnenviar").on("click", function () {
                         parts: [{ text: row.det_contenido }]
                     }));
 
-                    actualizarBarra(25, "Historial cagado");
+                    actualizarBarra(25, "Historial cargado");
 
 
                     $.post(

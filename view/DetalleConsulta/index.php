@@ -52,15 +52,17 @@
 					</div>
 	
 					<div class="col-lg-12">
-						<button type="button" id="btncargar" class="btn btn-rounded btn-inline btn-secondary">
+						<button type="button" id="btncargar" class="btn btn-rounded btn-inline btn-success">
 							<i class="fa fa-cloud-upload" aria-hidden="true"></i>
 							Cargar Documentos
 						</button>
 	
-						<button type="button" id="btnenviar" name="action" value="add" class="btn btn-rounded btn-inline btn_primary">
-							✨
+						<button type="button" id="btnenviar" class="btn btn-rounded btn-inline" disabled="">✨
+							Enviar y Procesar</button>
+						<!-- <button type="button" id="btnenviar" name="action" value="add" class="btn btn-rounded btn-inline btn_primary">
+						✨
 							Enviar y Procesar
-						</button>
+						</button> -->
 					</div>
 						
 				</div><!--.row-->
@@ -73,7 +75,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.2/dist/purify.min.js"></script>
 	<!-- <script src="js/app.js"></script> -->
-
 	
 </body>
 </html>
