@@ -51,6 +51,37 @@
 
                 $sub_array[] = '<button type="button" data-ciphertext="'.$textoCifrado.'" data-real-id="'.$row["cons_id"].'"  id="'.$textoCifrado.'" class="btn btn-inline btn-primary btn-sm ladda-button">✏️</button>';
 
+                $sub_array[] = '<button type="button" onClick="papelera('.$row["cons_id"].');"  id="btneliminar" class="btn btn-danger btn-sm ladda-button">🗑️</button>';
+
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+        break;
+
+        case "listar_consultas_papelera":
+            $datos = $consulta->listar_consultas_papelera($_POST["usu_id"]);
+            $data = Array();
+            foreach ($datos as $row) {
+                $sub_array = array();
+
+                $sub_array[] = $row["cons_id"];
+                $sub_array[] = $row["cons_nom"];
+                $sub_array[] = date("d/m/Y H:i", strtotime($row["fech_crea"]));
+
+                //CIFRADO
+                $cifrado = openssl_encrypt($row["cons_id"], $cipher, $key,OPENSSL_RAW_DATA, $iv);
+                $textoCifrado = base64_encode($iv . $cifrado);
+
+                $sub_array[] = '<button type="button" data-ciphertext="'.$textoCifrado.'" data-real-id="'.$row["cons_id"].'"  id="'.$textoCifrado.'" class="btn btn-inline btn-primary btn-sm ladda-button">✏️</button>';
+
+                $sub_array[] = '<button type="button" onClick="eliminar('.$row["cons_id"].');"  id="btneliminar" class="btn btn-danger btn-sm ladda-button">🗑️</button>';
+
                 $data[] = $sub_array;
             }
 
@@ -77,6 +108,7 @@
                 {
                     $output["cons_id"] = $row["cons_id"];
                     $output["cons_nom"] = $row["cons_nom"];
+                    $output["est"] = $row["est"];
                 }
                 echo json_encode($output);
             }
@@ -143,14 +175,14 @@
             ?>
                 <?php
                     foreach($datos as $row){
-                            // 1️⃣ CONSULTAR DOCUMENTOS DEL DETALLE
+                            // CONSULTAR DOCUMENTOS DEL DETALLE
                             $datos_det = $documento->get_documento_detalle_x_det($row["det_id"]);
 
-                            // 2️⃣ VALIDAR SI TIENE TEXTO O DOCUMENTOS
+                            // VALIDAR SI TIENE TEXTO O DOCUMENTOS
                             $tieneTexto = trim($row['det_contenido']) !== '';
                             $tieneDocs  = is_array($datos_det) && count($datos_det) > 0;
 
-                            // 3️⃣ SI NO TIENE NADA → NO SE RENDERIZA
+                            //SI NO TIENE NADA → NO SE RENDERIZA
                             if (!$tieneTexto && !$tieneDocs) {
                                 continue;
                             }
@@ -304,6 +336,14 @@
             $cloud = new CloudStorage();
             $contentType_GSutilresult = $cloud -> obtenerContentTypeyGsutil($descifrado);
             echo json_encode($contentType_GSutilresult);
+        break;
+
+        case "delete_consulta_p":
+            $consulta -> delete_consulta_p($_POST["cons_id"]);
+        break;
+
+        case "delete_consulta":
+            $consulta -> delete_consulta($_POST["cons_id"]);
         break;
     }
 ?>
