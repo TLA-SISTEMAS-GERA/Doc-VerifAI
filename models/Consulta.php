@@ -17,7 +17,24 @@
             $conectar = parent::conexion();
             $sql="SELECT *
                   FROM tm_consulta 
-                  WHERE usu_id = ?;";
+                  WHERE usu_id = ?
+                  AND est = 1
+                  ORDER BY fech_crea
+                  DESC;";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$usu_id);
+            $sql->execute();
+            return $resultado = $sql->fetchAll();
+        }
+
+        public function listar_consultas_papelera ($usu_id) {
+            $conectar = parent::conexion();
+            $sql="SELECT *
+                  FROM tm_consulta 
+                  WHERE usu_id = ?
+                  AND est = 2
+                  ORDER BY fech_crea
+                  DESC;";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$usu_id);
             $sql->execute();
@@ -28,6 +45,30 @@
             $conectar = parent::conexion();
             $sql="SELECT *
                   FROM tm_consulta 
+                  WHERE cons_id = ?;";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$cons_id);
+            $sql->execute();
+            return $resultado = $sql->fetchAll();
+        }
+
+        public function delete_consulta_p($cons_id) {
+            $conectar = parent::conexion();
+            $sql="UPDATE
+                  tm_consulta 
+                  SET est = 2
+                  WHERE cons_id = ?;";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$cons_id);
+            $sql->execute();
+            return $resultado = $sql->fetchAll();
+        }
+
+        public function delete_consulta($cons_id) {
+            $conectar = parent::conexion();
+            $sql="UPDATE
+                  tm_consulta 
+                  SET est = 0
                   WHERE cons_id = ?;";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$cons_id);
@@ -72,7 +113,8 @@
             parent::set_names();
             $sql="SELECT * FROM tm_detalle
                   INNER JOIN tm_usuario on tm_usuario.usu_id = tm_detalle.usu_id
-                  WHERE cons_id = ?";
+                  INNER JOIN tm_consulta on tm_detalle.cons_id = tm_consulta.cons_id
+                  WHERE tm_consulta.cons_id = ?;";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $cons_id);
             $sql->execute();
@@ -94,7 +136,7 @@
 
         public function obtenerBucketPorConsulta($cons_id) {
             $conectar = parent::conexion();
-            $sql = "SELECT nom_bucket FROM tm_consulta WHERE cons_id = ?";
+            $sql = "SELECT nom_bucket FROM tm_consulta WHERE cons_id = ?;";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $cons_id);
             $sql->execute();
