@@ -328,6 +328,15 @@
             echo json_encode($resultado);
         break;
 
+        case "eliminar_bucket":
+            require_once "../models/CloudStorage.php";
+            require_once "../vendor/autoload.php";
+            $cloud = new CloudStorage();
+
+            $cloud -> eliminarBucket($_POST["cons_id"]); //linea 336
+            
+        break;
+
         case "obtener_Info_Gsutil":
             $iv_dec = substr(base64_decode($_POST["cons_id"]), 0, openssl_cipher_iv_length($cipher));
             $cifradoSinIV= substr(base64_decode($_POST["cons_id"]), openssl_cipher_iv_length($cipher));

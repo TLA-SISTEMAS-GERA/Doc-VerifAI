@@ -130,6 +130,7 @@ function papelera(cons_id){
 //Eliminar consulta
 function eliminar(cons_id){
     console.log("Funcion Eliminar");
+    //console.log(object);
     console.log(cons_id);
     swal(
         {
@@ -145,14 +146,30 @@ function eliminar(cons_id){
         },
         function(isConfirm) {
             if (isConfirm) {
-                $.post("../../controller/consulta.php?op=delete_consulta", {cons_id: cons_id}, function (data){
+                
+                $.ajax({
+                    url: "../../controller/consulta.php?op=eliminar_bucket",
+                    type: "POST",
+                    data: { cons_id: cons_id },
+                    success: function (data) {
+                        //actualizarBarra(55, "Archivos procesados");
+                        $.post("../../controller/consulta.php?op=delete_consulta", { cons_id: cons_id }, function (data){
+                        });
+                        console.log("Bucket eliminado ", data);                          
+        
+                    },
+                    error: function(err){
+                        console.error("Error al eliminar el bucket:", err);
+                        // aún así intentamos enviar historial sin archivos
+                        //enviarAGeminiYGuardar(mensajes, cons_id);
+                    }
                 });
 
                 $('#cons_data').DataTable().ajax.reload();
-                
+
                 swal({
                     title: "TLA DocVerifAI",
-                    text: "Consulta Transferida a la Papelera.",
+                    text: "Consulta Eliminada.",
                     type: "success",
                     confirmButtonClass: "btn-success"
                 });
@@ -164,9 +181,9 @@ function eliminar(cons_id){
 //Listar las consultas Activas
 function cargarConsultas() { 
 
-    if ($.fn.DataTable.isDataTable('#cons_data')) {
-        $('#cons_data').DataTable().clear().destroy();
-    }
+    // if ($.fn.DataTable.isDataTable('#cons_data')) {
+    //     $('#cons_data').DataTable().clear().destroy();
+    // }
     $('#viewuser').hide();
     tabla=$('#cons_data').dataTable({ 
         "aProcessing": true,
@@ -226,9 +243,9 @@ function cargarConsultas() {
 //Listar las consultas enviadas a la Papelera
 function cargarPapelera() {
 
-    if ($.fn.DataTable.isDataTable('#cons_data')) {
-        $('#cons_data').DataTable().clear().destroy();
-    }
+    // if ($.fn.DataTable.isDataTable('#cons_data')) {
+    //     $('#cons_data').DataTable().clear().destroy();
+    // }
 
     $('#viewuser').hide();
     tabla=$('#cons_data').dataTable({ 
