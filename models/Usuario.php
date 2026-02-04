@@ -34,22 +34,34 @@
                             WHERE usu_correo = ?
                             AND est = 1";
                     $stmt = $conectar->prepare($sql);
-                    $stmt->bindValue(1, $correo);;
+                    $stmt->bindValue(1, $correo);
                     $stmt->execute();
                     $resultado = $stmt->fetch();
-                    
-                    // SI HAY INFO DEL USUARIO SE GUARDAN EL ID, NOMBRE Y APELLIDO EN VARIABLES DE SESION
-                    if (is_array($resultado) and count($resultado) > 0) {
-                        $_SESSION[ "usu_id" ] = $resultado[ "usu_id" ];
-                        $_SESSION[ "usu_nom" ] = $resultado[ "usu_nom" ];
-                        $_SESSION[ "usu_ape" ] = $resultado[ "usu_ape" ];
-                        $_SESSION[ "rol_id" ] = $resultado[ "rol_id" ];
-                        // SE DIRECCIONA A LA RUTA view/Home
-                        header("Location:".Conectar::ruta() . "view/Home/");
-                    } else {
-                        // SI NO HAY INFO DEL USUARIO, MUESTRA M=1 (DATOS INCORRECTOS)
-                        header("Location:".Conectar::ruta() . "index.php?m=1");
-                        exit();
+
+                    if($resultado){
+                        $textocifrado = $resultado["usu_pass"];
+
+                        $key = $_ENV['APP_ENCRIPT_KEY'];
+                        $cipher = "aes-256-cbc";
+                        $iv_dec = substr(base64_decode($textocifrado), 0, openssl_cipher_iv_length($cipher));
+                        $cifradoSinIV = substr(base64_decode($textocifrado), openssl_cipher_iv_length($cipher));
+                        $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
+
+                        if($descifrado == $pass){
+                             // SI HAY INFO DEL USUARIO SE GUARDAN EL ID, NOMBRE Y APELLIDO EN VARIABLES DE SESION
+                            if (is_array($resultado) and count($resultado) > 0) {
+                                $_SESSION[ "usu_id" ] = $resultado[ "usu_id" ];
+                                $_SESSION[ "usu_nom" ] = $resultado[ "usu_nom" ];
+                                $_SESSION[ "usu_ape" ] = $resultado[ "usu_ape" ];
+                                $_SESSION[ "rol_id" ] = $resultado[ "rol_id" ];
+                                // SE DIRECCIONA A LA RUTA view/Home
+                                header("Location:".Conectar::ruta() . "view/Home/");
+                            } else {
+                                // SI NO HAY INFO DEL USUARIO, MUESTRA M=1 (DATOS INCORRECTOS)
+                                header("Location:".Conectar::ruta() . "index.php?m=1");
+                                exit();
+                            }
+                        }
                     }
                 }
             }
