@@ -97,14 +97,14 @@ $("#btncargar").on("click", function () {
         data: formData,
         contentType: false,
         processData: false,
-        success: function () {
-
+        success: function (data) {
+            console.log(data);
             //Se muestra el detalle
             mostrar(cons_id);
 
             $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
 
-            console.log("BOTON DE PROCESAR ACTIVADO");
+            
             
 
             //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
@@ -339,13 +339,9 @@ $(document).on("click", ".btnEliminarDoc", function () {
                         //enviarAGeminiYGuardar(mensajes, cons_id);
                     }
                 });
-
-                
             }
         }
     );
-
-
 });
 
 //Funcion que envia a Gemini y guarda la respuesta
@@ -420,9 +416,18 @@ function mostrar(id) {
 
     $.post("../../controller/consulta.php?op=mostrar", {cons_id: id}, function (data) {
         //console.log(data.cons_nom);
-        data = JSON.parse(data); 
 
-        $('#lblnomconsulta').html("Consulta: " + data.cons_nom);
+        try{
+            data = JSON.parse(data); 
+            $('#lblnomconsulta').html("Consulta: " + data.cons_nom);
+
+        }catch(err){
+            $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Ocurrió un error al cargar la consulta. </div>");
+        }
+
+        if (data.est == 2) {
+            $('#pnldetalle').hide();
+        }
     });
 }
 
