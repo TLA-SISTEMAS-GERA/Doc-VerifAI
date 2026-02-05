@@ -3,8 +3,8 @@
         public function insert_consulta ($usu_id, $cons_nom, $nom_bucket) {
             $conectar = parent::conexion();
             $sql="INSERT 
-                    INTO tm_consulta(usu_id, cons_nom, nom_bucket, fech_crea)
-                    VALUES (?, ?, ?, NOW());";
+                    INTO tm_consulta(usu_id, cons_nom, nom_bucket, fech_crea, est)
+                    VALUES (?, ?, ?, NOW(), 1);";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$usu_id);
             $sql->bindValue(2,$cons_nom);
