@@ -74,8 +74,8 @@ $(document).on("click",".btn-inline","url-inline",function(){
     //DATO TEMPORAL (MIENTRAS EL USUARIO ENTRE A LA CONSULTA, EL VALOR EXISTIRÁ)
     sessionStorage.setItem("id_real", realId);                              
     
-    //window.open('http://localhost:80/Doc-VerifAI/view/DetalleConsulta/?ID='+ciphertext+'');
-    window.open('http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+ciphertext+'');
+    window.open('http://localhost:80/Doc-VerifAI/view/DetalleConsulta/?ID='+ciphertext+'');
+    //window.open('http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+ciphertext+'');
     
 });
 
@@ -83,12 +83,15 @@ $('.nav-link').on('click', function () {
     let id = $(this).attr('id');
     
     if (id === 'pestConsultas') {
-        cargarConsultas();
-    }
-
-    if (id === 'pestPapelera') {
-        cargarPapelera();
-    }
+        tabla.ajax
+            .url('../../controller/consulta.php?op=listar_consultas')
+            .load();
+    } 
+    else if (id === 'pestPapelera') {
+        tabla.ajax
+            .url('../../controller/consulta.php?op=listar_consultas_papelera')
+            .load();
+    }   
 });
 
 //  ---------------------->      FUNCIONES       <----------------------
@@ -112,10 +115,10 @@ function papelera(cons_id){
         function(isConfirm) {
             if (isConfirm) {
                 $.post("../../controller/consulta.php?op=delete_consulta_p", {cons_id: cons_id}, function (data){
-                });
 
-                $('#cons_data').DataTable().ajax.reload();
-                
+                    $('#cons_data').DataTable().ajax.reload();
+                });
+  
                 swal({
                     title: "TLA DocVerifAI",
                     text: "Consulta Transferida a la Papelera.",
@@ -156,16 +159,14 @@ function eliminar(cons_id){
                         $.post("../../controller/consulta.php?op=delete_consulta", { cons_id: cons_id }, function (data){
                         });
                         console.log("Bucket eliminado ", data);                          
-        
+                        $('#cons_data').DataTable().ajax.reload();
                     },
                     error: function(err){
                         console.error("Error al eliminar el bucket:", err);
                         // aún así intentamos enviar historial sin archivos
                         //enviarAGeminiYGuardar(mensajes, cons_id);
                     }
-                });
-
-                $('#cons_data').DataTable().ajax.reload();
+                });   
 
                 swal({
                     title: "TLA DocVerifAI",
