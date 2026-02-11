@@ -13,7 +13,7 @@
     //MODELO USUARIO
     class Usuario extends Conectar {
 
-        // FUNCION LOGIN
+        
         public function login() {
             // CONECTAR A LA BDD
             $conectar = parent::conexion();
@@ -21,49 +21,51 @@
 
             // SI SE HIZO CLIC EN "Enviar" SE GUARDAN EL CORREO Y PASSWORD
             if (isset($_POST["enviar"])){
+
                 $correo = $_POST["usu_correo"];
                 $pass = $_POST["usu_pass"];
 
                 // SI NO SE ENVIO NADA, MUESTRA M=2 (CAMPOS VACÍOS)
-                if (empty($correo) and empty($pass)) {
+                if (empty($correo) || empty($pass)) {
                     header("Location:".Conectar::ruta() . "index.php?m=2");
                     exit();
-                } else {
-                    // SI SE ENVIO ALGO, SE CONSULTA LA INFO ENVIADA
-                    $sql = "SELECT * FROM tm_usuario 
-                            WHERE usu_correo = ?
-                            AND est = 1";
-                    $stmt = $conectar->prepare($sql);
-                    $stmt->bindValue(1, $correo);
-                    $stmt->execute();
-                    $resultado = $stmt->fetch();
+                } 
+                // SI SE ENVIO ALGO, SE CONSULTA LA INFO ENVIADA
+                $sql = "SELECT * FROM tm_usuario 
+                        WHERE usu_correo = ?
+                        AND est = 1";
+                $stmt = $conectar->prepare($sql);
+                $stmt->bindValue(1, $correo);
+                $stmt->execute();
+                $resultado = $stmt->fetch();
 
-                    if($resultado){
-                        $textocifrado = $resultado["usu_pass"];
-
-                        $key = $_ENV['APP_ENCRIPT_KEY'];
-                        $cipher = "aes-256-cbc";
-                        $iv_dec = substr(base64_decode($textocifrado), 0, openssl_cipher_iv_length($cipher));
-                        $cifradoSinIV = substr(base64_decode($textocifrado), openssl_cipher_iv_length($cipher));
-                        $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
-
-                        if($descifrado == $pass){
-                             // SI HAY INFO DEL USUARIO SE GUARDAN EL ID, NOMBRE Y APELLIDO EN VARIABLES DE SESION
-                            if (is_array($resultado) and count($resultado) > 0) {
-                                $_SESSION[ "usu_id" ] = $resultado[ "usu_id" ];
-                                $_SESSION[ "usu_nom" ] = $resultado[ "usu_nom" ];
-                                $_SESSION[ "usu_ape" ] = $resultado[ "usu_ape" ];
-                                $_SESSION[ "rol_id" ] = $resultado[ "rol_id" ];
-                                // SE DIRECCIONA A LA RUTA view/Home
-                                header("Location:".Conectar::ruta() . "view/Home/");
-                            } else {
-                                // SI NO HAY INFO DEL USUARIO, MUESTRA M=1 (DATOS INCORRECTOS)
-                                header("Location:".Conectar::ruta() . "index.php?m=1");
-                                exit();
-                            }
-                        }
-                    }
+                if (!$resultado) {
+                    header("Location:" . Conectar::ruta() . "index.php?m=1");
+                    exit();
                 }
+
+                $textocifrado = $resultado["usu_pass"];
+                $key = $_ENV['APP_ENCRIPT_KEY'];
+                $cipher = "aes-256-cbc";
+                $iv_dec = substr(base64_decode($textocifrado), 0, openssl_cipher_iv_length($cipher));
+                $cifradoSinIV = substr(base64_decode($textocifrado), openssl_cipher_iv_length($cipher));
+                $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
+                
+
+                // 5️⃣ Password incorrecto
+                if ($descifrado !== $pass) {
+                    header("Location:" . Conectar::ruta() . "index.php?m=1");
+                    exit();
+                }
+
+                // 6️⃣ Login correcto
+                $_SESSION["usu_id"]  = $resultado["usu_id"];
+                $_SESSION["usu_nom"] = $resultado["usu_nom"];
+                $_SESSION["usu_ape"] = $resultado["usu_ape"];
+                $_SESSION["rol_id"]  = $resultado["rol_id"];
+
+                header("Location:" . Conectar::ruta() . "view/Home/");
+                exit();
             }
         }    
 
