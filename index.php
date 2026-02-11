@@ -39,6 +39,34 @@
                         <img src="public/img/avatar-sign.png" alt="">
                     </div>
                     <header class="sign-title">Iniciar Sesión</header>
+
+                    <?php
+                        if(isset($_GET["m"])){
+                            switch($_GET["m"]){
+                                case "1";
+                                    ?>
+                                        <div class="alert alert-danger alert-border-left alert-close alert-dismissible fade in" role="alert">
+							                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								            <span aria-hidden="true"></span>
+							                </button>
+							                <strong>Datos incorrectos.</strong>
+						                </div>
+                                    <?php
+                                break;
+                                case "2";
+                                    ?>
+                                        <div class="alert alert-warning alert-border-left alert-close alert-dismissible fade in" role="alert">
+							                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								            <span aria-hidden="true"></span>
+							                </button>
+							                <strong>Campos vacios</strong>
+						                </div>
+                                    <?php
+                                break;
+                            }
+                        }
+                    ?>
+
                     <div class="form-group">
                         <input id="usu_correo" name="usu_correo" type="text" class="form-control" placeholder="E-Mail"/>
                     </div>
