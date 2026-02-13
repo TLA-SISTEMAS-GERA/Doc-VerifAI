@@ -20,8 +20,6 @@ function ocultarBarra() {
     }, 500);
 }
 
-
-
 $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
@@ -396,40 +394,98 @@ function enviarAGeminiYGuardar(mensajes, cons_id) {
     );
 }
 
+// function mostrar(id) {
+//     $.post("../../controller/consulta.php?op=listardetalle", {cons_id: id}, function (data){
+//         //console.log("Respuesta del detalle:", data);
+//         $('#lbldetalle').html(data);
+        
+//         // Ahora buscamos todos los mensajes del contenido
+//         $('#lbldetalle p').each(function () {
+            
+//             let raw = $(this).text().trim(); // Obtener texto plano del mensaje
+//             let html = marked.parse(raw);    // Convertir Markdown → HTML
+//             let cleanHtml = DOMPurify.sanitize(html); // Seguridad
+            
+//             $(this).html(cleanHtml); // Reemplazar texto por HTML renderizado
+//         });
+//         scrollToBottom();
+//     });
+//     $.post("../../controller/consulta.php?op=mostrar", {cons_id: id}, function (data) {
+//         //console.log(data.cons_nom);
+
+//         try{
+//             data = JSON.parse(data); 
+//             $('#lblnomconsulta').html("Consulta: " + data.cons_nom);
+
+//         }catch(err){
+//             $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Ocurrió un error al cargar la consulta. </div>");
+//         }
+
+//         if (data.est == 2) {
+//             $('#pnldetalle').hide();
+//         }
+//     });
+
+    
+// }
+
 function mostrar(id) {
 
-    $.post("../../controller/consulta.php?op=listardetalle", {cons_id: id}, function (data){
-        //console.log("Respuesta del detalle:", data);
-        $('#lbldetalle').html(data);
-        
-        // Ahora buscamos todos los mensajes del contenido
-        $('#lbldetalle p').each(function () {
-            
-            let raw = $(this).text().trim(); // Obtener texto plano del mensaje
-            let html = marked.parse(raw);    // Convertir Markdown → HTML
-            let cleanHtml = DOMPurify.sanitize(html); // Seguridad
-            
-            $(this).html(cleanHtml); // Reemplazar texto por HTML renderizado
-        });
-        scrollToBottom();
+    if (!id) {
+        $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ ID de consulta inválido.</div>");
+        return;
+    }
+
+    // Cargar detalle
+    $.ajax({
+        url: "../../controller/consulta.php?op=listardetalle",
+        type: "POST",
+        data: { cons_id: id },
+        success: function (data) {
+            $('#lbldetalle').html(data);
+
+            $('#lbldetalle p').each(function () {
+                let raw = $(this).text().trim();
+                let html = marked.parse(raw);
+                let cleanHtml = DOMPurify.sanitize(html);
+                $(this).html(cleanHtml);
+            });
+
+            scrollToBottom();
+        },
+        error: function (err) {
+            console.error("Error listardetalle:", err);
+            $('#lbldetalle').html("<div class='form-error-text-block'>❌ Error cargando el detalle.</div>");
+        }
     });
 
-    $.post("../../controller/consulta.php?op=mostrar", {cons_id: id}, function (data) {
-        //console.log(data.cons_nom);
+    // Cargar info de la consulta
+    $.ajax({
+        url: "../../controller/consulta.php?op=mostrar",
+        type: "POST",
+        data: { cons_id: id },
+        success: function (data) {
+            try {
+                let json = JSON.parse(data);
 
-        try{
-            data = JSON.parse(data); 
-            $('#lblnomconsulta').html("Consulta: " + data.cons_nom);
+                $('#lblnomconsulta').html("Consulta: " + json.cons_nom);
 
-        }catch(err){
-            $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Ocurrió un error al cargar la consulta. </div>");
-        }
+                if (json.est == 2) {
+                    $('#pnldetalle').hide();
+                }
 
-        if (data.est == 2) {
-            $('#pnldetalle').hide();
+            } catch (err) {
+                console.error("Error parseando JSON mostrar():", data);
+                $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Error cargando datos de la consulta.</div>");
+            }
+        },
+        error: function (err) {
+            console.error("Error mostrar():", err);
+            $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Error de servidor al cargar la consulta.</div>");
         }
     });
 }
+
 
 function refrescar_detalle(id) {
 
