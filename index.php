@@ -34,9 +34,10 @@
     <div class="page-center">
         <div class="page-center-in">
             <div class="container-fluid">
+                
                 <form class="sign-box" action="" method="post" id="login_form">
                     <div class="sign-avatar">
-                        <img src="public/img/avatar-sign.png" alt="">
+                        <img src="public/img/DOCVERIFAI_ICON.png" alt="">
                     </div>
                     <header class="sign-title">Iniciar Sesión</header>
 

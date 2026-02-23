@@ -85,6 +85,7 @@ $("#btncargar").on("click", function () {
     for (let i = 0; i < files.length; i++) {
         console.log("Archivos encontrados"+files[i].name);
         formData.append("files[]", files[i]);
+        console.log("Archivos agregados al formData");
     }
     console.log(id);
 
@@ -101,9 +102,6 @@ $("#btncargar").on("click", function () {
             mostrar(cons_id);
 
             $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
-
-            
-            
 
             //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
             if (files.length > 0) {
@@ -275,8 +273,6 @@ $("#btnenviar").on("click", function () {
 
         }
     });
-    
-
 });
 
 //ESCUCHO EL CLIC DE UN BOTON CREADO DINAMICAMENTE

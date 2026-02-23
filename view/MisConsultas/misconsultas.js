@@ -73,9 +73,9 @@ $(document).on("click",".btn-inline","url-inline",function(){
     console.log(ciphertext);
     //DATO TEMPORAL (MIENTRAS EL USUARIO ENTRE A LA CONSULTA, EL VALOR EXISTIRÁ)
     sessionStorage.setItem("id_real", realId);                              
-    
+    window.location.href = 'http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+ciphertext;
     //window.open('http://localhost:80/Doc-VerifAI/view/DetalleConsulta/?ID='+ciphertext+'');
-    window.open('http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+ciphertext+'');
+    //window.open('http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+ciphertext+'');
     
 });
 
@@ -115,7 +115,6 @@ function papelera(cons_id){
         function(isConfirm) {
             if (isConfirm) {
                 $.post("../../controller/consulta.php?op=delete_consulta_p", {cons_id: cons_id}, function (data){
-
                     $('#cons_data').DataTable().ajax.reload();
                 });
   

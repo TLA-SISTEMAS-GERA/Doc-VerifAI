@@ -39,26 +39,27 @@
                 $stmt->execute();
                 $resultado = $stmt->fetch();
 
+                //
                 if (!$resultado) {
                     header("Location:" . Conectar::ruta() . "index.php?m=1");
                     exit();
                 }
 
+                //DECRYPT
                 $textocifrado = $resultado["usu_pass"];
                 $key = $_ENV['APP_ENCRIPT_KEY'];
                 $cipher = "aes-256-cbc";
                 $iv_dec = substr(base64_decode($textocifrado), 0, openssl_cipher_iv_length($cipher));
                 $cifradoSinIV = substr(base64_decode($textocifrado), openssl_cipher_iv_length($cipher));
                 $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
-                
 
-                // 5️⃣ Password incorrecto
+                //Password incorrecto
                 if ($descifrado !== $pass) {
                     header("Location:" . Conectar::ruta() . "index.php?m=1");
                     exit();
                 }
 
-                // 6️⃣ Login correcto
+                //Login correcto
                 $_SESSION["usu_id"]  = $resultado["usu_id"];
                 $_SESSION["usu_nom"] = $resultado["usu_nom"];
                 $_SESSION["usu_ape"] = $resultado["usu_ape"];

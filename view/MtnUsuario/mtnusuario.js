@@ -64,6 +64,7 @@ $(document).ready(function(){
     }).DataTable(); 
 });
 
+//Guardar o Editar
 function guardaryeditar(e) {
     e.preventDefault();
 
@@ -112,6 +113,7 @@ function guardaryeditar(e) {
     });
 }
 
+//Editar Usuario
 function editar(usu_id){
     $('#mdltitulo').html('Editar datos del usuario');
 
@@ -133,6 +135,7 @@ function editar(usu_id){
     $('#modalmantenimiento').modal('show');
 }
 
+//Eliminar Usuario
 function eliminar(usu_id){
     swal(
         {
@@ -165,6 +168,7 @@ function eliminar(usu_id){
     );
 }
 
+//Clic A Nuevo Usuario
 $(document).on("click","#btnnuevo",function(){
     $('#mdltitulo').html('Nuevo Usuario');
     $('#usuario_form')[0].reset();

@@ -52,7 +52,7 @@
 							<!-- <i class="fa fa-user" aria-hidden="true"></i> -->
 							👤
 							<span class="lblcontactonomx"><?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"];?></span>	
-					</div> <!--AQUI ME QUEDE -->      
+					</div>     
 	                    </div><!--.site-header-collapsed-in-->
 	                </div><!--.site-header-collapsed-->
 	            </div><!--site-header-content-in-->

@@ -51,7 +51,7 @@ class CloudStorage {
         $data = $consulta->obtenerBucketPorConsulta($cons_id);
 
         if (!$data || !isset($data[0]['nom_bucket'])) {
-            throw new \Exception("No se encontró bucket para la consulta $cons_id");
+            throw new \Exception("No se encontró bucket para la consulta $cons_id"); // linea 54
         }
         //GUARDO EL NOMBRE DEL BUCKET
         $nom_bucket = $data[0]['nom_bucket']; 
