@@ -57,8 +57,8 @@ class VertexAI {
                 "Content-Type: application/json"
             ],
             CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_TIMEOUT => 300, // Tiempo máximo total en segundos
-            CURLOPT_CONNECTTIMEOUT => 30, // Tiempo máximo para conectar            
+            CURLOPT_TIMEOUT => 600, // Tiempo máximo total en segundos
+            CURLOPT_CONNECTTIMEOUT => 60, // Tiempo máximo para conectar            
             ]);
 
             $response = curl_exec($ch);
