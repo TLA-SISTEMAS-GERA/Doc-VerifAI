@@ -13,12 +13,12 @@
 <!DOCTYPE html>
 <html>
     <?php require_once("../MainHead/head.php"); ?>
-    <title>Verifica tus Documentos</title>
+    <title>Inicio - DocVerifAI</title>
 <body class="with-side-menu">
 
 <?php require_once("../MainHeader/header.php"); ?>
 
-	<div class="mobile-menu-left-overlay"></div>
+	<div class="mobile-menu-left-overlay" ></div>
 
 
     <?php require_once("../MainNav/nav.php"); ?>
@@ -38,12 +38,21 @@
 
 						<input type="hidden" name="usu_id" id="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
 
-						<div class="col-lg-12">
+						<div class="col-lg-3">
 							<fieldset class="form-group">
 								<label class="form-label semibold" for="cons_nom">Título (*)</label>
-								<input type="text" class="form-control" id="cons_nom" name="cons_nom" placeholder="Ingrese el título" required>
+								<input type="text" class="form-control" id="cons_nom" name="cons_nom" placeholder="XXXXXXX" required>
+								
 							</fieldset>
 						</div>
+
+						<!-- <div class="col-lg-2">
+							<fieldset class="form-group">
+							<label class="form-label semibold" for="cons_nom_p2">(*)</label>
+								<input type="text" class="form-control" id="cons_nom_p2" name="cons_nom_p2" placeholder="XXXXX" required>
+								
+							</fieldset>
+						</div> -->
 
 							
 						<div class="col-lg-12">

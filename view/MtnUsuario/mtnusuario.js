@@ -64,6 +64,7 @@ $(document).ready(function(){
     }).DataTable(); 
 });
 
+//Guardar o Editar
 function guardaryeditar(e) {
     e.preventDefault();
 
@@ -112,6 +113,7 @@ function guardaryeditar(e) {
     });
 }
 
+//Editar Usuario
 function editar(usu_id){
     $('#mdltitulo').html('Editar datos del usuario');
 
@@ -133,6 +135,40 @@ function editar(usu_id){
     $('#modalmantenimiento').modal('show');
 }
 
+//Eliminar Usuario
+function eliminar(usu_id){
+    swal(
+        {
+            title: "¿Estas segur@ de eliminar este usuario?",
+            text: "Se eliminara este usuario",
+            type: "error",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Smn",
+            cancelButtonText: "Nel",
+            closeOnConfirm: false,
+            
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.post("../../controller/usuario.php?op=eliminar", {usu_id: usu_id}, function (data){
+                    
+                });
+
+                $('#usuario_data').DataTable().ajax.reload();
+                
+                swal({
+                    title: "TLA DocVerifAI",
+                    text: "Usuario eliminado.",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });
+            }
+        }
+    );
+}
+
+//Clic A Nuevo Usuario
 $(document).on("click","#btnnuevo",function(){
     $('#mdltitulo').html('Nuevo Usuario');
     $('#usuario_form')[0].reset();

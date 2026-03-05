@@ -30,8 +30,39 @@
             Mis Consultas
         </h2>
 		<div class="box-typical box-typical-padding">
-            
+        
+        <section class="tabs-section">
+				<div class="tabs-section-nav tabs-section-nav-icons">
+					<div class="tbl">
+						<ul class="nav" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="pestConsultas" role="tab" data-toggle="tab" aria-expanded="true">
+									<span class="nav-link-in">
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+										Consultas
+									</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="pestPapelera" role="tab" data-toggle="tab" aria-expanded="false">
+									<span class="nav-link-in">
+                                    <i class="fa fa-recycle" aria-hidden="true"></i>
+										Papelera
+									</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div><!--.tabs-section-nav-->
+
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane fade active in" id="tabs-1-tab-1" aria-expanded="true">Tab 1</div><!--.tab-pane-->
+					<div role="tabpanel" class="tab-pane fade" id="tabs-1-tab-2" aria-expanded="false">Tab 2</div><!--.tab-pane-->
+					<div role="tabpanel" class="tab-pane fade" id="tabs-1-tab-3" aria-expanded="false">Tab 3</div><!--.tab-pane-->
+					<div role="tabpanel" class="tab-pane fade" id="tabs-1-tab-4">Tab 4</div><!--.tab-pane-->
+
         <div class="box-typical box-typical-padding" id="table">
+
             <table id="cons_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
                 <thead>
                     <tr>
@@ -39,6 +70,8 @@
                         <th class="d-none d-sm-table-cell" style="width: 60%;">Titulo</th>
                         <th class="d-none d-sm-table-cell" style="width: 35%;">Fecha de Creación</th>
                         <th class="text-center" style="width: 5%;"></th>
+                        <th class="text-center" style="width: 5%;"></th>
+						
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +93,7 @@
 	}else{
 		$URL_FRONTEND = $_ENV['URL_FRONTEND'];
 		header("Location:"."$URL_FRONTEND"."index.php");   
-		//header("Location:"."https://support-tracking.tecnologisticaaduanal.com/"."index.php");
+		
 	}
 
 ?>

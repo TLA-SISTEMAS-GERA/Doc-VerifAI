@@ -40,6 +40,39 @@ class CloudStorage {
         return $bucketName;
     }
 
+    public function eliminarBucket($cons_id) {
+        $PROJECT_ID = $_ENV['PROJECT_ID'];
+        $storage = new StorageClient([
+            'projectId' => $PROJECT_ID
+        ]);
+
+        //CONSULTO EL NOMBRE DEL BUCKET DESDE LA CONSULTA
+        $consulta = new Consulta();
+        $data = $consulta->obtenerBucketPorConsulta($cons_id);
+
+        if (!$data || !isset($data[0]['nom_bucket'])) {
+            throw new \Exception("No se encontró bucket para la consulta $cons_id"); // linea 54
+        }
+        //GUARDO EL NOMBRE DEL BUCKET
+        $nom_bucket = $data[0]['nom_bucket']; 
+
+        //OBTENER BUCKET
+        $bucket = $storage->bucket($nom_bucket);
+        
+        // Eliminar TODOS los objetos
+        foreach ($bucket->objects() as $object) {
+            $object->delete();
+        }
+
+        // Eliminar el bucket
+        $bucket->delete();
+
+        return [
+            "status" => "ok",
+            "bucket" => $nom_bucket
+        ];
+    }
+
     //SUBIR ARCHIVO/S A UN BUCKET BASADO EN SU NOMBRE
     public function subirArchivos($cons_id, $files) {
         $PROJECT_ID = $_ENV['PROJECT_ID'];

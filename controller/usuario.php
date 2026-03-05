@@ -91,6 +91,10 @@
                 echo json_encode($output);
             }   
         break;
+
+        case "eliminar":
+            $usuario->delete_usuario($_POST["usu_id"]);
+        break;
     }
 
 ?>

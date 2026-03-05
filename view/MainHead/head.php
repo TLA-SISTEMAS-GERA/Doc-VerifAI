@@ -47,6 +47,12 @@
 	<link rel="stylesheet" href="../../public/css/separate/vendor/select2.min.css">
 	
 	<link rel="stylesheet" href="../../public/css/separate/pages/others.min.css">
+
+	<link rel="stylesheet" href="../../public/css/theme-side-madison-caribbean.css">
+	<link rel="stylesheet" href="css/theme-side-ebony-clay.css">
+<link rel="stylesheet" href="../../public/css/theme-side-madison-caribbean.css">
+<link rel="stylesheet" href="../../public/css/theme-side-caesium-dark-caribbean.css">
+
 	<!-- <link rel="stylesheet" href="../../public/css/separate/pages/error.min.css">  -->
 	
     <link rel="stylesheet" href="../../public/css/main.css">

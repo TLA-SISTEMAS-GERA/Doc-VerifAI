@@ -1,6 +1,7 @@
 <?php 
 	if($_SESSION["rol_id"] == 1){
 ?>
+	
 		<nav class="side-menu">
 				<ul class="side-menu-list">
 					<li class="blue">
@@ -29,7 +30,7 @@
 					<header class="side-menu-title">INFORMACIÓN</header>
 					<ul class="side-menu-list">
 						<li>
-							<a href="#">
+							<a href="..\Info\info.php">
 								<!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
 								ℹ️
 								<span class="lbl">¿De que trata el sitio?</span>
@@ -42,6 +43,9 @@
 <?php 
 	} else if ($_SESSION["rol_id"] == 2) { // SESION DE ADMINISTRADOR
 		?>
+
+		<body class="with-side-menu theme-side-madison-caribbean.html">
+		
 			<nav class="side-menu">
 				<ul class="side-menu-list">
 					<li class="blue">
@@ -79,7 +83,7 @@
 					<header class="side-menu-title">INFORMACIÓN</header>
 					<ul class="side-menu-list">
 						<li>
-							<a href="#">
+							<a href="..\Info\info.php">
 								<!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
 								ℹ️
 								<span class="lbl">¿De que trata?</span>
@@ -88,6 +92,7 @@
 					</ul>
 				</section>
 			</nav><!--.side-menu-->
+		</body>
 		<?php
 	}
 ?>
