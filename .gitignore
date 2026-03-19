@@ -1,6 +1,7 @@
 ```bash
-/vendor/
-.env
-/public/document_detalle/
-/public/sound/
-/public/img/
+api.php
+chat.js
+chat.php
+composer
+composer.json
+composer.lock
