@@ -1,0 +1,6 @@
+```bash
+/vendor/
+.env
+/public/document_detalle/
+/public/sound/
+/public/img/

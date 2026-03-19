@@ -28,9 +28,18 @@
 			<h2 id="lblnomconsulta">Consulta: </h2>
 	
 			<section class="activity-line" id="lbldetalle">
-			
 				
 			</section><!--.activity-line-->
+
+			<!-- <div id="barra_container" class="progress-with-amount" style="display:none;">
+				<progress id="barra_progreso"
+						class="progress progress-success progress-no-margin"
+						value="0"
+						max="100">
+					0%
+				</progress>
+				<div id="barra_texto" class="progress-with-amount-number">0%</div>
+			</div> -->
 	
 			<div class="box-typical box-typical-padding" id="pnldetalle">
 				<div class="row">
@@ -40,14 +49,13 @@
 								<textarea class="summernote" id="prompt" name="prompt"></textarea>
 							</div>
 						</fieldset>
-					</div>
-	
+					</div>				
+
 					<div class="col-lg-12">
 						<fieldset class="form-group">
 								<label class="form-label semibold" for="fileElem">Adjuntar Documentos</label>
 								<input type="file" name="fileElem" id="fileElem" class="form-control" multiple>
 						</fieldset>
-						
 					</div>
 	
 					<div class="col-lg-12">
@@ -59,7 +67,7 @@
 						<button type="button" id="btnenviar" class="btn btn-rounded btn-inline" >✨
 							Enviar y Procesar</button>
 						<!-- <button type="button" id="btnenviar" name="action" value="add" class="btn btn-rounded btn-inline btn_primary">
-						✨
+							✨
 							Enviar y Procesar
 						</button> -->
 					</div>

@@ -1,7 +1,6 @@
 function init() {
 
 }
-
 function mostrarBarra() {
     $("#barra_container").show();
     $("#barra_progreso").val(0);
@@ -75,6 +74,7 @@ $(document).ready(function() {
     mostrar(cons_id);
 });
 
+//CARGAR DOCUMENTO/S
 $("#btncargar").on("click", function () {
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
@@ -100,6 +100,8 @@ $("#btncargar").on("click", function () {
     }
    
 
+    actualizarBarra(20, "Cargando Archivo/s");
+
     $.ajax({
         //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
         url: "../../controller/consulta.php?op=insertdetalle",
@@ -110,6 +112,7 @@ $("#btncargar").on("click", function () {
         success: function (data) {
            
             //Se muestra el detalle
+            actualizarBarra(65, "Registrado.");
             mostrar(cons_id);
 
             $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
@@ -128,7 +131,7 @@ $("#btncargar").on("click", function () {
                     processData: false,
                     contentType: false,
                     success: function (uploadedURIsRaw) {
-                        //actualizarBarra(55, "Archivos procesados");
+                        actualizarBarra(100, "Archivo/s cargados al Bucket");
                         console.log("Archivos Subidos");                          
         
                         let resp = JSON.parse(uploadedURIsRaw);     
@@ -140,20 +143,21 @@ $("#btncargar").on("click", function () {
                         //enviarAGeminiYGuardar(mensajes, cons_id);
                     }
                 });
+                ocultarBarra();
         
             }
             //Se RESETEA el file Elem (bandeja de documentos)
             $('#fileElem').val('');
-
         }
     });
 
 });
 
+//ENVIAR PROMPT/ GENERAR RESPUESTA
 $("#btnenviar").on("click", function () {
 
     mostrarBarra();
-    actualizarBarra(5, "Enviando mensaje...");
+    actualizarBarra(5, "Procesando información...");
 
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
@@ -201,7 +205,7 @@ $("#btnenviar").on("click", function () {
                     }));
 
                     actualizarBarra(25, "Historial cargado");
-
+                    console.log("Historial cargado");
 
                     $.post(
                         //OBTENEMOS INFORMACION DE LOS OBJETOS DEL BUCKET/CONSULTA: mime-type + gsUtil
@@ -209,7 +213,7 @@ $("#btnenviar").on("click", function () {
                         { cons_id: cons_id },
                         function (contentType_GSutilRaw) {
                             if (contentType_GSutilRaw.length > 0){}
-                            actualizarBarra(65, "Preparando documentos para IA");
+                            actualizarBarra(45, "Preparando documentos para IA");
 
                             let contentType_GSutil = JSON.parse(contentType_GSutilRaw);
                             
@@ -239,11 +243,10 @@ $("#btnenviar").on("click", function () {
                             });
                           
                             //SE ENVIA TODO EL CONTENIDO A VERTEX/GEMINI + ID DE LA CONSULTA
-                            actualizarBarra(75, "Analizando Documentos...");
+                            actualizarBarra(55, "Documentos en procesamiento");
 
                             enviarAGeminiYGuardar(mensajes, cons_id);
-                        }
-                        
+                        }   
                     );
                 
                 }
@@ -304,7 +307,6 @@ $(document).on("click", ".btnEliminarDoc", function () {
                                 refrescar_detalle(cons_id);
                                 
                                 $.unblockUI();
-        
                             },
                         });
                     },
@@ -513,7 +515,6 @@ function mostrar(id) {
 
     
 }
-
 
 function refrescar_detalle(id) {
 
