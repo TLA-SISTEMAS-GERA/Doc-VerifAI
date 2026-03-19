@@ -6,3 +6,4 @@ composer
 composer.json
 composer.lock
 index.html
+controller/debug_gemini.txt
