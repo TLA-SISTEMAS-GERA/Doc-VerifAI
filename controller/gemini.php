@@ -45,5 +45,34 @@
         
             return $response;
         }
+
+        public function generarRespuestaStreaming($mensajes) {
+
+            $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse";
+        
+            $data = [
+                "contents" => $mensajes
+            ];
+        
+            $ch = curl_init($url);
+        
+            curl_setopt_array($ch, [
+                CURLOPT_POST => true,
+                CURLOPT_HTTPHEADER => [
+                    "Content-Type: application/json",
+                    "x-goog-api-key: " . $this->apiKey
+                ],
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_WRITEFUNCTION => function ($ch, $chunk) {
+                    echo $chunk;
+                    ob_flush();
+                    flush();
+                    return strlen($chunk);
+                }
+            ]);
+        
+            curl_exec($ch);
+            curl_close($ch);
+        }
     }
 ?>

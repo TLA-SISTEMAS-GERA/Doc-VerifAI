@@ -114,6 +114,26 @@
             }
         break;
         
+        // case "ai_prompt":
+        //     $mensajesRaw = $_POST["mensajes"] ?? null;
+        
+        //     if (!$mensajesRaw) {
+        //         echo json_encode(["error" => "No llegaron mensajes"]);
+        //         exit;
+        //     }
+        //     // Convertir string JSON → array PHP
+        //     $mensajes = json_decode($mensajesRaw, true);
+        
+        //     // LOG para verificar
+        //     file_put_contents("debug_gemini.txt", print_r($mensajes, true));
+        
+        //     // $ai = new AIController();
+        //     // $respuesta = $ai->procesarPrompt($mensajes);
+        //     $vertex = new VertexAI();
+        //     $respuesta = $vertex->generarRespuestaVertex($mensajes);
+        //     echo $respuesta;
+        // break;
+
         case "ai_prompt":
             $mensajesRaw = $_POST["mensajes"] ?? null;
         
@@ -130,8 +150,57 @@
             // $ai = new AIController();
             // $respuesta = $ai->procesarPrompt($mensajes);
             $vertex = new VertexAI();
-            $respuesta = $vertex->generarRespuestaVertex($mensajes);
-            echo $respuesta;
+            $respuesta = $vertex->generarRespuestaStream($mensajes);
+            // $vertexStream = new VertexStreamAI();
+            // $respuesta = $vertexStream->generarRespuestaVertexStream($mensajes);
+            exit;
+        break;
+
+        case "ai_prompt_stream":
+
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+        
+            $mensajes = json_decode($_SESSION["mensajes_stream"], true);
+        
+            header('Content-Type: text/event-stream');
+            header('Cache-Control: no-cache');
+        
+            $vertex = new VertexAI();
+            $vertex->generarRespuestaStream($mensajes);
+        
+        break;
+
+        case "ai_prompt_guardar":
+
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+        
+            if(isset($_POST["mensajes"])){
+        
+                $_SESSION["mensajes_stream"] = $_POST["mensajes"];
+        
+                echo json_encode([
+                    "status" => "ok"
+                ]);
+        
+            }else{
+        
+                echo json_encode([
+                    "status" => "error",
+                    "mensaje" => "No se recibieron mensajes"
+                ]);
+        
+            }
+        
+        break;
+
+        case "updatedetalle":
+            $consulta->updatedetalle($_POST["det_contenido"], $_POST["det_id"]);
+        
+            echo json_encode($output);
         break;
 
         case "insertdetalle":
@@ -162,7 +231,7 @@
                     }
                 }
             }
-            echo json_encode($datos);
+            echo json_encode($output);
         break;
 
         case "listardetalle":
@@ -273,7 +342,16 @@
                             <?php
                     }
                     ?>
-                    <progress id="barra_progreso" class="progress progress-success" value="0" max="100"></progress>
+			</div>
+            <div id="barra_container" class="progress-with-amount" style="display:none;">
+                <progress id="barra_progreso"
+                        class="progress  progress-no-margin"
+                        value="0"
+                        max="100">
+                    0%
+                </progress>
+            <div id="barra_texto" class="progress-with-amount-number">0%</div>
+                    <!-- <progress id="barra_progreso" class="progress progress-success" value="0" max="100"></progress> -->
             <?php
         break;
 

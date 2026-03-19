@@ -95,6 +95,23 @@
 
         }
 
+        public function updatedetalle ($det_contenido, $det_id) {
+            $conectar = parent::conexion();
+            $sql="UPDATE tm_detalle
+            SET det_contenido = ?
+            WHERE det_id = ?;";
+            $sql = $conectar->prepare($sql);
+
+            $sql->bindValue(1, $det_contenido);
+            $sql->bindValue(2, (int)$det_id);
+        
+            $sql->execute();
+        
+            return $sql->rowCount();
+
+        }
+
+
         public function insert_detalle_ai ($cons_id, $usu_id, $det_contenido) {
             $conectar = parent::conexion();
             $sql="INSERT 

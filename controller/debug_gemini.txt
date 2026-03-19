@@ -1,0 +1,131 @@
+Array
+(
+    [0] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [1] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [2] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [3] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud;
+
+
+                        )
+
+                    [1] => Array
+                        (
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consultapruebastreaming-69bb37606ed52/CARTA 3.1.8 TRADUCCION.pdf
+                                )
+
+                        )
+
+                    [2] => Array
+                        (
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consultapruebastreaming-69bb37606ed52/CERTIFICADO DE ORIGEN.pdf
+                                )
+
+                        )
+
+                    [3] => Array
+                        (
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consultapruebastreaming-69bb37606ed52/FACTURA COMERCIAL 00011 - 00000645.pdf
+                                )
+
+                        )
+
+                    [4] => Array
+                        (
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consultapruebastreaming-69bb37606ed52/FACTURA INCREMENTABLES.pdf
+                                )
+
+                        )
+
+                    [5] => Array
+                        (
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consultapruebastreaming-69bb37606ed52/REPORTE DE PREVIO VRSI201-60024.pdf
+                                )
+
+                        )
+
+                    [6] => Array
+                        (
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consultapruebastreaming-69bb37606ed52/Referencia VRSI201-60024 PROFORMA.pdf
+                                )
+
+                        )
+
+                    [7] => Array
+                        (
+                            [file_data] => Array
+                                (
+                                    [mime_type] => application/pdf
+                                    [file_uri] => gs://consultapruebastreaming-69bb37606ed52/VRSI201-60024 - Manifestacion.pdf
+                                )
+
+                        )
+
+                )
+
+        )
+
+)

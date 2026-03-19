@@ -3,38 +3,49 @@ function init() {
 }
 
 function mostrarBarra() {
-    $("#barra_progreso").val(0).show();
+    $("#barra_container").show();
+    $("#barra_progreso").val(0);
+    $("#barra_texto").text("0%");
 }
 
 function actualizarBarra(valor, texto = "") {
+
     $("#barra_progreso").val(valor);
+
     if (texto) {
-        $("#barra_progreso").attr("title", texto);
+        $("#barra_texto").text(texto);
+    } else {
+        $("#barra_texto").text(valor + "%");
     }
 }
 
 function ocultarBarra() {
+
     $("#barra_progreso").val(100);
+    $("#barra_texto").text("Finalizado");
+
     setTimeout(() => {
-        $("#barra_progreso").hide().val(0);
-    }, 500);
+        $("#barra_container").hide();
+        $("#barra_progreso").val(0);
+        $("#barra_texto").text("0%");
+    }, 800);
 }
 
 $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
-    //console.log(cons_id);
+  
     
     $('#prompt').summernote({
         height: 100,
         lang: "es-ES",
         callbacks: {
             onImageUpload: function(image) {
-                console.log("Image detect...");
+                
                 myimagetreat(image[0]);
             },
             onPaste: function (e) {
-                console.log("Text detect...");
+             
             }
         },
         toolbar: [
@@ -83,11 +94,11 @@ $("#btncargar").on("click", function () {
 
     let files = $("#fileElem")[0].files;
     for (let i = 0; i < files.length; i++) {
-        console.log("Archivos encontrados"+files[i].name);
+       
         formData.append("files[]", files[i]);
         console.log("Archivos agregados al formData");
     }
-    console.log(id);
+   
 
     $.ajax({
         //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
@@ -97,7 +108,7 @@ $("#btncargar").on("click", function () {
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log(data);
+           
             //Se muestra el detalle
             mostrar(cons_id);
 
@@ -121,7 +132,6 @@ $("#btncargar").on("click", function () {
                         console.log("Archivos Subidos");                          
         
                         let resp = JSON.parse(uploadedURIsRaw);     
-                        // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
         
                     },
                     error: function(err){
@@ -159,7 +169,7 @@ $("#btnenviar").on("click", function () {
 
     let files = $("#fileElem")[0].files;
     for (let i = 0; i < files.length; i++) {
-        console.log("Este es el nombre del archivo"+files[i].name);
+       
         formData.append("files[]", files[i]);
     }
 
@@ -208,6 +218,10 @@ $("#btnenviar").on("click", function () {
                             partes.push({
                                 text: `Analiza el/los documentos adjuntos y responde claramente a la siguiente solicitud;\n\n${prompt}`
                             });
+
+                            // partes.push({
+                            //     text: `${prompt}`
+                            // });
                             //SE AGREGAN LOS RECURSOS PARA QUE GEMINI LEA LOS ARCHIVOS
                             contentType_GSutil.forEach(element => {
                                 partes.push({
@@ -217,13 +231,13 @@ $("#btnenviar").on("click", function () {
                                     }
                                 });
                             });
-                            let mensajes = [];
+                            //let mensajes = [];
                             //SE ADJUNTA TODO EL CONTENIDO DEL MENSAJE + ROL USER
                             mensajes.push({
                                 role: "user",
                                 parts: partes
                             });
-                            console.log("Partes de archivos para Gemini:", mensajes);
+                          
                             //SE ENVIA TODO EL CONTENIDO A VERTEX/GEMINI + ID DE LA CONSULTA
                             actualizarBarra(75, "Analizando Documentos...");
 
@@ -231,46 +245,13 @@ $("#btnenviar").on("click", function () {
                         }
                         
                     );
-                    // 5 ENVIAR A GEMINI
-                    // if (files.length > 0) {
-                    //     let uploadData = new FormData();
-                    //     uploadData.append("cons_id", cons_id);
-                    //     for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
-
-                    //     $.ajax({
-                    //         url: "../../controller/consulta.php?op=subir_archivos_cloud",
-                    //         type: "POST",
-                    //         data: uploadData,
-                    //         processData: false,
-                    //         contentType: false,
-                    //         success: function (uploadedURIsRaw) {
-                    //             actualizarBarra(55, "Archivos procesados");
-
-                    //             let resp = JSON.parse(uploadedURIsRaw);                               
-                    //             // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
-                                
-
-                    //         },
-                    //         error: function(err){
-                    //             console.error("Error subiendo archivos:", err);
-                    //             // aún así intentamos enviar historial sin archivos
-                    //             //enviarAGeminiYGuardar(mensajes, cons_id);
-                    //         }
-                    //     });
-
-                    // } else {
-                    //     // No hay archivos → enviamos historial inmediatamente
-                    //     actualizarBarra(75, "Generando respuesta...");
-                    //     enviarAGeminiYGuardar(mensajes, cons_id);
-
-                    // }
+                
                 }
             );
 
             $('#btnenviar').prop("disabled", false);
             $('#btnenviar').html('Enviar y Procesar');
             $('#prompt').val('');
-
         }
     });
 });
@@ -299,7 +280,7 @@ $(document).on("click", ".btnEliminarDoc", function () {
         function(isConfirm) {
             if (isConfirm) {
                 swal.close();
-                console.log("Doc ID:", docd_id);
+               
 
                 $.ajax({
                     url: "../../controller/consulta.php?op=eliminar_archivo_bucket",
@@ -311,14 +292,14 @@ $(document).on("click", ".btnEliminarDoc", function () {
                         //actualizarBarra(55, "Archivos procesados");
         
                         //let resp = JSON.parse(uploadedURIsRaw);                               
-                        // console.log("RESPONSE de la respuesta:", cons_id.cons_id);
+                        
         
                         $.ajax({
                             url:"../../controller/documento.php?op=delete_documento",
                             type: "POST",
                             data: {docd_id: docd_id},
                             success: function(datos){
-                                console.log(datos);
+                                
         
                                 refrescar_detalle(cons_id);
                                 
@@ -338,92 +319,141 @@ $(document).on("click", ".btnEliminarDoc", function () {
     );
 });
 
-//Funcion que envia a Gemini y guarda la respuesta
-function enviarAGeminiYGuardar(mensajes, cons_id) {
-    
-    $.post("../../controller/consulta.php?op=ai_prompt",
-        { mensajes: JSON.stringify(mensajes) },
-        function (response) {
-            //console.log("Gemini respondió unas cosas:", response);
+async function enviarAGeminiYGuardar(mensajes, cons_id){
 
-            actualizarBarra(100, "Finalizado");
-            try {
-                var json = JSON.parse(response);
+    actualizarBarra(80, "Generando Respuesta...");
 
-                let respuestaIA = "⚠ Gemini no devolvió contenido textual.";
-                console.log("Respuesta Gemini completa:", json);
+    let respuestaCompleta = "";
+    let det_id = null;
 
-                if (json.candidates?.[0]?.content?.parts?.[0]?.text) {
-                    respuestaIA = json.candidates[0].content.parts[0].text;
-                    console.log("Respuesta textual extraída de Gemini:", respuestaIA);
-                }  
+    try {
 
-                // if (
-                //     json.candidates &&
-                //     json.candidates.length > 0 &&
-                //     json.candidates[0].content &&
-                //     json.candidates[0].content.parts &&
-                //     json.candidates[0].content.parts.length > 0
-                // ) {
-                //     const textoPart = json.candidates[0].content.parts.find(p => p.text);
-                //     if (textoPart) {
-                //         respuestaIA = textoPart.text;
-                //     }
-                // }
+        /*--------------------------------------------------
+        1️ Crear el registro vacío para la respuesta IA
+        --------------------------------------------------*/
 
-                // Guardar la respuesta IA en BD (usu_id = 2)
-                $.post("../../controller/consulta.php?op=insertdetalle",
-                    {
-                        cons_id: cons_id,
-                        usu_id: 2,
-                        det_contenido: respuestaIA
-                    },
-                    function () {
-                        mostrar(cons_id); // refrescar chat
-                    }
-                );
-
-            } catch (e) {
-                console.error("Error parseando respuesta Gemini:", e, response);
-            }
-        }
-    );
-}
-
-// function mostrar(id) {
-//     $.post("../../controller/consulta.php?op=listardetalle", {cons_id: id}, function (data){
-//         //console.log("Respuesta del detalle:", data);
-//         $('#lbldetalle').html(data);
+        const detalleVacio = await fetch("../../controller/consulta.php?op=insertdetalle",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/x-www-form-urlencoded"
+            },
+            body:new URLSearchParams({
+                cons_id:cons_id,
+                usu_id:2,
+                det_contenido:""
+            })
+        });
         
-//         // Ahora buscamos todos los mensajes del contenido
-//         $('#lbldetalle p').each(function () {
+        const crearDetalle = await detalleVacio.json();
+        
+        det_id = crearDetalle.det_id;
+        
+        /*--------------------------------------------------
+        2️ Crear contenedor visual para la respuesta
+        --------------------------------------------------*/
+
+        $('#lbldetalle').append(`
             
-//             let raw = $(this).text().trim(); // Obtener texto plano del mensaje
-//             let html = marked.parse(raw);    // Convertir Markdown → HTML
-//             let cleanHtml = DOMPurify.sanitize(html); // Seguridad
+            <p id="respuestaIA"></p>
+			
             
-//             $(this).html(cleanHtml); // Reemplazar texto por HTML renderizado
-//         });
-//         scrollToBottom();
-//     });
-//     $.post("../../controller/consulta.php?op=mostrar", {cons_id: id}, function (data) {
-//         //console.log(data.cons_nom);
+        `);
 
-//         try{
-//             data = JSON.parse(data); 
-//             $('#lblnomconsulta').html("Consulta: " + data.cons_nom);
+        const respuestaIA = $('#respuestaIA');
 
-//         }catch(err){
-//             $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Ocurrió un error al cargar la consulta. </div>");
-//         }
+        /*--------------------------------------------------
+        3️ Enviar a Gemini
+        --------------------------------------------------*/
 
-//         if (data.est == 2) {
-//             $('#pnldetalle').hide();
-//         }
-//     });
+        const formData = new FormData();
+        formData.append('mensajes', JSON.stringify(mensajes));
 
-    
-// }
+        const response = await fetch('../../controller/consulta.php?op=ai_prompt', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        let ultimoUpdate = Date.now();
+
+        /*--------------------------------------------------
+        4️ Leer chunks
+        --------------------------------------------------*/
+
+        while (true) {
+
+            const { done, value } = await reader.read();
+
+            if (done) break;
+
+            const chunk = decoder.decode(value, { stream: true });
+
+            const lines = chunk.split("\n");
+
+            for (let line of lines) {
+
+                if (!line.startsWith("data:")) continue;
+
+                const json = line.substring(5).trim();
+
+                if (json === "[DONE]") {
+
+                    console.log("Streaming terminado");
+
+                    await fetch("../../controller/consulta.php?op=updatedetalle",{
+                        method:"POST",
+                        headers:{
+                            "Content-Type":"application/x-www-form-urlencoded"
+                        },
+                        body:new URLSearchParams({
+                            det_id:det_id,
+                            det_contenido:respuestaCompleta
+                        })
+                    });
+
+                    mostrar(cons_id);
+
+                    return;
+                }
+
+                try {
+                    //MOSTRANDO LA RESPUESTA POR PARTES AL HTML CREADO (respuestaIA)
+
+                    const data = JSON.parse(json);
+
+                    const textoChunk =
+                    data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (!textoChunk) continue;
+
+                    respuestaCompleta += textoChunk;
+
+                    /* Mostrar en pantalla */
+
+                    respuestaIA.html(respuestaCompleta);
+                
+
+                } catch(e) {
+                    console.warn("Chunk inválido:", json);
+                }
+
+            }
+
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+
+
+
+}
 
 function mostrar(id) {
 
@@ -431,29 +461,6 @@ function mostrar(id) {
         $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ ID de consulta inválido.</div>");
         return;
     }
-
-    // Cargar detalle
-    $.ajax({
-        url: "../../controller/consulta.php?op=listardetalle",
-        type: "POST",
-        data: { cons_id: id },
-        success: function (data) {
-            $('#lbldetalle').html(data);
-
-            $('#lbldetalle p').each(function () {
-                let raw = $(this).text().trim();
-                let html = marked.parse(raw);
-                let cleanHtml = DOMPurify.sanitize(html);
-                $(this).html(cleanHtml);
-            });
-
-            scrollToBottom();
-        },
-        error: function (err) {
-            console.error("Error listardetalle:", err);
-            $('#lbldetalle').html("<div class='form-error-text-block'>❌ Error cargando el detalle.</div>");
-        }
-    });
 
     // Cargar info de la consulta
     $.ajax({
@@ -480,29 +487,52 @@ function mostrar(id) {
             $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Error de servidor al cargar la consulta.</div>");
         }
     });
+
+    // Cargar detalle
+    $.ajax({
+        url: "../../controller/consulta.php?op=listardetalle",
+        type: "POST",
+        data: { cons_id: id },
+        success: function (data) {
+            $('#lbldetalle').html(data);
+
+            $('#lbldetalle p').each(function () {
+                let raw = $(this).text().trim();
+                let html = marked.parse(raw);
+                let cleanHtml = DOMPurify.sanitize(html);
+                $(this).html(cleanHtml);
+            });
+
+            scrollToBottom();
+        },
+        error: function (err) {
+            console.error("Error listardetalle:", err);
+            $('#lbldetalle').html("<div class='form-error-text-block'>❌ Error cargando el detalle.</div>");
+        }
+    });
+
+    
 }
 
 
 function refrescar_detalle(id) {
 
     $.post("../../controller/consulta.php?op=listardetalle", {cons_id: id}, function (data){
-        //console.log("Respuesta del detalle:", data);
+        
         $('#lbldetalle').html(data);
         
         // Ahora buscamos todos los mensajes del contenido
         $('#lbldetalle p').each(function () {
-            
             let raw = $(this).text().trim(); // Obtener texto plano del mensaje
             let html = marked.parse(raw);    // Convertir Markdown → HTML
             let cleanHtml = DOMPurify.sanitize(html); // Seguridad
             
             $(this).html(cleanHtml); // Reemplazar texto por HTML renderizado
         });
-        
     });
 
     $.post("../../controller/consulta.php?op=mostrar", {cons_id: id}, function (data) {
-        //console.log(data.cons_nom);
+        
         data = JSON.parse(data); //line
 
         $('#lblnomconsulta').html("Consulta: " + data.cons_nom);

@@ -56,7 +56,7 @@
 							Cargar Documentos
 						</button>
 	
-						<button type="button" id="btnenviar" class="btn btn-rounded btn-inline" disabled="">✨
+						<button type="button" id="btnenviar" class="btn btn-rounded btn-inline" >✨
 							Enviar y Procesar</button>
 						<!-- <button type="button" id="btnenviar" name="action" value="add" class="btn btn-rounded btn-inline btn_primary">
 						✨
