@@ -74,8 +74,11 @@ $(document).ready(function() {
     mostrar(cons_id);
 });
 
+
 //CARGAR DOCUMENTO/S
 $("#btncargar").on("click", function () {
+
+    
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
     const decoded_id =  decodeURIComponent(cons_id);
@@ -93,69 +96,137 @@ $("#btncargar").on("click", function () {
     formData.append('det_contenido', prompt);
 
     let files = $("#fileElem")[0].files;
+    
     for (let i = 0; i < files.length; i++) {
        
         formData.append("files[]", files[i]);
         console.log("Archivos agregados al formData");
     }
-   
 
-    actualizarBarra(20, "Cargando Archivo/s");
+    //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
+    if (files.length > 0) {
+        blockPnl('Cargando documento/s a cloudStorage...');
+        let uploadData = new FormData();
+        //OBTENGO EL ID DE LA CONSULTA
+        uploadData.append("cons_id", cons_id);
+        for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
 
-    $.ajax({
-        //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
-        url: "../../controller/consulta.php?op=insertdetalle",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-           
-            //Se muestra el detalle
-            actualizarBarra(65, "Registrado.");
-            mostrar(cons_id);
+        $.ajax({
+            url: "../../controller/consulta.php?op=subir_archivos_cloud",
+            type: "POST",
+            data: uploadData,
+            processData: false,
+            contentType: false,
+            success: function (uploadedURIsRaw) {
+                let resp = JSON.parse(uploadedURIsRaw); 
+                blockPnl('Registrando documento/s...');
 
-            $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
-
-            //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
-            if (files.length > 0) {
-                let uploadData = new FormData();
-                //OBTENGO EL ID DE LA CONSULTA
-                uploadData.append("cons_id", cons_id);
-                for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
-        
                 $.ajax({
-                    url: "../../controller/consulta.php?op=subir_archivos_cloud",
+                    //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
+                    url: "../../controller/consulta.php?op=insertdetalle",
                     type: "POST",
-                    data: uploadData,
-                    processData: false,
+                    data: formData,
                     contentType: false,
-                    success: function (uploadedURIsRaw) {
-                        actualizarBarra(100, "Archivo/s cargados al Bucket");
-                        console.log("Archivos Subidos");                          
-        
-                        let resp = JSON.parse(uploadedURIsRaw);     
-        
-                    },
-                    error: function(err){
-                        console.error("Error subiendo archivos:", err);
-                        // aún así intentamos enviar historial sin archivos
-                        //enviarAGeminiYGuardar(mensajes, cons_id);
+                    processData: false,
+                    success: function (data) {
+                        
+                        //Se muestra el detalle
+                        blockPnl('Carga finalizada.');
+                        mostrar(cons_id);
+
+                        $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
+                        unblockPnl();
                     }
                 });
-                ocultarBarra();
-        
+                
+                console.log("Archivos Subidos");                          
+            },
+            error: function(err){
+                console.error("Error subiendo archivos:", err);
+                blockPnl("Error al subir archivo/s");
+                setTimeout(unblockPnl, 2000);
+                // aún así intentamos enviar historial sin archivos
+                //enviarAGeminiYGuardar(mensajes, cons_id);
             }
-            //Se RESETEA el file Elem (bandeja de documentos)
-            $('#fileElem').val('');
-        }
-    });
+        });
+        ocultarBarra();
+
+        
+    }else {
+        unblockPnl();
+        swal({
+            title: "Bandeja vacía",
+            text: "No has cargado documento/s",
+            type: "warning",
+            confirmButtonClass: "btn-warning"
+        });
+    }
+    //Se RESETEA el file Elem (bandeja de documentos)
+   // $('#fileElem').val('');
+
+    // $.ajax({
+    //     //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
+    //     url: "../../controller/consulta.php?op=insertdetalle",
+    //     type: "POST",
+    //     data: formData,
+    //     contentType: false,
+    //     processData: false,
+    //     success: function (data) {
+           
+    //         //Se muestra el detalle
+    //         blockPnl('Un momento...');
+    //         mostrar(cons_id);
+
+    //         $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
+
+    //         //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
+    //         if (files.length > 0) {
+    //             let uploadData = new FormData();
+    //             //OBTENGO EL ID DE LA CONSULTA
+    //             uploadData.append("cons_id", cons_id);
+    //             for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
+        
+    //             blockPnl('Cargando documento/s a cloudStorage...');
+    //             $.ajax({
+    //                 url: "../../controller/consulta.php?op=subir_archivos_cloud",
+    //                 type: "POST",
+    //                 data: uploadData,
+    //                 processData: false,
+    //                 contentType: false,
+    //                 success: function (uploadedURIsRaw) {
+    //                     blockPnl('Carga finalizada.');
+    //                     actualizarBarra(100, "Archivo/s cargados al Bucket");
+
+    //                     unblockPnl();
+                        
+    //                     console.log("Archivos Subidos");                          
+        
+    //                     let resp = JSON.parse(uploadedURIsRaw);     
+        
+    //                 },
+    //                 error: function(err){
+    //                     console.error("Error subiendo archivos:", err);
+    //                     // aún así intentamos enviar historial sin archivos
+    //                     //enviarAGeminiYGuardar(mensajes, cons_id);
+    //                 }
+    //             });
+    //             ocultarBarra();
+        
+                
+    //         }else{
+
+    //         }
+    //         //Se RESETEA el file Elem (bandeja de documentos)
+    //         $('#fileElem').val('');
+    //     }
+    // });
 
 });
 
 //ENVIAR PROMPT/ GENERAR RESPUESTA
 $("#btnenviar").on("click", function () {
 
+    blockPnl('Cargando información...');
     mostrarBarra();
     actualizarBarra(5, "Procesando información...");
 
@@ -188,11 +259,12 @@ $("#btnenviar").on("click", function () {
         processData: false,
         success: function () {
             actualizarBarra(15, "Mensaje guardado");
-
+            blockPnl('Espera un momento...');
             mostrar(cons_id); // Recarga chat del usuario
             $('#fileElem').val('');
             $('#prompt').summernote('reset');
             // 2 OBTENER HISTORIAL
+            actualizarBarra(20, "Cargando informacion");
             $.post(
                 "../../controller/consulta.php?op=obtener_historial",
                 { cons_id: cons_id },
@@ -204,8 +276,9 @@ $("#btnenviar").on("click", function () {
                         parts: [{ text: row.det_contenido }]
                     }));
 
-                    actualizarBarra(25, "Historial cargado");
+                    actualizarBarra(25, "Cargando informacion");
                     console.log("Historial cargado");
+                    blockPnl('Recopilando información...')
 
                     $.post(
                         //OBTENEMOS INFORMACION DE LOS OBJETOS DEL BUCKET/CONSULTA: mime-type + gsUtil
@@ -213,6 +286,7 @@ $("#btnenviar").on("click", function () {
                         { cons_id: cons_id },
                         function (contentType_GSutilRaw) {
                             if (contentType_GSutilRaw.length > 0){}
+                            blockPnl('Obteniendo datos de los documentos adjuntos...')
                             actualizarBarra(45, "Preparando documentos para IA");
 
                             let contentType_GSutil = JSON.parse(contentType_GSutilRaw);
@@ -243,6 +317,7 @@ $("#btnenviar").on("click", function () {
                             });
                           
                             //SE ENVIA TODO EL CONTENIDO A VERTEX/GEMINI + ID DE LA CONSULTA
+                            blockPnl('Carga de información a Gemini AI...')
                             actualizarBarra(55, "Documentos en procesamiento");
 
                             enviarAGeminiYGuardar(mensajes, cons_id);
@@ -323,17 +398,16 @@ $(document).on("click", ".btnEliminarDoc", function () {
 
 async function enviarAGeminiYGuardar(mensajes, cons_id){
 
+    blockPnl('En espera de respuesta por parte de Gemini AI...')
     actualizarBarra(80, "Generando Respuesta...");
 
     let respuestaCompleta = "";
     let det_id = null;
 
     try {
-
         /*--------------------------------------------------
         1️ Crear el registro vacío para la respuesta IA
         --------------------------------------------------*/
-
         const detalleVacio = await fetch("../../controller/consulta.php?op=insertdetalle",{
             method:"POST",
             headers:{
@@ -347,26 +421,19 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
         });
         
         const crearDetalle = await detalleVacio.json();
-        
         det_id = crearDetalle.det_id;
         
         /*--------------------------------------------------
         2️ Crear contenedor visual para la respuesta
         --------------------------------------------------*/
-
         $('#lbldetalle').append(`
-            
             <p id="respuestaIA"></p>
-			
-            
         `);
-
         const respuestaIA = $('#respuestaIA');
 
         /*--------------------------------------------------
         3️ Enviar a Gemini
         --------------------------------------------------*/
-
         const formData = new FormData();
         formData.append('mensajes', JSON.stringify(mensajes));
 
@@ -381,33 +448,25 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
-
         let ultimoUpdate = Date.now();
 
         /*--------------------------------------------------
         4️ Leer chunks
         --------------------------------------------------*/
-
         while (true) {
-
+            
             const { done, value } = await reader.read();
 
             if (done) break;
-
             const chunk = decoder.decode(value, { stream: true });
-
             const lines = chunk.split("\n");
-
             for (let line of lines) {
 
                 if (!line.startsWith("data:")) continue;
-
                 const json = line.substring(5).trim();
 
                 if (json === "[DONE]") {
-
                     console.log("Streaming terminado");
-
                     await fetch("../../controller/consulta.php?op=updatedetalle",{
                         method:"POST",
                         headers:{
@@ -418,42 +477,54 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
                             det_contenido:respuestaCompleta
                         })
                     });
-
+                    unblockPnl()
                     mostrar(cons_id);
-
                     return;
                 }
 
                 try {
+                    blockPnl('Generando respuesta...')
                     //MOSTRANDO LA RESPUESTA POR PARTES AL HTML CREADO (respuestaIA)
-
                     const data = JSON.parse(json);
-
-                    const textoChunk =
-                    data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    const textoChunk = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
                     if (!textoChunk) continue;
-
                     respuestaCompleta += textoChunk;
-
                     /* Mostrar en pantalla */
-
-                    respuestaIA.html(respuestaCompleta);
-                
-
+                    respuestaIA.html(respuestaCompleta); 
+                    scrollToBottom();
                 } catch(e) {
                     console.warn("Chunk inválido:", json);
                 }
-
             }
-
         }
-
     } catch (error) {
         console.error("Error:", error);
     }
+}
 
+//FUNCION PARA BLOQUEAR EL PANEL DE DETALLE (mensaje de carga)
+function blockPnl(mensaje) {
+    
+    $('#pnldetalle').block({
+        message: `<div class="blockui-default-message">` +
+                    `<i class="fa fa-circle-o-notch fa-spin"></i>` +
+                    `<h6>`+mensaje+`</h6>` +
+                 `</div>`,
+        overlayCSS: {
+            background: 'rgba(24, 44, 68, 0.8)', //dark
+            opacity: 1,
+            cursor: 'wait'
+        },
+        css: {
+            width: '50%'
+        },
+        blockMsgClass: 'block-msg-default'
+    });
+}
 
+function unblockPnl() {
+    $('#pnldetalle').unblock();
 
 }
 

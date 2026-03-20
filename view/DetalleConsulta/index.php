@@ -78,6 +78,7 @@
 	</div> <!--.page content -->
 
 	<?php require_once("../MainJs/js.php"); ?>
+	<script src="../../public/js/lib/blockUI/jquery.blockUI.js"></script>
     <script type="text/javascript" src="detalleconsulta.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.2/dist/purify.min.js"></script>
