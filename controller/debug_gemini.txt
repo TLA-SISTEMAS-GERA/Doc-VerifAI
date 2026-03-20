@@ -44,6 +44,1021 @@ Array
 
     [3] => Array
         (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => ¡Hola! Como analista experto en documentación de comercio exterior, he realizado la verificación de los documentos proporcionados.
+
+---
+
+**PASO 1: Confirmación de PEDIMENTO y Documentos Recibidos**
+
+El archivo identificado como **Documento 5 (9 páginas)** cumple con todas las características de un pedimento aduanal auténtico, incluyendo la estructura de ENCABEZADO, CUADRO DE LIQUIDACION y PIE DE PÁGINA, así como el formato PDF. Este documento ha sido etiquetado internamente como **[PEDIMENTO_MASTER]**.
+
+**Documentos adicionales recibidos:**
+*   **Documento 1 (4 páginas):** Carta 3.1.8 (también incluye un listado de mercancías y referencia de pedimento).
+*   **Documento 2 (1 página):** Certificado de Origen.
+*   **Documento 3 (8 páginas):** Factura Comercial (No. 00011-00000645).
+*   **Documento 4 (3 páginas):** Reporte de Previo.
+*   **Documento 6 (5 páginas):** Manifestación de Valor.
+
+---
+
+**PASO 2: Tabla Comparativa Principal**
+
+**Datos Generales**
+
+| Sección PEDIMENTO | Dato Verificado | Documento de Referencia | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación |
+| :---------------- | :-------------- | :---------------------- | :------------------------------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Importador        | Nombre          | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | IMPROVED FUEL SYSTEMS, SA DE CV              | ✅           | Nombre del importador coincide en todos los documentos.                                                                                                                        |
+| RFC Importador    | RFC             | Carta 3.1.8, Factura, Manifestación de Valor | IFS111028712                                 | ✅           | RFC del importador consistente en todos los documentos.                                                                                                                        |
+| Exportador        | Nombre          | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | LIFTGATE S.A.                                | ✅           | Nombre del exportador consistente en todos los documentos.                                                                                                                     |
+| Valor Aduana Total | MXN             | Carta 3.1.8, Factura, Manifestación de Valor | 303,709                                      | ✅           | Valor Aduana de $303,709 MXN coincide con el cálculo (Valor Comercial de $16,645 USD + Fletes de $879 USD) * Tipo de Cambio de $17.33100.                                      |
+| Precio Pagado Total | MXN             | Carta 3.1.8, Factura, Manifestación de Valor | 288,475                                      | ✅           | Precio Pagado de $288,475 MXN coincide con el Valor Comercial de la mercancía ($16,645 USD) * Tipo de Cambio de $17.33100.                                                     |
+| Fletes Total      | MXN             | Carta 3.1.8                                 | 15,234                                       | ✅           | Los fletes de $15,234 MXN en el pedimento coinciden con los $879.00 USD declarados en la Carta 3.1.8 al tipo de cambio de $17.33100.                                           |
+| Carga y Descarga  | MXN             | N/A                                     | 0                                            | ✅           | No se declaran gastos de Carga y Descarga en el pedimento, ni se identifican en otros documentos.                                                                          |
+| Facturas Declaradas | Número          | Carta 3.1.8, Factura, Certificado de Origen, Manifestación de Valor | 00011-00000645                               | ✅           | El número de factura comercial es consistente en todos los documentos y está referenciado en el pedimento.                                                                     |
+
+**Partidas de Mercancía (por cada una de las partidas consolidadas del Pedimento)**
+
+El **[PEDIMENTO_MASTER]** agrupa todas las mercancías en dos partidas consolidadas (001 y 002) bajo la misma fracción arancelaria, detallando los modelos (números de parte), valores y cantidades individuales en las "OBSERVACIONES A NIVEL PARTIDA" de cada una.
+
+**Partida Pedimento: 001** (Consolidación de modelos 13009 a 20339, 86 modelos en total)
+
+| Dato Verificado     | Documento de Referencia | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                |
+| :------------------ | :---------------------- | :------------------------------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                     | 84123199                                     | ✅           | La fracción arancelaria es la misma para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                              |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION | ✅           | Descripción general consistente con la mercancía. El Certificado de Origen tiene una descripción más detallada de "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE".                                                                                                                                                                     |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Múltiples líneas de partida) | 00011-00000645 (referenciado en observaciones para cada modelo) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad por cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                            |
+| MARCA               | Factura, Previo         | LIFTGATE (en observaciones por modelo)      | ✅           | La marca LIFTGATE es consistente en todos los documentos.                                                                                                                                                                                                                                                                                                          |
+| NO.PARTE            | Factura, Carta 3.1.8, Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA' (ej. 13009, 13010, ... 20339) | ❌           | El Reporte de Previo (Documento 4) indica una discrepancia de cantidad para los números de parte 13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038: La factura y el pedimento declaran 20 piezas, mientras que el recuento físico fue de 40 piezas para cada uno. Esto representa una discrepancia de cantidad real. |
+
+**Partida Pedimento: 002** (Consolidación de modelos 13006, 13007, 13035, 13037, 4 modelos en total)
+
+| Dato Verificado     | Documento de Referencia | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                              |
+| :------------------ | :---------------------- | :------------------------------------------- | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                     | 84123199                                     | ✅           | La fracción arancelaria es la misma para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                             |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION | ✅           | Descripción general consistente con la mercancía. El Certificado de Origen tiene una descripción más detallada de "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE".                                                                                                                                                                     |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Líneas 13006, 13007, 13035, 13037) | 00011-00000645 (referenciado en observaciones para cada modelo) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad por cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                            |
+| MARCA               | Factura, Previo         | LIFTGATE (en observaciones por modelo)      | ✅           | La marca LIFTGATE es consistente en todos los documentos.                                                                                                                                                                                                                                                                                                          |
+| NO.PARTE            | Factura, Carta 3.1.8, Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA' (ej. 13006, 13007, 13035, 13037) | ❌           | El Reporte de Previo (Documento 4) indica una discrepancia de etiquetado para los números de parte 13006, 13007, 13035 y 13037: Las etiquetas de las cajas indicaban 2 piezas, pero el recuento físico por caja fue de 1 pieza. Se observa que el total de piezas para estos códigos fue correcto, lo que sugiere un error de etiquetado y no de cantidad total. |
+
+---
+
+**PASO 3: Documentación no capturada en PEDIMENTO**
+
+*   **Discrepancia de Cantidad Real:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la factura y el pedimento declaran 20 unidades, pero el reporte de previo indica que físicamente se contaron 40 unidades para cada uno. Esto representa una diferencia de 20 unidades por cada número de parte, sumando un total de **200 unidades no declaradas** en el pedimento según el conteo físico.
+*   **Discrepancia de Etiquetado:** Para los números de parte **13006, 13007, 13035 y 13037**, el reporte de previo señala que las etiquetas de las cajas indicaban 2 piezas, pero físicamente se encontró 1 pieza por caja. Aunque se aclara que el total general de piezas para estos códigos es correcto, la inconsistencia en el etiquetado podría generar problemas en futuras inspecciones o control de inventario.
+
+---
+
+**PASO 4: Resumen Ejecutivo y Recomendaciones**
+
+**Resumen Ejecutivo:**
+
+*   ✅ La documentación general (datos de importador/exportador, valores totales en USD y MXN, tipo de cambio, fletes y número de factura) muestra una alta concordancia entre el [PEDIMENTO_MASTER] y los documentos de referencia (Carta 3.1.8, Factura, Manifestación de Valor). El cálculo de Valor Aduana y Precio Pagado en MXN es preciso según el tipo de cambio declarado.
+*   ⚠️ Se encontraron discrepancias críticas en las cantidades declaradas para 10 números de parte específicos (13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038), donde el pedimento y la factura declaran 20 piezas, pero el previo físico reporta 40 piezas para cada uno.
+*   ? Se identificó una discrepancia de etiquetado para 4 números de parte (13006, 13007, 13035 y 13037), aunque el reporte de previo indica que el total general de piezas es correcto, solo el etiquetado por caja es erróneo.
+*   ❌ No se encontró documentación faltante crítica.
+
+**Recomendaciones:**
+
+1.  Rectificar el pedimento y la factura para ajustar las cantidades de los números de parte 13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038 a 40 piezas, conforme al previo físico.
+2.  Investigar la causa de la discrepancia de cantidad (20 vs 40 piezas) para estos 10 números de parte y establecer un proceso de verificación para evitar futuras inconsistencias entre la documentación y el inventario físico.
+3.  Corregir los errores de etiquetado en las cajas para los números de parte 13006, 13007, 13035 y 13037 para asegurar la coherencia en futuras operaciones logísticas y aduaneras.
+
+Fin de Análisis
+                        )
+
+                )
+
+        )
+
+    [4] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [5] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => ¡Hola! Como analista experto en documentación de comercio exterior, he realizado la verificación de los documentos proporcionados.
+
+---
+
+**PASO 1: Confirmación de PEDIMENTO y Documentos Recibidos**
+
+El archivo identificado como **Documento 6 (9 páginas)** cumple con todas las características de un pedimento aduanal auténtico, incluyendo la estructura de ENCABEZADO, CUADRO DE LIQUIDACION y PIE DE PÁGINA, así como el bloque de firma. Este documento ha sido etiquetado internamente como **[PEDIMENTO_MASTER]**.
+
+**Documentos adicionales recibidos:**
+*   **Documento 1 (4 páginas):** Carta 3.1.8.
+*   **Documento 2 (1 página):** Certificado de Origen.
+*   **Documento 3 (8 páginas):** Factura Comercial (No. 00011-00000645).
+*   **Documento 4 (3 páginas):** Reporte de Previo.
+*   **Documento 5 (1 página):** CFDI de Fletes y Liberación (MPC WORLD WIDE).
+*   **Documento 7 (3 páginas):** Manifestación de Valor.
+
+---
+
+**PASO 2: Tabla Comparativa Principal**
+
+**Datos Generales**
+
+| Sección PEDIMENTO   | Dato Verificado     | Documento de Referencia                                     | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                      |
+| :------------------ | :------------------ | :---------------------------------------------------------- | :------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Importador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, CFDI, Manifestación de Valor | IMPROVED FUEL SYSTEMS, SA DE CV              | ✅           | Nombre del importador coincide en todos los documentos.                                                                                                                                                                                                                    |
+| RFC Importador      | RFC                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | IFS111028712                                 | ✅           | RFC del importador consistente en todos los documentos.                                                                                                                                                                                                                     |
+| Exportador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | LIFTGATE S.A.                                | ✅           | Nombre del exportador consistente en todos los documentos.                                                                                                                                                                                                                  |
+| Valor Aduana Total  | MXN                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | 303,709                                      | ✅           | Valor Aduana de $303,709 MXN coincide con la suma del Valor Comercial de la mercancía ($16,645 USD) y Fletes ($879 USD), multiplicado por el Tipo de Cambio ($17.33100), resultando en $17,524 USD * $17.33100 = $303,709.764 MXN.                                           |
+| Precio Pagado Total | MXN                 | Carta 3.1.8, Factura, Manifestación de Valor                | 288,475                                      | ✅           | Precio Pagado de $288,475 MXN coincide con el Valor Comercial de la mercancía ($16,645 USD) multiplicado por el Tipo de Cambio ($17.33100), resultando en $288,475.245 MXN.                                                                                                    |
+| Fletes Total        | MXN                 | Carta 3.1.8, CFDI                                           | 15,234                                       | ✅           | Los fletes de $15,234 MXN en el pedimento coinciden con los $879.00 USD declarados en la Carta 3.1.8 y CFDI (Documento 5) al tipo de cambio de $17.33100.                                                                                                                     |
+| Carga y Descarga    | MXN                 | N/A                                                         | 0                                            | ✅           | No se declaran gastos de Carga y Descarga en el pedimento, ni se identifican en otros documentos como incrementables.                                                                                                                                                  |
+| Facturas Declaradas | Número de Factura   | Carta 3.1.8, Factura, Certificado de Origen, Manifestación de Valor | 00011-00000645                               | ✅           | El número de factura comercial es consistente en todos los documentos y está correctamente referenciado en el pedimento en la sección de datos del proveedor. Cada modelo en las observaciones de partida del pedimento hace referencia a esta factura (00011 00000645-X). |
+
+**Partidas de Mercancía**
+
+El **[PEDIMENTO_MASTER]** consolida la mercancía en dos partidas (001 y 002) bajo la misma fracción arancelaria, detallando la información específica de cada "Modelo" (No. Parte), valor y cantidad en las "OBSERVACIONES A NIVEL PARTIDA". Todos los modelos listados en la Factura Comercial (Documento 3) están presentes en las observaciones del pedimento.
+
+**Partida Pedimento: 001** (Contiene modelos desde 13009 hasta 20339)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera discrepancia.                                                                                                                                                                                                                               |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Múltiples líneas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                          |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ❌           | **Discrepancia de Cantidad:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura (Documento 3) y el [PEDIMENTO_MASTER] declaran 20 piezas para cada uno. Sin embargo, el Reporte de Previo (Documento 4) indica que el recuento físico fue de 40 piezas para cada uno. Esto representa una discrepancia de 20 piezas por cada número de parte, sumando un total de 200 piezas no declaradas según el conteo físico. |
+
+**Partida Pedimento: 002** (Contiene modelos 13006, 13007, 13035, 13037)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera discrepancia.                                                                                                                                                                                                                                                              |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Líneas específicas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                                                         |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ✅           | El Reporte de Previo (Documento 4) indica una discrepancia de etiquetado para los números de parte **13006, 13007, 13035 y 13037**: "LA ETIQUETA DE LA CAJA DICE 2 PZS Y SOLO VIENE 1 PZ, NOTA EL TOTAL DE LAS PZS ES CORRECTO". Esto significa que la cantidad total declarada (20 piezas) es correcta, pero el etiquetado individual por caja es erróneo, lo que no afecta la declaración aduanera de cantidad total, pero sí la logística interna. |
+
+---
+
+**PASO 3: Documentación no capturada en PEDIMENTO**
+
+*   **Discrepancia de Cantidad Física vs. Declarada:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura Comercial (Documento 3) y el [PEDIMENTO_MASTER] (Documento 6) declaran 20 unidades de cada uno, mientras que el Reporte de Previo (Documento 4) encontró 40 unidades físicas. Esto implica que un total de **200 unidades (20 por cada uno de los 10 modelos) no están declaradas** en el pedimento ni en la factura, según el conteo físico.
+*   **Ausencia de Números de Serie:** La instrucción "Cada una de las Partidas del [PEDIMENTO_MASTER] tienen que tener explicitamente declaradas; Marcas, modelos, series y No. parte" no se cumple para los números de serie. Los documentos proporcionados (Factura, Carta 3.1.8, Reporte de Previo) no contienen información de números de serie para las mercancías. Por lo tanto, no están declarados en el [PEDIMENTO_MASTER].
+*   **Servicios de "Liberación" y "Desconsolidación" del CFDI (Documento 5) no reflejados como incrementables:** El CFDI de Fletes y Liberación incluye cargos por "LIBERACION" ($70 USD) y "DESCONSOLIDACION" ($87.60 USD). Aunque el flete ($879 USD) sí se refleja en el pedimento, estos otros servicios, si bien son gastos locales en destino y no siempre incrementables en el Valor Aduana bajo Incoterm FOB, no se especifican en los campos de "OTROS INCREMENTABLES" del [PEDIMENTO_MASTER] que figura con valor 0.
+
+---
+
+**PASO 4: Resumen Ejecutivo y Recomendaciones**
+
+**Resumen Ejecutivo:**
+
+*   ✅ La documentación general (datos de importador/exportador, RFC, valores totales, fletes y referencia de factura) presenta una alta concordancia entre el [PEDIMENTO_MASTER] y los documentos complementarios. Los cálculos de Valor Aduana y Precio Pagado en MXN son consistentes con los valores en USD y el tipo de cambio.
+*   ⚠️ Se ha identificado una discrepancia crítica de cantidad para 10 números de parte específicos. La declaración en el pedimento y factura es de 20 unidades por cada uno, pero el conteo físico en el reporte de previo es de 40 unidades, lo que representa una **subdeclaración de 200 unidades**.
+*   ? No se declararon números de serie en el pedimento, ya que tampoco se encuentran en los documentos de origen (factura, previo). Asimismo, los costos de "Liberación" y "Desconsolidación" del CFDI no se reflejan como gastos incrementables en el pedimento.
+*   ❌ No se ha identificado documentación crítica faltante.
+
+**Recomendaciones:**
+
+1.  Rectificar el [PEDIMENTO_MASTER] y la Factura Comercial (Documento 3) para ajustar las cantidades de los 10 números de parte discrepantes (13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038) a 40 piezas, conforme al Reporte de Previo (Documento 4).
+2.  Implementar un proceso de control de calidad para el etiquetado de mercancías, especialmente para los números de parte 13006, 13007, 13035 y 13037, para evitar errores de conteo o logística interna, aun cuando el total declarado en aduana sea correcto.
+3.  Evaluar la posibilidad de solicitar a los proveedores que incluyan números de serie en las facturas comerciales para cumplir con los requisitos de identificación de mercancías a nivel de partida en el pedimento.
+
+Fin de Análisis
+                        )
+
+                )
+
+        )
+
+    [6] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [7] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => ¡Hola! Como analista experto en documentación de comercio exterior, he realizado la verificación de los documentos proporcionados.
+
+---
+
+**PASO 1: Confirmación de PEDIMENTO y Documentos Recibidos**
+
+El archivo identificado como **Documento 6 (9 páginas)** cumple con todas las características de un pedimento aduanal auténtico, incluyendo la estructura de ENCABEZADO, CUADRO DE LIQUIDACION y PIE DE PÁGINA, así como el bloque de firma. Este documento ha sido etiquetado internamente como **[PEDIMENTO_MASTER]**. Es importante señalar que el nombre del archivo no comienza con "Referencia", lo cual es una observación con respecto a la instrucción de identificación, aunque el contenido confirma su naturaleza como pedimento.
+
+**Documentos adicionales recibidos:**
+*   **Documento 1 (4 páginas):** Carta 3.1.8.
+*   **Documento 2 (1 página):** Certificado de Origen.
+*   **Documento 3 (8 páginas):** Factura Comercial (No. 00011-00000645).
+*   **Documento 4 (3 páginas):** Reporte de Previo.
+*   **Documento 5 (1 página):** CFDI de Fletes y Liberación (MPC WORLD WIDE).
+*   **Documento 7 (3 páginas):** Manifestación de Valor.
+
+---
+
+**PASO 2: Tabla Comparativa Principal**
+
+**Datos Generales**
+
+| Sección PEDIMENTO   | Dato Verificado     | Documento de Referencia                                     | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                      |
+| :------------------ | :------------------ | :---------------------------------------------------------- | :------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Importador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, CFDI, Manifestación de Valor | IMPROVED FUEL SYSTEMS, SA DE CV              | ✅           | Nombre del importador coincide en todos los documentos.                                                                                                                                                                                                                    |
+| RFC Importador      | RFC                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | IFS111028712                                 | ✅           | RFC del importador consistente en todos los documentos.                                                                                                                                                                                                                     |
+| Exportador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | LIFTGATE S.A.                                | ✅           | Nombre del exportador consistente en todos los documentos.                                                                                                                                                                                                                  |
+| Valor Aduana Total  | MXN                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | 303,709                                      | ✅           | Valor Aduana de $303,709 MXN coincide con la suma del Valor Comercial de la mercancía ($16,645 USD) y Fletes ($879 USD), multiplicado por el Tipo de Cambio ($17.33100), resultando en $17,524 USD * $17.33100 = $303,709.764 MXN.                                           |
+| Precio Pagado Total | MXN                 | Carta 3.1.8, Factura, Manifestación de Valor                | 288,475                                      | ✅           | Precio Pagado de $288,475 MXN coincide con el Valor Comercial de la mercancía ($16,645 USD) multiplicado por el Tipo de Cambio ($17.33100), resultando en $288,475.245 MXN.                                                                                                    |
+| Fletes Total        | MXN                 | Carta 3.1.8, CFDI                                           | 15,234                                       | ✅           | Los fletes de $15,234 MXN en el pedimento coinciden con los $879.00 USD declarados en la Carta 3.1.8 y CFDI (Documento 5) al tipo de cambio de $17.33100.                                                                                                                     |
+| Carga y Descarga    | MXN                 | N/A                                                         | 0                                            | ✅           | No se declaran gastos de Carga y Descarga en el pedimento, ni se identifican en otros documentos como incrementables.                                                                                                                                                  |
+| Facturas Declaradas | Número de Factura   | Carta 3.1.8, Factura, Certificado de Origen, Manifestación de Valor | 00011-00000645                               | ✅           | El número de factura comercial es consistente en todos los documentos y está correctamente referenciado en el pedimento en la sección de datos del proveedor. Cada modelo en las observaciones de partida del pedimento hace referencia a esta factura (00011 00000645-X). |
+
+**Partidas de Mercancía**
+
+El **[PEDIMENTO_MASTER]** consolida la mercancía en dos partidas (001 y 002) bajo la misma fracción arancelaria (84123199), detallando la información específica de cada "Modelo" (No. Parte), valor y cantidad en las "OBSERVACIONES A NIVEL PARTIDA". Todos los modelos listados en la Factura Comercial (Documento 3) están presentes en las observaciones del pedimento.
+
+**Partida Pedimento: 001** (Contiene modelos desde 13009 hasta 20339)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera discrepancia.                                                                                                                                                                                                                               |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Múltiples líneas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                          |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ❌           | **Discrepancia de Cantidad Crítica:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura (Documento 3) y el [PEDIMENTO_MASTER] declaran 20 piezas para cada uno. Sin embargo, el Reporte de Previo (Documento 4) indica que el recuento físico fue de 40 piezas para cada uno. Esto representa una discrepancia de 20 piezas por cada número de parte, sumando un total de 200 piezas no declaradas según el conteo físico. |
+
+**Partida Pedimento: 002** (Contiene modelos 13006, 13007, 13035, 13037)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera discrepancia.                                                                                                                                                                                                                                                              |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Líneas específicas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                                                         |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ✅           | El Reporte de Previo (Documento 4) indica una **discrepancia de etiquetado** para los números de parte **13006, 13007, 13035 y 13037**: "LA ETIQUETA DE LA CAJA DICE 2 PZS Y SOLO VIENE 1 PZ, NOTA EL TOTAL DE LAS PZS ES CORRECTO". Esto significa que la cantidad total declarada (20 piezas) es correcta y coincide con la factura y pedimento, pero el etiquetado individual por caja es erróneo. Esta observación no representa una discrepancia aduanera de cantidad, sino un problema logístico/interno de etiquetado. |
+
+---
+
+**PASO 3: Documentación no capturada en PEDIMENTO**
+
+*   **Discrepancia de Cantidad Física vs. Declarada (200 unidades subdeclaradas):** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura Comercial (Documento 3) y el [PEDIMENTO_MASTER] (Documento 6) declaran 20 unidades de cada uno. Sin embargo, el Reporte de Previo (Documento 4) encontró 40 unidades físicas para cada uno de estos códigos. Esto implica que un total de **200 unidades (20 por cada uno de los 10 modelos) no están declaradas** en el pedimento ni en la factura, según el conteo físico.
+*   **Ausencia de Números de Serie en Documentación y Pedimento:** La instrucción de análisis exige la declaración explícita de Marcas, modelos, series y No. parte. Aunque Marcas, modelos y No. parte están adecuadamente detallados en las observaciones a nivel partida del pedimento, no se proporciona información de números de serie en ninguno de los documentos complementarios (Factura, Carta 3.1.8, Reporte de Previo). Por lo tanto, el [PEDIMENTO_MASTER] no contiene la declaración de números de serie para ninguna partida, ya que esta información no estaba disponible en los documentos base.
+*   **Servicios de "Liberación" y "Desconsolidación" no reflejados como incrementables:** El CFDI de Fletes y Liberación (Documento 5) incluye cargos por "LIBERACION" ($70 USD) y "DESCONSOLIDACION" ($87.60 USD). A pesar de que el flete ($879 USD) se refleja correctamente en el pedimento, estos otros servicios, que representan gastos en destino, no se especifican en los campos de "OTROS INCREMENTABLES" del [PEDIMENTO_MASTER] (el cual figura con valor 0). Su naturaleza de incrementable o no depende de las reglas de valoración aduanera y el Incoterm (FOB), pero su omisión merece ser señalada.
+
+---
+
+**PASO 4: Resumen Ejecutivo y Recomendaciones**
+
+**Resumen Ejecutivo:**
+
+*   ✅ La documentación general (datos de importador/exportador, RFC, valores totales, fletes y referencia de factura) presenta una alta concordancia entre el [PEDIMENTO_MASTER] y los documentos complementarios. Los cálculos de Valor Aduana y Precio Pagado en MXN son consistentes con los valores en USD y el tipo de cambio declarado.
+*   ⚠️ Se ha identificado una discrepancia crítica de cantidad para 10 números de parte específicos. La declaración en el pedimento y factura es de 20 unidades por cada uno, pero el conteo físico en el reporte de previo es de 40 unidades, lo que representa una **subdeclaración de 200 unidades en total**. Esto es una discrepancia grave.
+*   ? No se declararon números de serie en el pedimento, debido a que esta información no se encontraba en los documentos de origen. Los costos de "Liberación" y "Desconsolidación" del CFDI no se reflejan como gastos incrementables en el pedimento.
+*   ✅ No se ha identificado documentación crítica faltante.
+
+**Recomendaciones:**
+
+1.  **Rectificación inmediata del Pedimento y Factura:** Proceder a la rectificación del pedimento y de la Factura Comercial para corregir la cantidad de las 200 unidades subdeclaradas (10 números de parte con 20 piezas adicionales cada uno), según el Reporte de Previo.
+2.  **Mejora de Controles Internos:** Establecer un proceso de verificación exhaustiva entre las órdenes de compra, facturas del proveedor y el conteo físico de previo para prevenir discrepancias de cantidad tan significativas en futuras operaciones.
+3.  **Evaluación de Costos de Servicios:** Determinar si los costos de "Liberación" y "Desconsolidación" del CFDI son incrementables al valor en aduana bajo las reglas de valoración aduanera y el Incoterm FOB, y, en caso afirmativo, ajustar la declaración en el pedimento.
+4.  **Inclusión de Números de Serie:** Si la naturaleza de la mercancía lo permite y los requisitos aduaneros o internos lo exigen, solicitar al proveedor que incluya los números de serie en la factura comercial para poder declararlos en las observaciones a nivel partida del pedimento.
+
+Fin de Análisis
+                        )
+
+                )
+
+        )
+
+    [8] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [9] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => ¡Hola! Como analista experto en documentación de comercio exterior, he realizado la verificación de los documentos proporcionados.
+
+---
+
+**PASO 1: Confirmación de PEDIMENTO y Documentos Recibidos**
+
+El archivo identificado como **Documento 6 (9 páginas)** cumple con todas las características de un pedimento aduanal auténtico, incluyendo la estructura de ENCABEZADO, CUADRO DE LIQUIDACION y PIE DE PÁGINA, así como el bloque de firma y el formato PDF. Este documento ha sido etiquetado internamente como **[PEDIMENTO_MASTER]**.
+
+**Observación Importante:** El nombre del archivo identificado como pedimento ("Documento 6") **no** comienza estrictamente con "Referencia", a diferencia de lo estipulado en la regla de identificación de pedimento auténtico. Sin embargo, dado que su contenido es inequívocamente un pedimento y es el único documento con dicha estructura, se procede con el análisis.
+
+**Documentos adicionales recibidos:**
+*   **Documento 1 (4 páginas):** Carta 3.1.8.
+*   **Documento 2 (1 página):** Certificado de Origen.
+*   **Documento 3 (8 páginas):** Factura Comercial (No. 00011-00000645).
+*   **Documento 4 (3 páginas):** Reporte de Previo.
+*   **Documento 5 (1 página):** CFDI de Fletes y Liberación (MPC WORLD WIDE).
+*   **Documento 7 (3 páginas):** Manifestación de Valor.
+
+---
+
+**PASO 2: Tabla Comparativa Principal**
+
+**Datos Generales**
+
+| Sección PEDIMENTO   | Dato Verificado     | Documento de Referencia                                     | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                      |
+| :------------------ | :------------------ | :---------------------------------------------------------- | :------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Importador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, CFDI, Manifestación de Valor | IMPROVED FUEL SYSTEMS, SA DE CV              | ✅           | Nombre del importador coincide en todos los documentos.                                                                                                                                                                                                                    |
+| RFC Importador      | RFC                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | IFS111028712                                 | ✅           | RFC del importador consistente en todos los documentos.                                                                                                                                                                                                                     |
+| Exportador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | LIFTGATE S.A.                                | ✅           | Nombre del exportador consistente en todos los documentos.                                                                                                                                                                                                                  |
+| Valor Aduana Total  | MXN                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | 303,709                                      | ✅           | Valor Aduana de $303,709 MXN coincide con la suma del Valor Comercial de la mercancía ($16,645 USD) y Fletes ($879 USD), multiplicado por el Tipo de Cambio ($17.33100), resultando en $17,524 USD * $17.33100 = $303,709.764 MXN.                                           |
+| Precio Pagado Total | MXN                 | Carta 3.1.8, Factura, Manifestación de Valor                | 288,475                                      | ✅           | Precio Pagado de $288,475 MXN coincide con el Valor Comercial de la mercancía ($16,645 USD) multiplicado por el Tipo de Cambio ($17.33100), resultando en $288,475.245 MXN.                                                                                                    |
+| Fletes Total        | MXN                 | Carta 3.1.8, CFDI                                           | 15,234                                       | ✅           | Los fletes de $15,234 MXN en el pedimento coinciden con los $879.00 USD declarados en la Carta 3.1.8 y CFDI (Documento 5) al tipo de cambio de $17.33100.                                                                                                                     |
+| Carga y Descarga    | MXN                 | N/A                                                         | 0                                            | ✅           | No se declaran gastos de Carga y Descarga en el pedimento, ni se identifican en otros documentos como incrementables.                                                                                                                                                  |
+| Facturas Declaradas | Número de Factura   | Carta 3.1.8, Factura, Certificado de Origen, Manifestación de Valor | 00011-00000645                               | ✅           | El número de factura comercial es consistente en todos los documentos y está correctamente referenciado en el pedimento en la sección de datos del proveedor. Cada modelo en las observaciones de partida del pedimento hace referencia a esta factura (00011 00000645-X). |
+
+**Partidas de Mercancía**
+
+El **[PEDIMENTO_MASTER]** consolida la mercancía en dos partidas (001 y 002) bajo la misma fracción arancelaria (84123199). La información específica de cada "Modelo" (No. Parte), valor y cantidad se detalla en las "OBSERVACIONES A NIVEL PARTIDA", y todos los modelos de la Factura Comercial (Documento 3) están referenciados.
+
+**Partida Pedimento: 001** (Contiene múltiples modelos desde 13009 hasta 20339)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                               |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Múltiples líneas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                          |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ❌           | **Discrepancia de Cantidad Crítica:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura (Documento 3) y el [PEDIMENTO_MASTER] declaran 20 piezas para cada uno. Sin embargo, el Reporte de Previo (Documento 4) indica que el recuento físico fue de 40 piezas para cada uno. Esto representa una discrepancia de 20 piezas por cada número de parte, sumando un total de 200 piezas subdeclaradas. |
+
+**Partida Pedimento: 002** (Contiene modelos 13006, 13007, 13035, 13037)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                                                              |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Líneas específicas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                                                         |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ✅           | El Reporte de Previo (Documento 4) indica una **discrepancia de etiquetado** para los números de parte **13006, 13007, 13035 y 13037**: "LA ETIQUETA DE LA CAJA DICE 2 PZS Y SOLO VIENE 1 PZ, NOTA EL TOTAL DE LAS PZS ES CORRECTO". Esto significa que la cantidad total declarada (20 piezas) es correcta y coincide con la factura y pedimento, pero el etiquetado individual por caja es erróneo. Esta observación no representa una discrepancia aduanera de cantidad, sino un problema logístico/interno de etiquetado. |
+
+---
+
+**PASO 3: Documentación no capturada en PEDIMENTO**
+
+*   **Discrepancia de Cantidad Física vs. Declarada (200 unidades subdeclaradas):** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura Comercial (Documento 3) y el [PEDIMENTO_MASTER] (Documento 6) declaran 20 unidades de cada uno. Sin embargo, el Reporte de Previo (Documento 4) encontró 40 unidades físicas para cada uno de estos códigos. Esto implica que un total de **200 unidades (20 por cada uno de los 10 modelos) no están declaradas** en el pedimento ni en la factura, según el conteo físico, lo que representa una omisión significativa.
+*   **Ausencia de Números de Serie en Documentación y Pedimento:** No se encontraron números de serie en ninguno de los documentos complementarios proporcionados (Factura, Reporte de Previo, Carta 3.1.8). En consecuencia, el **[PEDIMENTO_MASTER] no contiene la declaración explícita de números de serie** a nivel de partida, lo que incumple con el requisito establecido de declarar Marcas, modelos, series y No. parte.
+*   **Servicios de "Liberación" y "Desconsolidación" no reflejados como incrementables:** El CFDI de Fletes y Liberación (Documento 5) incluye cargos por "LIBERACION" ($70 USD) y "DESCONSOLIDACION" ($87.60 USD). A pesar de que el flete principal ($879 USD) está correctamente declarado, estos otros servicios (que ascienden a $157.60 USD) no se reflejan en el campo de "OTROS INCREMENTABLES" del [PEDIMENTO_MASTER], el cual figura con valor 0. Si bien su naturaleza de incrementable depende de las reglas de valoración y el Incoterm, su omisión debe ser revisada.
+
+---
+
+**PASO 4: Resumen Ejecutivo y Recomendaciones**
+
+**Resumen Ejecutivo:**
+
+*   ✅ La documentación general (datos de importador/exportador, RFC, valores totales, fletes y referencia de factura) presenta una alta concordancia entre el [PEDIMENTO_MASTER] y los documentos complementarios. Los cálculos de Valor Aduana y Precio Pagado en MXN son consistentes con los valores en USD y el tipo de cambio declarado.
+*   ⚠️ Se ha identificado una discrepancia crítica en la cantidad declarada para 10 números de parte específicos, resultando en una **subdeclaración de 200 unidades** según el conteo físico de previo. Este es un hallazgo de alta gravedad que requiere atención inmediata.
+*   ? No se encontraron números de serie en ningún documento, y por lo tanto, no fueron declarados en el pedimento. Además, los costos por "Liberación" y "Desconsolidación" del CFDI no se reflejan como incrementables.
+*   ❌ No se ha identificado documentación crítica faltante.
+
+**Recomendaciones:**
+
+1.  **Rectificar Pedimento y Factura por Discrepancia de Cantidad:** Realizar una rectificación del pedimento y la factura comercial para ajustar las cantidades de los 10 números de parte discrepantes a 40 piezas por cada uno, en concordancia con el Reporte de Previo.
+2.  **Implementar Control de Identificación de Mercancías:** Establecer un procedimiento para asegurar que los números de serie (si aplican y son relevantes) sean registrados en la documentación comercial (facturas) y, por ende, declarados en las "OBSERVACIONES A NIVEL PARTIDA" del pedimento.
+3.  **Revisar Incrementables del CFDI:** Evaluar si los cargos de "Liberación" y "Desconsolidación" del CFDI deben ser considerados como incrementables al valor en aduana y, de ser el caso, incorporarlos en el pedimento para una correcta base gravable.
+
+Fin de Análisis
+                        )
+
+                )
+
+        )
+
+    [10] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [11] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => ¡Hola! Como analista experto en documentación de comercio exterior, he realizado la verificación de los documentos proporcionados.
+
+---
+
+**PASO 1: Confirmación de PEDIMENTO y Documentos Recibidos**
+
+El archivo identificado como **Documento 6 (9 páginas)** cumple con todas las características de un pedimento aduanal auténtico, incluyendo la estructura de ENCABEZADO, CUADRO DE LIQUIDACION y PIE DE PÁGINA, así como el bloque de firma y el formato PDF. Este documento ha sido etiquetado internamente como **[PEDIMENTO_MASTER]**.
+
+**Observación Importante:** El nombre del archivo identificado como pedimento ("Documento 6") **no** comienza estrictamente con "Referencia", a diferencia de lo estipulado en la regla de identificación de pedimento auténtico. Sin embargo, dado que su contenido es inequívocamente un pedimento y es el único documento con dicha estructura, se procede con el análisis.
+
+**Documentos adicionales recibidos:**
+*   **Documento 1 (4 páginas):** Carta 3.1.8.
+*   **Documento 2 (1 página):** Certificado de Origen.
+*   **Documento 3 (8 páginas):** Factura Comercial (No. 00011-00000645).
+*   **Documento 4 (3 páginas):** Reporte de Previo.
+*   **Documento 5 (1 página):** CFDI de Fletes y Liberación (MPC WORLD WIDE).
+*   **Documento 7 (3 páginas):** Manifestación de Valor.
+
+---
+
+**PASO 2: Tabla Comparativa Principal**
+
+**Datos Generales**
+
+| Sección PEDIMENTO   | Dato Verificado     | Documento de Referencia                                     | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                      |
+| :------------------ | :------------------ | :---------------------------------------------------------- | :------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Importador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, CFDI, Manifestación de Valor | IMPROVED FUEL SYSTEMS, SA DE CV              | ✅           | Nombre del importador coincide en todos los documentos.                                                                                                                                                                                                                    |
+| RFC Importador      | RFC                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | IFS111028712                                 | ✅           | RFC del importador consistente en todos los documentos.                                                                                                                                                                                                                     |
+| Exportador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | LIFTGATE S.A.                                | ✅           | Nombre del exportador consistente en todos los documentos.                                                                                                                                                                                                                  |
+| Valor Aduana Total  | MXN                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | 303,709                                      | ✅           | Valor Aduana de $303,709 MXN coincide con la suma del Valor Comercial de la mercancía ($16,645 USD) y Fletes ($879 USD), multiplicado por el Tipo de Cambio ($17.33100), resultando en $17,524 USD * $17.33100 = $303,709.764 MXN.                                           |
+| Precio Pagado Total | MXN                 | Carta 3.1.8, Factura, Manifestación de Valor                | 288,475                                      | ✅           | Precio Pagado de $288,475 MXN coincide con el Valor Comercial de la mercancía ($16,645 USD) multiplicado por el Tipo de Cambio ($17.33100), resultando en $288,475.245 MXN.                                                                                                    |
+| Fletes Total        | MXN                 | Carta 3.1.8, CFDI                                           | 15,234                                       | ✅           | Los fletes de $15,234 MXN en el pedimento coinciden con los $879.00 USD declarados en la Carta 3.1.8 y CFDI (Documento 5) al tipo de cambio de $17.33100.                                                                                                                     |
+| Carga y Descarga    | MXN                 | N/A                                                         | 0                                            | ✅           | No se declaran gastos de Carga y Descarga en el pedimento, ni se identifican en otros documentos como incrementables.                                                                                                                                                  |
+| Facturas Declaradas | Número de Factura   | Carta 3.1.8, Factura, Certificado de Origen, Manifestación de Valor | 00011-00000645                               | ✅           | El número de factura comercial es consistente en todos los documentos y está correctamente referenciado en el pedimento en la sección de datos del proveedor. Cada modelo en las observaciones de partida del pedimento hace referencia a esta factura (00011 00000645-X). |
+
+**Partidas de Mercancía**
+
+El **[PEDIMENTO_MASTER]** consolida la mercancía en dos partidas (001 y 002) bajo la misma fracción arancelaria (84123199). La información específica de cada "Modelo" (No. Parte), valor y cantidad se detalla en las "OBSERVACIONES A NIVEL PARTIDA", y todos los modelos de la Factura Comercial (Documento 3) están referenciados.
+
+**Partida Pedimento: 001** (Contiene múltiples modelos desde 13009 hasta 20339)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                               |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Múltiples líneas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                          |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ❌           | **Discrepancia de Cantidad Crítica:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura (Documento 3) y el [PEDIMENTO_MASTER] declaran 20 piezas para cada uno. Sin embargo, el Reporte de Previo (Documento 4) indica que el recuento físico fue de 40 piezas para cada uno. Esto representa una discrepancia de 20 piezas por cada número de parte, sumando un total de 200 piezas subdeclaradas. |
+
+**Partida Pedimento: 002** (Contiene modelos 13006, 13007, 13035, 13037)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                                                              |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Líneas específicas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                                                         |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ✅           | El Reporte de Previo (Documento 4) indica una **discrepancia de etiquetado** para los números de parte **13006, 13007, 13035 y 13037**: "LA ETIQUETA DE LA CAJA DICE 2 PZS Y SOLO VIENE 1 PZ, NOTA EL TOTAL DE LAS PZS ES CORRECTO". Esto significa que la cantidad total declarada (20 piezas) es correcta y coincide con la factura y pedimento, pero el etiquetado individual por caja es erróneo. Esta observación no representa una discrepancia aduanera de cantidad, sino un problema logístico/interno de etiquetado. |
+
+---
+
+**PASO 3: Documentación no capturada en PEDIMENTO**
+
+*   **Discrepancia de Cantidad Física vs. Declarada (200 unidades subdeclaradas):** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura Comercial (Documento 3) y el [PEDIMENTO_MASTER] (Documento 6) declaran 20 unidades de cada uno. Sin embargo, el Reporte de Previo (Documento 4) encontró 40 unidades físicas para cada uno de estos códigos. Esto implica que un total de **200 unidades (20 por cada uno de los 10 modelos) no están declaradas** en el pedimento ni en la factura, según el conteo físico, lo que representa una omisión significativa.
+*   **Ausencia de Números de Serie en Documentación y Pedimento:** No se encontraron números de serie en ninguno de los documentos complementarios proporcionados (Factura, Reporte de Previo, Carta 3.1.8). En consecuencia, el **[PEDIMENTO_MASTER] no contiene la declaración explícita de números de serie** a nivel de partida, lo que incumple con el requisito establecido de declarar Marcas, modelos, series y No. parte.
+*   **Servicios de "Liberación" y "Desconsolidación" no reflejados como incrementables:** El CFDI de Fletes y Liberación (Documento 5) incluye cargos por "LIBERACION" ($70 USD) y "DESCONSOLIDACION" ($87.60 USD). A pesar de que el flete principal ($879 USD) está correctamente declarado, estos otros servicios (que ascienden a $157.60 USD) no se reflejan en el campo de "OTROS INCREMENTABLES" del [PEDIMENTO_MASTER], el cual figura con valor 0. Si bien su naturaleza de incrementable depende de las reglas de valoración y el Incoterm, su omisión debe ser revisada.
+
+---
+
+**PASO 4: Resumen Ejecutivo y Recomendaciones**
+
+**Resumen Ejecutivo:**
+
+*   ✅ La documentación general (datos de importador/exportador, RFC, valores totales, fletes y referencia de factura) presenta una alta concordancia entre el [PEDIMENTO_MASTER] y los documentos complementarios. Los cálculos de Valor Aduana y Precio Pagado en MXN son consistentes con los valores en USD y el tipo de cambio declarado.
+*   ⚠️ Se ha identificado una discrepancia crítica en la cantidad declarada para 10 números de parte específicos, resultando en una **subdeclaración de 200 unidades** según el conteo físico de previo. Este es un hallazgo de alta gravedad que requiere atención inmediata.
+*   ? No se encontraron números de serie en ningún documento, y por lo tanto, no fueron declarados en el pedimento. Además, los costos por "Liberación" y "Desconsolidación" del CFDI no se reflejan como incrementables.
+*   ❌ No se ha identificado documentación crítica faltante.
+
+**Recomendaciones:**
+
+1.  **Rectificar Pedimento y Factura por Discrepancia de Cantidad:** Realizar una rectificación del pedimento y la factura comercial para ajustar las cantidades de los 10 números de parte discrepantes a 40 piezas por cada uno, en concordancia con el Reporte de Previo.
+2.  **Implementar Control de Identificación de Mercancías:** Establecer un procedimiento para asegurar que los números de serie (si aplican y son relevantes) sean registrados en la documentación comercial (facturas) y, por ende, declarados en las "OBSERVACIONES A NIVEL PARTIDA" del pedimento.
+3.  **Revisar Incrementables del CFDI:** Evaluar si los cargos de "Liberación" y "Desconsolidación" del CFDI deben ser considerados como incrementables al valor en aduana y, de ser el caso, incorporarlos en el pedimento para una correcta base gravable.
+
+Fin de Análisis
+                        )
+
+                )
+
+        )
+
+    [12] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [13] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [14] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [15] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => ¡Hola! Como analista experto en documentación de comercio exterior, he realizado la verificación de los documentos proporcionados.
+
+---
+
+**PASO 1: Confirmación de PEDIMENTO y Documentos Recibidos**
+
+El archivo identificado como **Documento 6 (9 páginas)** cumple con todas las características de un pedimento aduanal auténtico, incluyendo la estructura de ENCABEZADO, CUADRO DE LIQUIDACION y PIE DE PÁGINA, así como el bloque de firma y el formato PDF. Este documento ha sido etiquetado internamente como **[PEDIMENTO_MASTER]**.
+
+**Observación Importante:** El nombre del archivo identificado como pedimento ("Documento 6") **no** comienza estrictamente con "Referencia", a diferencia de lo estipulado en la regla de identificación de pedimento auténtico. Sin embargo, dado que su contenido es inequívocamente un pedimento y es el único documento con dicha estructura, se procede con el análisis.
+
+**Documentos adicionales recibidos:**
+*   **Documento 1 (4 páginas):** Carta 3.1.8.
+*   **Documento 2 (1 página):** Certificado de Origen.
+*   **Documento 3 (8 páginas):** Factura Comercial (No. 00011-00000645).
+*   **Documento 4 (3 páginas):** Reporte de Previo.
+*   **Documento 5 (1 página):** CFDI de Fletes y Liberación (MPC WORLD WIDE).
+*   **Documento 7 (3 páginas):** Manifestación de Valor.
+
+---
+
+**PASO 2: Tabla Comparativa Principal**
+
+**Datos Generales**
+
+| Sección PEDIMENTO   | Dato Verificado     | Documento de Referencia                                     | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                      |
+| :------------------ | :------------------ | :---------------------------------------------------------- | :------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Importador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, CFDI, Manifestación de Valor | IMPROVED FUEL SYSTEMS, SA DE CV              | ✅           | Nombre del importador coincide en todos los documentos.                                                                                                                                                                                                                    |
+| RFC Importador      | RFC                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | IFS111028712                                 | ✅           | RFC del importador consistente en todos los documentos.                                                                                                                                                                                                                     |
+| Exportador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | LIFTGATE S.A.                                | ✅           | Nombre del exportador consistente en todos los documentos.                                                                                                                                                                                                                  |
+| Valor Aduana Total  | MXN                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | 303,709                                      | ✅           | Valor Aduana de $303,709 MXN coincide con la suma del Valor Comercial de la mercancía ($16,645 USD) y Fletes ($879 USD), multiplicado por el Tipo de Cambio ($17.33100), resultando en $17,524 USD * $17.33100 = $303,709.764 MXN.                                           |
+| Precio Pagado Total | MXN                 | Carta 3.1.8, Factura, Manifestación de Valor                | 288,475                                      | ✅           | Precio Pagado de $288,475 MXN coincide con el Valor Comercial de la mercancía ($16,645 USD) multiplicado por el Tipo de Cambio ($17.33100), resultando en $288,475.245 MXN.                                                                                                    |
+| Fletes Total        | MXN                 | Carta 3.1.8, CFDI                                           | 15,234                                       | ✅           | Los fletes de $15,234 MXN en el pedimento coinciden con los $879.00 USD declarados en la Carta 3.1.8 y CFDI (Documento 5) al tipo de cambio de $17.33100.                                                                                                                     |
+| Carga y Descarga    | MXN                 | N/A                                                         | 0                                            | ✅           | No se declaran gastos de Carga y Descarga en el pedimento, ni se identifican en otros documentos como incrementables.                                                                                                                                                  |
+| Facturas Declaradas | Número de Factura   | Carta 3.1.8, Factura, Certificado de Origen, Manifestación de Valor | 00011-00000645                               | ✅           | El número de factura comercial es consistente en todos los documentos y está correctamente referenciado en el pedimento en la sección de datos del proveedor. Cada modelo en las observaciones de partida del pedimento hace referencia a esta factura (00011 00000645-X). |
+
+**Partidas de Mercancía**
+
+El **[PEDIMENTO_MASTER]** consolida la mercancía en dos partidas (001 y 002) bajo la misma fracción arancelaria (84123199). La información específica de cada "Modelo" (No. Parte), valor y cantidad se detalla en las "OBSERVACIONES A NIVEL PARTIDA", y todos los modelos de la Factura Comercial (Documento 3) están referenciados.
+
+**Partida Pedimento: 001** (Contiene múltiples modelos desde 13009 hasta 20339)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                               |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Múltiples líneas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                          |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ❌           | **Discrepancia de Cantidad Crítica:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura (Documento 3) y el [PEDIMENTO_MASTER] declaran 20 piezas para cada uno. Sin embargo, el Reporte de Previo (Documento 4) indica que el recuento físico fue de 40 piezas para cada uno. Esto representa una discrepancia de 20 piezas por cada número de parte, sumando un total de 200 piezas subdeclaradas. |
+
+**Partida Pedimento: 002** (Contiene modelos 13006, 13007, 13035, 13037)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                                                              |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Líneas específicas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                                                         |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ✅           | El Reporte de Previo (Documento 4) indica una **discrepancia de etiquetado** para los números de parte **13006, 13007, 13035 y 13037**: "LA ETIQUETA DE LA CAJA DICE 2 PZS Y SOLO VIENE 1 PZ, NOTA EL TOTAL DE LAS PZS ES CORRECTO". Esto significa que la cantidad total declarada (20 piezas) es correcta y coincide con la factura y pedimento, pero el etiquetado individual por caja es erróneo. Esta observación no representa una discrepancia aduanera de cantidad, sino un problema logístico/interno de etiquetado. |
+
+---
+
+**PASO 3: Documentación no capturada en PEDIMENTO**
+
+*   **Discrepancia de Cantidad Física vs. Declarada (200 unidades subdeclaradas):** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura Comercial (Documento 3) y el [PEDIMENTO_MASTER] (Documento 6) declaran 20 unidades de cada uno. Sin embargo, el Reporte de Previo (Documento 4) encontró 40 unidades físicas para cada uno de estos códigos. Esto implica que un total de **200 unidades (20 por cada uno de los 10 modelos) no están declaradas** en el pedimento ni en la factura, según el conteo físico, lo que representa una omisión significativa.
+*   **Ausencia de Números de Serie en Documentación y Pedimento:** No se encontraron números de serie en ninguno de los documentos complementarios proporcionados (Factura, Reporte de Previo, Carta 3.1.8). En consecuencia, el **[PEDIMENTO_MASTER] no contiene la declaración explícita de números de serie** a nivel de partida, lo que incumple con el requisito establecido de declarar Marcas, modelos, series y No. parte.
+*   **Servicios de "Liberación" y "Desconsolidación" no reflejados como incrementables:** El CFDI de Fletes y Liberación (Documento 5) incluye cargos por "LIBERACION" ($70 USD) y "DESCONSOLIDACION" ($87.60 USD). A pesar de que el flete principal ($879 USD) está correctamente declarado, estos otros servicios (que ascienden a $157.60 USD) no se reflejan en el campo de "OTROS INCREMENTABLES" del [PEDIMENTO_MASTER], el cual figura con valor 0. Si bien su naturaleza de incrementable depende de las reglas de valoración y el Incoterm, su omisión debe ser revisada.
+
+---
+
+**PASO 4: Resumen Ejecutivo y Recomendaciones**
+
+**Resumen Ejecutivo:**
+
+*   ✅ La documentación general (datos de importador/exportador, RFC, valores totales, fletes y referencia de factura) presenta una alta concordancia entre el [PEDIMENTO_MASTER] y los documentos complementarios. Los cálculos de Valor Aduana y Precio Pagado en MXN son consistentes con los valores en USD y el tipo de cambio declarado.
+*   ⚠️ Se ha identificado una discrepancia crítica en la cantidad declarada para 10 números de parte específicos, resultando en una **subdeclaración de 200 unidades** según el conteo físico de previo. Este es un hallazgo de alta gravedad que requiere atención inmediata.
+*   ? No se encontraron números de serie en ningún documento, y por lo tanto, no fueron declarados en el pedimento. Además, los costos por "Liberación" y "Desconsolidación" del CFDI no se reflejan como incrementables.
+*   ❌ No se ha identificado documentación crítica faltante.
+
+**Recomendaciones:**
+
+1.  **Rectificar Pedimento y Factura por Discrepancia de Cantidad:** Realizar una rectificación del pedimento y la factura comercial para ajustar las cantidades de los 10 números de parte discrepantes a 40 piezas por cada uno, en concordancia con el Reporte de Previo.
+2.  **Implementar Control de Identificación de Mercancías:** Establecer un procedimiento para asegurar que los números de serie (si aplican y son relevantes) sean registrados en la documentación comercial (facturas) y, por ende, declarados en las "OBSERVACIONES A NIVEL PARTIDA" del pedimento.
+3.  **Revisar Incrementables del CFDI:** Evaluar si los cargos de "Liberación" y "Desconsolidación" del CFDI deben ser considerados como incrementables al valor en aduana y, de ser el caso, incorporarlos en el pedimento para una correcta base gravable.
+
+Fin de Análisis
+                        )
+
+                )
+
+        )
+
+    [16] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [17] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [18] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [19] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [20] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => ¡Hola! Como analista experto en documentación de comercio exterior, he realizado la verificación de los documentos proporcionados.
+
+---
+
+**PASO 1: Confirmación de PEDIMENTO y Documentos Recibidos**
+
+El archivo identificado como **Documento 6 (9 páginas)** cumple con todas las características de un pedimento aduanal auténtico, incluyendo la estructura de ENCABEZADO, CUADRO DE LIQUIDACION y PIE DE PÁGINA, así como el bloque de firma y el formato PDF. Este documento ha sido etiquetado internamente como **[PEDIMENTO_MASTER]**.
+
+**Observación Importante:** El nombre del archivo identificado como pedimento ("Documento 6") **no** comienza estrictamente con "Referencia", a diferencia de lo estipulado en la regla de identificación de pedimento auténtico. Sin embargo, dado que su contenido es inequívocamente un pedimento y es el único documento con dicha estructura, se procede con el análisis.
+
+**Documentos adicionales recibidos:**
+*   **Documento 1 (4 páginas):** Carta 3.1.8.
+*   **Documento 2 (1 página):** Certificado de Origen.
+*   **Documento 3 (8 páginas):** Factura Comercial (No. 00011-00000645).
+*   **Documento 4 (3 páginas):** Reporte de Previo.
+*   **Documento 5 (1 página):** CFDI de Fletes y Liberación (MPC WORLD WIDE).
+*   **Documento 7 (3 páginas):** Manifestación de Valor.
+
+---
+
+**PASO 2: Tabla Comparativa Principal**
+
+**Datos Generales**
+
+| Sección PEDIMENTO   | Dato Verificado     | Documento de Referencia                                     | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                      |
+| :------------------ | :------------------ | :---------------------------------------------------------- | :------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Importador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, CFDI, Manifestación de Valor | IMPROVED FUEL SYSTEMS, SA DE CV              | ✅           | Nombre del importador coincide en todos los documentos.                                                                                                                                                                                                                    |
+| RFC Importador      | RFC                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | IFS111028712                                 | ✅           | RFC del importador consistente en todos los documentos.                                                                                                                                                                                                                     |
+| Exportador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | LIFTGATE S.A.                                | ✅           | Nombre del exportador consistente en todos los documentos.                                                                                                                                                                                                                  |
+| Valor Aduana Total  | MXN                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | 303,709                                      | ✅           | Valor Aduana de $303,709 MXN coincide con la suma del Valor Comercial de la mercancía ($16,645 USD) y Fletes ($879 USD), multiplicado por el Tipo de Cambio ($17.33100), resultando en $17,524 USD * $17.33100 = $303,709.764 MXN.                                           |
+| Precio Pagado Total | MXN                 | Carta 3.1.8, Factura, Manifestación de Valor                | 288,475                                      | ✅           | Precio Pagado de $288,475 MXN coincide con el Valor Comercial de la mercancía ($16,645 USD) multiplicado por el Tipo de Cambio ($17.33100), resultando en $288,475.245 MXN.                                                                                                    |
+| Fletes Total        | MXN                 | Carta 3.1.8, CFDI                                           | 15,234                                       | ✅           | Los fletes de $15,234 MXN en el pedimento coinciden con los $879.00 USD declarados en la Carta 3.1.8 y CFDI (Documento 5) al tipo de cambio de $17.33100.                                                                                                                     |
+| Carga y Descarga    | MXN                 | N/A                                                         | 0                                            | ✅           | No se declaran gastos de Carga y Descarga en el pedimento, ni se identifican en otros documentos como incrementables.                                                                                                                                                  |
+| Facturas Declaradas | Número de Factura   | Carta 3.1.8, Factura, Certificado de Origen, Manifestación de Valor | 00011-00000645                               | ✅           | El número de factura comercial es consistente en todos los documentos y está correctamente referenciado en el pedimento en la sección de datos del proveedor. Cada modelo en las observaciones de partida del pedimento hace referencia a esta factura (00011 00000645-X). |
+
+**Partidas de Mercancía**
+
+El **[PEDIMENTO_MASTER]** consolida la mercancía en dos partidas (001 y 002) bajo la misma fracción arancelaria (84123199). La información específica de cada "Modelo" (No. Parte), valor y cantidad se detalla en las "OBSERVACIONES A NIVEL PARTIDA", y todos los modelos de la Factura Comercial (Documento 3) están referenciados.
+
+**Partida Pedimento: 001** (Contiene múltiples modelos desde 13009 hasta 20339)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                               |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Múltiples líneas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                          |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ❌           | **Discrepancia de Cantidad Crítica:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura (Documento 3) y el [PEDIMENTO_MASTER] declaran 20 piezas para cada uno. Sin embargo, el Reporte de Previo (Documento 4) indica que el recuento físico fue de 40 piezas para cada uno. Esto representa una discrepancia de 20 piezas por cada número de parte, sumando un total de 200 piezas subdeclaradas. |
+
+**Partida Pedimento: 002** (Contiene modelos 13006, 13007, 13035, 13037)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                                                              |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Líneas específicas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                                                         |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ✅           | El Reporte de Previo (Documento 4) indica una **discrepancia de etiquetado** para los números de parte **13006, 13007, 13035 y 13037**: "LA ETIQUETA DE LA CAJA DICE 2 PZS Y SOLO VIENE 1 PZ, NOTA EL TOTAL DE LAS PZS ES CORRECTO". Esto significa que la cantidad total declarada (20 piezas) es correcta y coincide con la factura y pedimento, pero el etiquetado individual por caja es erróneo. Esta observación no representa una discrepancia aduanera de cantidad, sino un problema logístico/interno de etiquetado. |
+
+---
+
+**PASO 3: Documentación no capturada en PEDIMENTO**
+
+*   **Discrepancia de Cantidad Física vs. Declarada (200 unidades subdeclaradas):** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura Comercial (Documento 3) y el [PEDIMENTO_MASTER] (Documento 6) declaran 20 unidades de cada uno. Sin embargo, el Reporte de Previo (Documento 4) encontró 40 unidades físicas para cada uno de estos códigos. Esto implica que un total de **200 unidades (20 por cada uno de los 10 modelos) no están declaradas** en el pedimento ni en la factura, según el conteo físico, lo que representa una omisión significativa.
+*   **Ausencia de Números de Serie en Documentación y Pedimento:** No se encontraron números de serie en ninguno de los documentos complementarios proporcionados (Factura, Reporte de Previo, Carta 3.1.8). En consecuencia, el **[PEDIMENTO_MASTER] no contiene la declaración explícita de números de serie** a nivel de partida, lo que incumple con el requisito establecido de declarar Marcas, modelos, series y No. parte.
+*   **Servicios de "Liberación" y "Desconsolidación" no reflejados como incrementables:** El CFDI de Fletes y Liberación (Documento 5) incluye cargos por "LIBERACION" ($70 USD) y "DESCONSOLIDACION" ($87.60 USD). A pesar de que el flete principal ($879 USD) está correctamente declarado, estos otros servicios (que ascienden a $157.60 USD) no se reflejan en el campo de "OTROS INCREMENTABLES" del [PEDIMENTO_MASTER], el cual figura con valor 0. Si bien su naturaleza de incrementable depende de las reglas de valoración y el Incoterm, su omisión debe ser revisada.
+
+---
+
+**PASO 4: Resumen Ejecutivo y Recomendaciones**
+
+**Resumen Ejecutivo:**
+
+*   ✅ La documentación general (datos de importador/exportador, RFC, valores totales, fletes y referencia de factura) presenta una alta concordancia entre el [PEDIMENTO_MASTER] y los documentos complementarios. Los cálculos de Valor Aduana y Precio Pagado en MXN son consistentes con los valores en USD y el tipo de cambio declarado.
+*   ⚠️ Se ha identificado una discrepancia crítica en la cantidad declarada para 10 números de parte específicos, resultando en una **subdeclaración de 200 unidades** según el conteo físico de previo. Este es un hallazgo de alta gravedad que requiere atención inmediata.
+*   ? No se encontraron números de serie en ningún documento, y por lo tanto, no fueron declarados en el pedimento. Además, los costos por "Liberación" y "Desconsolidación" del CFDI no se reflejan como incrementables.
+*   ❌ No se ha identificado documentación crítica faltante.
+
+**Recomendaciones:**
+
+1.  **Rectificar Pedimento y Factura por Discrepancia de Cantidad:** Realizar una rectificación del pedimento y la factura comercial para ajustar las cantidades de los 10 números de parte discrepantes a 40 piezas por cada uno, en concordancia con el Reporte de Previo.
+2.  **Implementar Control de Identificación de Mercancías:** Establecer un procedimiento para asegurar que los números de serie (si aplican y son relevantes) sean registrados en la documentación comercial (facturas) y, por ende, declarados en las "OBSERVACIONES A NIVEL PARTIDA" del pedimento.
+3.  **Revisar Incrementables del CFDI:** Evaluar si los cargos de "Liberación" y "Desconsolidación" del CFDI deben ser considerados como incrementables al valor en aduana y, de ser el caso, incorporarlos en el pedimento para una correcta base gravable.
+
+Fin de Análisis
+                        )
+
+                )
+
+        )
+
+    [21] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [22] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [23] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [24] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [25] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [26] => Array
+        (
+            [role] => model
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => ¡Hola! Como analista experto en documentación de comercio exterior, he realizado la verificación de los documentos proporcionados.
+
+---
+
+**PASO 1: Confirmación de PEDIMENTO y Documentos Recibidos**
+
+El archivo identificado como **Documento 6 (9 páginas)** cumple con todas las características de un pedimento aduanal auténtico, incluyendo la estructura de ENCABEZADO, CUADRO DE LIQUIDACION y PIE DE PÁGINA, así como el bloque de firma y el formato PDF. Este documento ha sido etiquetado internamente como **[PEDIMENTO_MASTER]**.
+
+**Observación Importante:** El nombre del archivo identificado como pedimento ("Documento 6") **no** comienza estrictamente con "Referencia", a diferencia de lo estipulado en la regla de identificación de pedimento auténtico. Sin embargo, dado que su contenido es inequívocamente un pedimento y es el único documento con dicha estructura, se procede con el análisis.
+
+**Documentos adicionales recibidos:**
+*   **Documento 1 (4 páginas):** Carta 3.1.8.
+*   **Documento 2 (1 página):** Certificado de Origen.
+*   **Documento 3 (8 páginas):** Factura Comercial (No. 00011-00000645).
+*   **Documento 4 (3 páginas):** Reporte de Previo.
+*   **Documento 5 (1 página):** CFDI de Fletes y Liberación (MPC WORLD WIDE).
+*   **Documento 7 (3 páginas):** Manifestación de Valor.
+
+---
+
+**PASO 2: Tabla Comparativa Principal**
+
+**Datos Generales**
+
+| Sección PEDIMENTO   | Dato Verificado     | Documento de Referencia                                     | Declarado en Pedimento ([PEDIMENTO_MASTER]) | Concordancia | Breve Observación                                                                                                                                                                                                                                                                      |
+| :------------------ | :------------------ | :---------------------------------------------------------- | :------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Importador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, CFDI, Manifestación de Valor | IMPROVED FUEL SYSTEMS, SA DE CV              | ✅           | Nombre del importador coincide en todos los documentos.                                                                                                                                                                                                                    |
+| RFC Importador      | RFC                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | IFS111028712                                 | ✅           | RFC del importador consistente en todos los documentos.                                                                                                                                                                                                                     |
+| Exportador          | Razón Social        | Carta 3.1.8, Certificado de Origen, Factura, Manifestación de Valor | LIFTGATE S.A.                                | ✅           | Nombre del exportador consistente en todos los documentos.                                                                                                                                                                                                                  |
+| Valor Aduana Total  | MXN                 | Carta 3.1.8, Factura, CFDI, Manifestación de Valor          | 303,709                                      | ✅           | Valor Aduana de $303,709 MXN coincide con la suma del Valor Comercial de la mercancía ($16,645 USD) y Fletes ($879 USD), multiplicado por el Tipo de Cambio ($17.33100), resultando en $17,524 USD * $17.33100 = $303,709.764 MXN.                                           |
+| Precio Pagado Total | MXN                 | Carta 3.1.8, Factura, Manifestación de Valor                | 288,475                                      | ✅           | Precio Pagado de $288,475 MXN coincide con el Valor Comercial de la mercancía ($16,645 USD) multiplicado por el Tipo de Cambio ($17.33100), resultando en $288,475.245 MXN.                                                                                                    |
+| Fletes Total        | MXN                 | Carta 3.1.8, CFDI                                           | 15,234                                       | ✅           | Los fletes de $15,234 MXN en el pedimento coinciden con los $879.00 USD declarados en la Carta 3.1.8 y CFDI (Documento 5) al tipo de cambio de $17.33100.                                                                                                                     |
+| Carga y Descarga    | MXN                 | N/A                                                         | 0                                            | ✅           | No se declaran gastos de Carga y Descarga en el pedimento, ni se identifican en otros documentos como incrementables.                                                                                                                                                  |
+| Facturas Declaradas | Número de Factura   | Carta 3.1.8, Factura, Certificado de Origen, Manifestación de Valor | 00011-00000645                               | ✅           | El número de factura comercial es consistente en todos los documentos y está correctamente referenciado en el pedimento en la sección de datos del proveedor. Cada modelo en las observaciones de partida del pedimento hace referencia a esta factura (00011 00000645-X). |
+
+**Partidas de Mercancía**
+
+El **[PEDIMENTO_MASTER]** consolida la mercancía en dos partidas (001 y 002) bajo la misma fracción arancelaria (84123199). La información específica de cada "Modelo" (No. Parte), valor y cantidad se detalla en las "OBSERVACIONES A NIVEL PARTIDA", y todos los modelos de la Factura Comercial (Documento 3) están referenciados.
+
+**Partida Pedimento: 001** (Contiene múltiples modelos desde 13009 hasta 20339)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                               |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Múltiples líneas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                          |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ❌           | **Discrepancia de Cantidad Crítica:** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura (Documento 3) y el [PEDIMENTO_MASTER] declaran 20 piezas para cada uno. Sin embargo, el Reporte de Previo (Documento 4) indica que el recuento físico fue de 40 piezas para cada uno. Esto representa una discrepancia de 20 piezas por cada número de parte, sumando un total de 200 piezas subdeclaradas. |
+
+**Partida Pedimento: 002** (Contiene modelos 13006, 13007, 13035, 13037)
+
+| Dato Verificado     | Documento de Referencia             | Declarado en Pedimento ([PEDIMENTO_MASTER])                                           | Concordancia | Breve Observación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------------ | :---------------------------------- | :------------------------------------------------------------------------------------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FRACCION            | N/A                                 | 84123199                                                                              | ✅           | La fracción arancelaria es consistente para ambas partidas consolidadas.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| DESCRIPCION         | Carta 3.1.8, Factura, Manifestación de Valor | CILINDROS NEUMATICOS CON SUS ACCESORIOS DE INSTALACION                                | ✅           | La descripción general es consistente con la mercancía. El Certificado de Origen (Documento 2) ofrece una descripción más detallada como "Guarniciones y herrajes para carrocerías de vehículos... SOPORTE PARA COFRE", lo cual complementa la información pero no genera contradicción.                                                                                                                                                                                                                                                              |
+| NO.FACTURA-PARTIDA  | Factura 00011-00000645 (Líneas específicas) | 00011 00000645-X (referenciado individualmente por cada modelo en observaciones) | ✅           | La factura está correctamente referenciada. El pedimento detalla el valor y cantidad para cada "Modelo" (No. Parte) de la factura dentro de las observaciones de esta partida consolidada.                                                                                                                                                                                                                                                                                                                                                         |
+| MARCA               | Factura, Reporte de Previo          | LIFTGATE (en observaciones por cada modelo)                                           | ✅           | La marca LIFTGATE es consistente en todos los documentos que la mencionan.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| NO.PARTE            | Factura, Carta 3.1.8, Reporte de Previo | Múltiples "Modelos" listados en 'OBSERVACIONES A NIVEL PARTIDA'                       | ✅           | El Reporte de Previo (Documento 4) indica una **discrepancia de etiquetado** para los números de parte **13006, 13007, 13035 y 13037**: "LA ETIQUETA DE LA CAJA DICE 2 PZS Y SOLO VIENE 1 PZ, NOTA EL TOTAL DE LAS PZS ES CORRECTO". Esto significa que la cantidad total declarada (20 piezas) es correcta y coincide con la factura y pedimento, pero el etiquetado individual por caja es erróneo. Esta observación no representa una discrepancia aduanera de cantidad, sino un problema logístico/interno de etiquetado. |
+
+---
+
+**PASO 3: Documentación no capturada en PEDIMENTO**
+
+*   **Discrepancia de Cantidad Física vs. Declarada (200 unidades subdeclaradas):** Para los números de parte **13009, 13010, 13025, 13026, 13029, 13030, 13031, 13032, 13034 y 13038**, la Factura Comercial (Documento 3) y el [PEDIMENTO_MASTER] (Documento 6) declaran 20 unidades de cada uno. Sin embargo, el Reporte de Previo (Documento 4) encontró 40 unidades físicas para cada uno de estos códigos. Esto implica que un total de **200 unidades (20 por cada uno de los 10 modelos) no están declaradas** en el pedimento ni en la factura, según el conteo físico, lo que representa una omisión significativa.
+*   **Ausencia de Números de Serie en Documentación y Pedimento:** No se encontraron números de serie en ninguno de los documentos complementarios proporcionados (Factura, Reporte de Previo, Carta 3.1.8). En consecuencia, el **[PEDIMENTO_MASTER] no contiene la declaración explícita de números de serie** a nivel de partida, lo que incumple con el requisito establecido de declarar Marcas, modelos, series y No. parte.
+*   **Servicios de "Liberación" y "Desconsolidación" no reflejados como incrementables:** El CFDI de Fletes y Liberación (Documento 5) incluye cargos por "LIBERACION" ($70 USD) y "DESCONSOLIDACION" ($87.60 USD). A pesar de que el flete principal ($879 USD) está correctamente declarado, estos otros servicios (que ascienden a $157.60 USD) no se reflejan en el campo de "OTROS INCREMENTABLES" del [PEDIMENTO_MASTER], el cual figura con valor 0. Si bien su naturaleza de incrementable depende de las reglas de valoración y el Incoterm, su omisión debe ser revisada.
+
+---
+
+**PASO 4: Resumen Ejecutivo y Recomendaciones**
+
+**Resumen Ejecutivo:**
+
+*   ✅ La documentación general (datos de importador/exportador, RFC, valores totales, fletes y referencia de factura) presenta una alta concordancia entre el [PEDIMENTO_MASTER] y los documentos complementarios. Los cálculos de Valor Aduana y Precio Pagado en MXN son consistentes con los valores en USD y el tipo de cambio declarado.
+*   ⚠️ Se ha identificado una discrepancia crítica en la cantidad declarada para 10 números de parte específicos, resultando en una **subdeclaración de 200 unidades** según el conteo físico de previo. Este es un hallazgo de alta gravedad que requiere atención inmediata.
+*   ? No se encontraron números de serie en ningún documento, y por lo tanto, no fueron declarados en el pedimento. Además, los costos por "Liberación" y "Desconsolidación" del CFDI no se reflejan como incrementables.
+*   ❌ No se ha identificado documentación crítica faltante.
+
+**Recomendaciones:**
+
+1.  **Rectificar Pedimento y Factura por Discrepancia de Cantidad:** Realizar una rectificación del pedimento y la factura comercial para ajustar las cantidades de los 10 números de parte discrepantes a 40 piezas por cada uno, en concordancia con el Reporte de Previo.
+2.  **Implementar Control de Identificación de Mercancías:** Establecer un procedimiento para asegurar que los números de serie (si aplican y son relevantes) sean registrados en la documentación comercial (facturas) y, por ende, declarados en las "OBSERVACIONES A NIVEL PARTIDA" del pedimento.
+3.  **Revisar Incrementables del CFDI:** Evaluar si los cargos de "Liberación" y "Desconsolidación" del CFDI deben ser considerados como incrementables al valor en aduana y, de ser el caso, incorporarlos en el pedimento para una correcta base gravable.
+
+Fin de Análisis
+                        )
+
+                )
+
+        )
+
+    [27] => Array
+        (
+            [role] => user
+            [parts] => Array
+                (
+                    [0] => Array
+                        (
+                            [text] => 
+                        )
+
+                )
+
+        )
+
+    [28] => Array
+        (
             [role] => user
             [parts] => Array
                 (

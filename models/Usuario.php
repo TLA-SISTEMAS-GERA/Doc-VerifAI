@@ -30,6 +30,7 @@
                     header("Location:".Conectar::ruta() . "index.php?m=2");
                     exit();
                 } 
+                
                 // SI SE ENVIO ALGO, SE CONSULTA LA INFO ENVIADA
                 $sql = "SELECT * FROM tm_usuario 
                         WHERE usu_correo = ?

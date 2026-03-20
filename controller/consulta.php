@@ -290,13 +290,13 @@
                                                 $datos_det = $documento -> get_documento_detalle_x_det($row["det_id"]);
                                                 if(is_array($datos_det) == true and count($datos_det) > 0){
                                                     ?>
-                                                        <p><strong>Documentos adjuntos</strong></p>
+                                                       
                                                         <p>
                                                             <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                                                                 <!-- ENCABEZADO DE LA TABLA -->
                                                                 <thead>
                                                                     <tr>
-                                                                        <th style="width: 40%;">Nombre</th>
+                                                                        <th style="width: 40%;">Documentos Adjuntos</th>
                                                                         
                                                                     </tr>
                                                                 </thead>
