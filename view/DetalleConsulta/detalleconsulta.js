@@ -323,7 +323,6 @@ $("#btnenviar").on("click", function () {
                             enviarAGeminiYGuardar(mensajes, cons_id);
                         }   
                     );
-                
                 }
             );
 
@@ -398,7 +397,7 @@ $(document).on("click", ".btnEliminarDoc", function () {
 
 async function enviarAGeminiYGuardar(mensajes, cons_id){
 
-    blockPnl('En espera de respuesta por parte de Gemini AI...')
+    blockPnl('En espera de respuesta por parte del Agente...')
     actualizarBarra(80, "Generando Respuesta...");
 
     let respuestaCompleta = "";
@@ -488,7 +487,7 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
                     const data = JSON.parse(json);
                     const textoChunk = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-                    if (!textoChunk) continue;
+                    if (!textoChunk) continue; 
                     respuestaCompleta += textoChunk;
                     /* Mostrar en pantalla */
                     respuestaIA.html(respuestaCompleta); 
@@ -617,7 +616,5 @@ function scrollToBottom() {
         behavior: 'smooth'
     });
 }
-
-
 
 init();
