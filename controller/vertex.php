@@ -72,89 +72,30 @@ class VertexAI {
         return $response;
     }
 
-    // public function generarRespuestaStream($mensajes) {
-
-    //     $auth = ApplicationDefaultCredentials::getCredentials('https://www.googleapis.com/auth/cloud-platform');
-    //     $token = $auth->fetchAuthToken();
-    //     $accessToken = $token['access_token'];
-    
-    //     $PROJECTID = $_ENV['PROJECT_ID'];
-    //     $LOCATION = $_ENV['LOCATION'];
-    
-    //     $promptObj = new PromptVertex();
-    //     $prompt = $promptObj->obtenerPromptVertexAI();
-    
-    //     $url = "https://{$LOCATION}-aiplatform.googleapis.com/v1/projects/{$PROJECTID}/locations/{$LOCATION}/publishers/google/models/gemini-2.5-flash:streamGenerateContent?alt=sse";
-    
-    //     $data = [
-    //         "contents" => $mensajes,
-    //         "systemInstruction" => [
-    //             "role" => "system",
-    //             "parts" => [
-    //                 ["text" => $prompt]
-    //             ]
-    //         ]
-    //     ];
-    
-    //     $ch = curl_init($url);
-    
-    //     curl_setopt_array($ch, [
-    
-    //         CURLOPT_POST => true,
-    
-    //         CURLOPT_HTTPHEADER => [
-    //             "Authorization: Bearer {$accessToken}",
-    //             "Content-Type: application/json"
-    //         ],
-    
-    //         CURLOPT_POSTFIELDS => json_encode($data),
-    
-    //         CURLOPT_WRITEFUNCTION => function ($ch, $chunk) {
-    
-    //             $lines = explode("\n", $chunk);
-    
-    //             foreach ($lines as $line) {
-    
-    //                 if (strpos($line, 'data: ') === 0) {
-    
-    //                     $json = substr($line, 6);
-    
-    //                     if ($json === "[DONE]") {
-    //                         echo "data: [DONE]\n\n";
-    //                         flush();
-    //                         return strlen($chunk);
-    //                     }
-    
-    //                     $data = json_decode($json, true);
-    
-    //                     if (isset($data["candidates"][0]["content"]["parts"][0]["text"])) {
-    
-    //                         $texto = $data["candidates"][0]["content"]["parts"][0]["text"];
-    
-    //                         echo "data: " . json_encode(["texto"=>$texto]) . "\n\n";
-    
-    //                         flush();
-    //                     }
-    //                 }
-    //             }
-    
-    //             return strlen($chunk);
-    //         }
-    
-    //     ]);
-    
-    //     curl_exec($ch);
-    //     curl_close($ch);
-    // }
 
     public function generarRespuestaStream($mensajes) {
 
-        header('Content-Type: text/plain; charset=utf-8');
+        // header('Content-Type: text/plain; charset=utf-8');
+        // header('Cache-Control: no-cache');
+        // header('X-Accel-Buffering: no');
+
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+    
+        ob_implicit_flush(true);
+
+        header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
-        header('X-Accel-Buffering: no');
+        header('Connection: keep-alive');
+        header('Content-Encoding: none'); // 🔥 evita compresión
+
+        ini_set('zlib.output_compression', 0);
+
         
         if (empty($mensajes)) {
             echo "[ERROR: No se recibió mensaje]";
+            flush();
             exit;
         }
             
@@ -165,11 +106,13 @@ class VertexAI {
                 $accessToken = $token['access_token'] ?? null;
             } catch (Exception $e) {
                 echo "[ERROR de autenticación: " . $e->getMessage() . "]";
+                flush();
                 exit;
         }
                     
         if (!$accessToken) {
             echo "[ERROR: No se pudo obtener token de acceso]";
+            flush();
             exit;
         }
 
@@ -228,8 +171,8 @@ class VertexAI {
         curl_close($ch);
 
         echo "data: [DONE]\n\n";
-        ob_flush();
-        flush();
+        @ob_flush();
+        @flush();
         exit;
     }
 }
