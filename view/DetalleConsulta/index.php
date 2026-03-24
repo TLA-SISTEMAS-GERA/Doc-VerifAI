@@ -27,9 +27,9 @@
 
 			<h2 id="lblnomconsulta">Consulta: </h2>
 	
-			<section class="activity-line" id="lbldetalle">
+			<div class="activity-line" id="lbldetalle">
 				
-			</section><!--.activity-line-->
+			</div><!--.activity-line-->
 
 			<!-- <div id="barra_container" class="progress-with-amount" style="display:none;">
 				<progress id="barra_progreso"

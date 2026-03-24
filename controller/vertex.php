@@ -72,8 +72,6 @@ class VertexAI {
         return $response;
     }
 
-    
-
     public function generarRespuestaStream($mensajes) {
 
         header('Content-Type: text/plain; charset=utf-8');
@@ -125,7 +123,6 @@ class VertexAI {
                 'temperature' => 0.9
             ],
         ];
-
 
          // Configurar cURL
         $ch = curl_init($url);

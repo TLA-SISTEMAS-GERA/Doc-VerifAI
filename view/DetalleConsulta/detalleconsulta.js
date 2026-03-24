@@ -162,64 +162,7 @@ $("#btncargar").on("click", function () {
         });
     }
     //Se RESETEA el file Elem (bandeja de documentos)
-   // $('#fileElem').val('');
-
-    // $.ajax({
-    //     //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
-    //     url: "../../controller/consulta.php?op=insertdetalle",
-    //     type: "POST",
-    //     data: formData,
-    //     contentType: false,
-    //     processData: false,
-    //     success: function (data) {
-           
-    //         //Se muestra el detalle
-    //         blockPnl('Un momento...');
-    //         mostrar(cons_id);
-
-    //         $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
-
-    //         //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
-    //         if (files.length > 0) {
-    //             let uploadData = new FormData();
-    //             //OBTENGO EL ID DE LA CONSULTA
-    //             uploadData.append("cons_id", cons_id);
-    //             for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
-        
-    //             blockPnl('Cargando documento/s a cloudStorage...');
-    //             $.ajax({
-    //                 url: "../../controller/consulta.php?op=subir_archivos_cloud",
-    //                 type: "POST",
-    //                 data: uploadData,
-    //                 processData: false,
-    //                 contentType: false,
-    //                 success: function (uploadedURIsRaw) {
-    //                     blockPnl('Carga finalizada.');
-    //                     actualizarBarra(100, "Archivo/s cargados al Bucket");
-
-    //                     unblockPnl();
-                        
-    //                     console.log("Archivos Subidos");                          
-        
-    //                     let resp = JSON.parse(uploadedURIsRaw);     
-        
-    //                 },
-    //                 error: function(err){
-    //                     console.error("Error subiendo archivos:", err);
-    //                     // aún así intentamos enviar historial sin archivos
-    //                     //enviarAGeminiYGuardar(mensajes, cons_id);
-    //                 }
-    //             });
-    //             ocultarBarra();
-        
-                
-    //         }else{
-
-    //         }
-    //         //Se RESETEA el file Elem (bandeja de documentos)
-    //         $('#fileElem').val('');
-    //     }
-    // });
+   
 
 });
 
@@ -327,7 +270,7 @@ $("#btnenviar").on("click", function () {
             );
 
             $('#btnenviar').prop("disabled", false);
-            $('#btnenviar').html('Enviar y Procesar');
+            $('#btnenviar').html('✨ Enviar y Procesar');
             $('#prompt').val('');
         }
     });
@@ -425,10 +368,35 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
         /*--------------------------------------------------
         2️ Crear contenedor visual para la respuesta
         --------------------------------------------------*/
+        // $('#lbldetalle').append(`
+        //     <article class="activity-line-item box-typical mensaje ia" id="msg_${det_id}">
+        //         <div class="activity-box">
+        //             <p class="texto"></p>
+        //         </div>
+        //     </article>
+        // `);
+
         $('#lbldetalle').append(`
-            <p id="respuestaIA"></p>
+            <article class="activity-line-item box-typical mensaje ia" id="msg_${det_id}">
+                <div class="activity-line-date"></div>
+
+                <div class="activity-line-action-list">
+                    <section class="activity-line-action">
+                        
+                        <div class="time">Generando Respuesta...</div>
+
+                        <div class="cont">
+                            <div class="cont-in">
+                                <p class="texto"></p>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </article>
         `);
-        const respuestaIA = $('#respuestaIA');
+        
+        const respuestaIA = $(`#msg_${det_id} .texto`);
 
         /*--------------------------------------------------
         3️ Enviar a Gemini
@@ -468,7 +436,7 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
                     console.log("Streaming terminado");
                     await fetch("../../controller/consulta.php?op=updatedetalle",{
                         method:"POST",
-                        headers:{
+                        headers: {
                             "Content-Type":"application/x-www-form-urlencoded"
                         },
                         body:new URLSearchParams({
@@ -490,7 +458,11 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
                     if (!textoChunk) continue; 
                     respuestaCompleta += textoChunk;
                     /* Mostrar en pantalla */
-                    respuestaIA.html(respuestaCompleta); 
+                    // respuestaIA.html(respuestaCompleta); 
+                    const html = marked.parse(respuestaCompleta);
+                    const cleanHtml = DOMPurify.sanitize(html);
+
+                    respuestaIA.html(cleanHtml);
                     scrollToBottom();
                 } catch(e) {
                     console.warn("Chunk inválido:", json);
@@ -528,7 +500,6 @@ function unblockPnl() {
 }
 
 function mostrar(id) {
-
     if (!id) {
         $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ ID de consulta inválido.</div>");
         return;
@@ -548,7 +519,6 @@ function mostrar(id) {
                 if (json.est == 2) {
                     $('#pnldetalle').hide();
                 }
-
             } catch (err) {
                 console.error("Error parseando JSON mostrar():", data);
                 $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Error cargando datos de la consulta.</div>");
@@ -582,8 +552,6 @@ function mostrar(id) {
             $('#lbldetalle').html("<div class='form-error-text-block'>❌ Error cargando el detalle.</div>");
         }
     });
-
-    
 }
 
 function refrescar_detalle(id) {
