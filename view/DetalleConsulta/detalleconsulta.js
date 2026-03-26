@@ -134,6 +134,7 @@ $("#btncargar").on("click", function () {
                         blockPnl('Carga finalizada.');
                         mostrar(cons_id);
 
+                        $("#fileElem").val('');
                         $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
                         unblockPnl();
                     }
@@ -300,7 +301,6 @@ $(document).on("click", ".btnEliminarDoc", function () {
         function(isConfirm) {
             if (isConfirm) {
                 swal.close();
-               
 
                 $.ajax({
                     url: "../../controller/consulta.php?op=eliminar_archivo_bucket",
@@ -308,19 +308,12 @@ $(document).on("click", ".btnEliminarDoc", function () {
                     data: uploadData,
                     processData: false,
                     contentType: false,
-                    success: function (uploadedURIsRaw) {
-                        //actualizarBarra(55, "Archivos procesados");
-        
-                        //let resp = JSON.parse(uploadedURIsRaw);                               
-                        
-        
+                    success: function (uploadedURIsRaw) {                                                   
                         $.ajax({
                             url:"../../controller/documento.php?op=delete_documento",
                             type: "POST",
                             data: {docd_id: docd_id},
                             success: function(datos){
-                                
-        
                                 refrescar_detalle(cons_id);
                                 
                                 $.unblockUI();
@@ -368,14 +361,6 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
         /*--------------------------------------------------
         2️ Crear contenedor visual para la respuesta
         --------------------------------------------------*/
-        // $('#lbldetalle').append(`
-        //     <article class="activity-line-item box-typical mensaje ia" id="msg_${det_id}">
-        //         <div class="activity-box">
-        //             <p class="texto"></p>
-        //         </div>
-        //     </article>
-        // `);
-
         $('#lbldetalle').append(`
             <article class="activity-line-item box-typical mensaje ia" id="msg_${det_id}">
                 <div class="activity-line-date"></div>
@@ -420,6 +405,7 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
         /*--------------------------------------------------
         4️ Leer chunks
         --------------------------------------------------*/
+        blockPnl('Generando respuesta...')
         while (true) {
             
             const { done, value } = await reader.read();
@@ -449,8 +435,8 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
                     return;
                 }
 
+                
                 try {
-                    blockPnl('Generando respuesta...')
                     //MOSTRANDO LA RESPUESTA POR PARTES AL HTML CREADO (respuestaIA)
                     const data = JSON.parse(json);
                     const textoChunk = data.candidates?.[0]?.content?.parts?.[0]?.text;
