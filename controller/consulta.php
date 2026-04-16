@@ -203,35 +203,72 @@
             echo json_encode($output);
         break;
 
+        // case "insertdetalle":
+        //     $iv_dec = substr(base64_decode($_POST["cons_id"]), 0, openssl_cipher_iv_length($cipher));
+        //     $cifradoSinIV= substr(base64_decode($_POST["cons_id"]), openssl_cipher_iv_length($cipher));
+        //     $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
+
+        //     $datos = $consulta -> insert_detalle($descifrado, $_POST["usu_id"], $_POST["det_contenido"]);
+
+        //     if (is_array($datos) && count($datos) > 0){
+        //         foreach ($datos as $row) {
+
+        //             $output["det_id"] = $row["det_id"];
+        //             $output["cons_id"] = $row["cons_id"];
+
+        //             if(isset($_FILES['files']) && !empty($_FILES['files']['name'][0])) {
+        //                 $countfiles = count($_FILES['files']['name']);
+
+        //                 for ($index = 0; $index < $countfiles; $index++) {
+
+        //                     $documento->insert_documento_detalle(
+        //                         $output["det_id"],
+        //                         $_FILES['files']['name'][$index]
+        //                     );
+    
+        //                     move_uploaded_file($doc1, $destino);
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     echo json_encode($output);
+        // break;
+
         case "insertdetalle":
+
             $iv_dec = substr(base64_decode($_POST["cons_id"]), 0, openssl_cipher_iv_length($cipher));
             $cifradoSinIV= substr(base64_decode($_POST["cons_id"]), openssl_cipher_iv_length($cipher));
             $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
-
-            $datos = $consulta -> insert_detalle($descifrado, $_POST["usu_id"], $_POST["det_contenido"]);
-
+        
+            $datos = $consulta->insert_detalle($descifrado, $_POST["usu_id"], $_POST["det_contenido"]);
+        
             if (is_array($datos) && count($datos) > 0){
+        
                 foreach ($datos as $row) {
-
+        
                     $output["det_id"] = $row["det_id"];
                     $output["cons_id"] = $row["cons_id"];
-
-                    if(isset($_FILES['files']) && !empty($_FILES['files']['name'][0])) {
-                        $countfiles = count($_FILES['files']['name']);
-
-                        for ($index = 0; $index < $countfiles; $index++) {
-
+        
+                    // 🔥 NUEVO: leer archivos desde JSON
+                    if(isset($_POST["files"])) {
+        
+                        $files = json_decode($_POST["files"], true);
+        
+                        foreach ($files as $file) {
+        
+                            $nombreArchivo = $file["file"]; // nombre generado
+        
                             $documento->insert_documento_detalle(
                                 $output["det_id"],
-                                $_FILES['files']['name'][$index]
+                                $nombreArchivo
                             );
-    
-                            move_uploaded_file($doc1, $destino);
                         }
                     }
                 }
             }
+        
             echo json_encode($output);
+        
         break;
 
         case "listardetalle":
@@ -423,6 +460,15 @@
             $cloud = new CloudStorage();
             $contentType_GSutilresult = $cloud -> obtenerContentTypeyGsutil($descifrado);
             echo json_encode($contentType_GSutilresult);
+        break;
+
+        case "generar_urls":
+            $iv_dec = substr(base64_decode($_POST["cons_id"]), 0, openssl_cipher_iv_length($cipher));
+            $cifradoSinIV= substr(base64_decode($_POST["cons_id"]), openssl_cipher_iv_length($cipher));
+            $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
+
+            $cloud = new CloudStorage();
+            echo $cloud->generarUrlsFirmadas($descifrado, $_FILES["files"]);
         break;
 
         case "delete_consulta_p":

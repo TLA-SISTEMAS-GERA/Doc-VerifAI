@@ -88,7 +88,6 @@ class CloudStorage {
         
         //VERIFICA EXISTENCIA DEL NOMBRE DEL BUCKET
         if (!$data || !isset($data[0]['nom_bucket'])) {
-
             throw new \Exception("No se encontró bucket para la consulta $cons_id");
         }
 
@@ -117,14 +116,32 @@ class CloudStorage {
                 fopen($tmpFile, 'r'),
                 ['name' => $objectName]
             ); 
+
+            $object = $bucket->object($objectName);
+
+            $intentos = 0;
+            while (!$object->exists()) {
+                usleep(300000); // 0.3 segundos
+                $intentos++;
+
+                if ($intentos > 15) {
+                    throw new \Exception("El archivo $objectName no se confirmó en el bucket");
+                }
+            }
+
             // Regresar info para Gemini 
             $resultados[] = [
                 "bucket" => $bucket,
                 "file"   => $objectName
             ];
         }
-
-        return $resultados;
+        
+        // return $resultados;
+        return json_encode([
+            "status" => "done",
+            "files" => $resultados
+        ]);
+        exit;
     }
 
     public function eliminarArchivo($cons_id, $docd_id){
@@ -165,7 +182,6 @@ class CloudStorage {
         ];
     }
 
-
     //OBTENER CONTENTTYPE (TIPO DE ARCHIVO) / GSUTIL
     public function obtenerContentTypeyGsutil($cons_id) {
         $PROJECT_ID = $_ENV['PROJECT_ID'];
@@ -188,5 +204,47 @@ class CloudStorage {
             ];
         }
         return $contentType_GSutil;
+    }
+
+    public function generarUrlsFirmadas($cons_id, $files) {
+
+        $PROJECT_ID = $_ENV['PROJECT_ID'];
+        $storage = new StorageClient([
+            'projectId' => $PROJECT_ID
+        ]);
+    
+        $consulta = new Consulta();
+        $data = $consulta->obtenerBucketPorConsulta($cons_id);
+    
+        if (!$data || !isset($data[0]['nom_bucket'])) {
+            throw new \Exception("No se encontró bucket");
+        }
+    
+        $bucket = $storage->bucket($data[0]['nom_bucket']);
+    
+        $urls = [];
+
+        foreach ($files['name'] as $i => $nombreOriginal) {
+    
+            $objectName = time() . "_" . basename($nombreOriginal);
+    
+            $object = $bucket->object($objectName);
+    
+            $url = $object->signedUrl(
+                new DateTime('+15 minutes'),
+                [
+                    'method' => 'PUT',
+                    'contentType' => $files['type'][$i]
+                ]
+            );
+    
+            $urls[] = [
+                "url" => $url,
+                "file" => $objectName,
+                "type" => $files['type'][$i]
+            ];
+        }
+    
+        return json_encode($urls);
     }
 }
