@@ -77,174 +77,174 @@ $(document).ready(function() {
 
 //CARGAR DOCUMENTO/S
 
-$("#btncargar").on("click", async function () {
+// $("#btncargar").on("click", async function () {
 
-    const cons_id = new URLSearchParams(window.location.search).get("ID");
-    let files = $("#fileElem")[0].files;
-
-    if (files.length === 0) {
-        swal({
-            title: "Bandeja vacía",
-            text: "No has cargado documento/s",
-            type: "warning"
-        });
-        return;
-    }
-
-    blockPnl('Preparando carga...');
-
-    // 🔥 1. PEDIR URLS FIRMADAS
-    let formData = new FormData();
-    formData.append("cons_id", cons_id);
-
-    for (let i = 0; i < files.length; i++) {
-        formData.append("files[]", files[i]);
-    }
-    console.log("Pidiendo URLs firmadas...");
-
-    let response = await $.ajax({
-        url: "../../controller/consulta.php?op=generar_urls",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false
-    });
-    console.log("Respuesta recibida:", response);
-
-    let urls = JSON.parse(response);
-
-    blockPnl('Subiendo archivos...');
-
-    // 🔥 2. SUBIR DIRECTO A CLOUD
-    await Promise.all(urls.map(async (item, i) => {
-
-        let res = await fetch(item.url, {
-            method: "PUT",
-            body: files[i]
-        });
-    
-        console.log(`Archivo ${i}:`, res.status);
-    
-        if (!res.ok) {
-            let err = await res.text();
-            console.error(err);
-            throw new Error("Error subiendo archivo");
-        }
-    
-    }));
-
-    //3. REGISTRAR EN BD
-    blockPnl('Registrando documentos...');
-
-    let registroData = new FormData();
-    registroData.append("cons_id", cons_id);
-    registroData.append("files", JSON.stringify(urls));
-
-    $.ajax({
-        url: "../../controller/consulta.php?op=insertdetalle",
-        type: "POST",
-        data: registroData,
-        processData: false,
-        contentType: false,
-        success: function () {
-            blockPnl('Carga finalizada');
-            mostrar(cons_id);
-            $("#fileElem").val('');
-            unblockPnl();
-        }
-    });
-});
-
-//VERSION PRINCIPAL
-// $("#btncargar").on("click", function () {
-
-    
-//     const params = new URLSearchParams(window.location.search);
-//     const cons_id = params.get("ID");
-//     const decoded_id =  decodeURIComponent(cons_id);
-//     const encodedCiphertext = encodeURIComponent(cons_id);
-//     const id = decoded_id.replace(/\s/g, '+'); 
-
-//     var usu_id = $('#user_idx').val();
-//     var prompt = $('#prompt').val();
-//     var btnenviar = $('#btnenviar');
-
-//     var formData = new FormData();
-
-//     formData.append('cons_id', cons_id);
-//     formData.append('usu_id', usu_id);
-//     formData.append('det_contenido', prompt);
-
+//     const cons_id = new URLSearchParams(window.location.search).get("ID");
 //     let files = $("#fileElem")[0].files;
-    
-//     for (let i = 0; i < files.length; i++) {
-        
-//         formData.append("files[]", files[i]);
-//         console.log("Archivos agregados al formData");
-//     }
 
-//     //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
-//     if (files.length > 0) {
-//         blockPnl('Cargando documento/s a cloudStorage...');
-//         let uploadData = new FormData();
-//         //OBTENGO EL ID DE LA CONSULTA
-//         uploadData.append("cons_id", cons_id);
-//         for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
-
-//         $.ajax({
-//             url: "../../controller/consulta.php?op=subir_archivos_cloud",
-//             type: "POST",
-//             data: uploadData,
-//             processData: false,
-//             contentType: false,
-//             success: function (uploadedURIsRaw) {
-//                 let resp = JSON.parse(uploadedURIsRaw); 
-//                 blockPnl('Registrando documento/s...');
-
-//                 $.ajax({
-//                     //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
-//                     url: "../../controller/consulta.php?op=insertdetalle",
-//                     type: "POST",
-//                     data: formData,
-//                     contentType: false,
-//                     processData: false,
-//                     success: function (data) {
-                        
-//                         //Se muestra el detalle
-//                         blockPnl('Carga finalizada.');
-//                         mostrar(cons_id);
-
-//                         $("#fileElem").val('');
-//                         $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
-//                         unblockPnl();
-//                     }
-//                 });
-                
-//                 console.log("Archivos Subidos");                          
-//             },
-//             error: function(err){
-//                 console.error("Error subiendo archivos:", err);
-//                 blockPnl("Error al subir archivo/s");
-//                 setTimeout(unblockPnl, 2000);
-//                 // aún así intentamos enviar historial sin archivos
-//                 //enviarAGeminiYGuardar(mensajes, cons_id);
-//             }
-//         });
-//         ocultarBarra();
-
-        
-//     }else {
-//         unblockPnl();
+//     if (files.length === 0) {
 //         swal({
 //             title: "Bandeja vacía",
 //             text: "No has cargado documento/s",
-//             type: "warning",
-//             confirmButtonClass: "btn-warning"
+//             type: "warning"
 //         });
+//         return;
 //     }
-//     //Se RESETEA el file Elem (bandeja de documentos)
 
+//     blockPnl('Preparando carga...');
+
+//     // 🔥 1. PEDIR URLS FIRMADAS
+//     let formData = new FormData();
+//     formData.append("cons_id", cons_id);
+
+//     for (let i = 0; i < files.length; i++) {
+//         formData.append("files[]", files[i]);
+//     }
+//     console.log("Pidiendo URLs firmadas...");
+
+//     let response = await $.ajax({
+//         url: "../../controller/consulta.php?op=generar_urls",
+//         type: "POST",
+//         data: formData,
+//         processData: false,
+//         contentType: false
+//     });
+//     console.log("Respuesta recibida:", response);
+
+//     let urls = JSON.parse(response);
+
+//     blockPnl('Subiendo archivos...');
+
+//     // 🔥 2. SUBIR DIRECTO A CLOUD
+//     await Promise.all(urls.map(async (item, i) => {
+
+//         let res = await fetch(item.url, {
+//             method: "PUT",
+//             body: files[i]
+//         });
+    
+//         console.log(`Archivo ${i}:`, res.status);
+    
+//         if (!res.ok) {
+//             let err = await res.text();
+//             console.error(err);
+//             throw new Error("Error subiendo archivo");
+//         }
+    
+//     }));
+
+//     //3. REGISTRAR EN BD
+//     blockPnl('Registrando documentos...');
+
+//     let registroData = new FormData();
+//     registroData.append("cons_id", cons_id);
+//     registroData.append("files", JSON.stringify(urls));
+
+//     $.ajax({
+//         url: "../../controller/consulta.php?op=insertdetalle",
+//         type: "POST",
+//         data: registroData,
+//         processData: false,
+//         contentType: false,
+//         success: function () {
+//             blockPnl('Carga finalizada');
+//             mostrar(cons_id);
+//             $("#fileElem").val('');
+//             unblockPnl();
+//         }
+//     });
 // });
+
+//VERSION PRINCIPAL
+$("#btncargar").on("click", function () {
+
+    
+    const params = new URLSearchParams(window.location.search);
+    const cons_id = params.get("ID");
+    const decoded_id =  decodeURIComponent(cons_id);
+    const encodedCiphertext = encodeURIComponent(cons_id);
+    const id = decoded_id.replace(/\s/g, '+'); 
+
+    var usu_id = $('#user_idx').val();
+    var prompt = $('#prompt').val();
+    var btnenviar = $('#btnenviar');
+
+    var formData = new FormData();
+
+    formData.append('cons_id', cons_id);
+    formData.append('usu_id', usu_id);
+    formData.append('det_contenido', prompt);
+
+    let files = $("#fileElem")[0].files;
+    
+    for (let i = 0; i < files.length; i++) {
+        
+        formData.append("files[]", files[i]);
+        console.log("Archivos agregados al formData");
+    }
+
+    //SE RECORRE FILES DEL FORMDATA PARA SUBIRLOS UNO X UNO
+    if (files.length > 0) {
+        blockPnl('Cargando documento/s a cloudStorage...');
+        let uploadData = new FormData();
+        //OBTENGO EL ID DE LA CONSULTA
+        uploadData.append("cons_id", cons_id);
+        for (let i = 0; i < files.length; i++) uploadData.append("files[]", files[i]);
+
+        $.ajax({
+            url: "../../controller/consulta.php?op=subir_archivos_cloud",
+            type: "POST",
+            data: uploadData,
+            processData: false,
+            contentType: false,
+            success: function (uploadedURIsRaw) {
+                let resp = JSON.parse(uploadedURIsRaw); 
+                blockPnl('Registrando documento/s...');
+
+                $.ajax({
+                    //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
+                    url: "../../controller/consulta.php?op=insertdetalle",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        
+                        //Se muestra el detalle
+                        blockPnl('Carga finalizada.');
+                        mostrar(cons_id);
+
+                        $("#fileElem").val('');
+                        $('#btnenviar').removeAttr('disabled').addClass('btn btn-rounded btn-inline btn_primary');
+                        unblockPnl();
+                    }
+                });
+                
+                console.log("Archivos Subidos");                          
+            },
+            error: function(err){
+                console.error("Error subiendo archivos:", err);
+                blockPnl("Error al subir archivo/s");
+                setTimeout(unblockPnl, 2000);
+                // aún así intentamos enviar historial sin archivos
+                //enviarAGeminiYGuardar(mensajes, cons_id);
+            }
+        });
+        ocultarBarra();
+
+        
+    }else {
+        unblockPnl();
+        swal({
+            title: "Bandeja vacía",
+            text: "No has cargado documento/s",
+            type: "warning",
+            confirmButtonClass: "btn-warning"
+        });
+    }
+    //Se RESETEA el file Elem (bandeja de documentos)
+
+});
 
 
 // $("#btncargar").on("click", async function () {
