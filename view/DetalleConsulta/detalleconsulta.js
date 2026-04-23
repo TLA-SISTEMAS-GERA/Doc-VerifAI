@@ -32,7 +32,7 @@ function ocultarBarra() {
 
 $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
-    let cons_id = params.get("ID");
+    const cons_id = params.get("ID");
 
     
     $('#prompt').summernote({
