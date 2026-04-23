@@ -158,7 +158,7 @@ $(document).ready(function() {
 //VERSION PRINCIPAL
 $("#btncargar").on("click", function() { 
     const params = new URLSearchParams(window.location.search);
-    let cons_id = params.get("ID");
+    const cons_id = params.get("ID");
     const decoded_id =  decodeURIComponent(cons_id);
     const encodedCiphertext = encodeURIComponent(cons_id);
     const id = decoded_id.replace(/\s/g, '+'); 
