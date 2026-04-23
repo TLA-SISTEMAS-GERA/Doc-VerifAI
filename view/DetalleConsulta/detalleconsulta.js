@@ -32,8 +32,13 @@ function ocultarBarra() {
 
 $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
-    const cons_id = params.get("ID");
-  
+    let cons_id = params.get("ID");
+
+    //CORRECCION DE '+' QUE SE REEMPLAZAN POR " " (ESPACIOS)
+    if (cons_id) {
+        cons_id = cons_id.replace(/ /g, "+")
+    }
+    console.log(cons_id);
     
     $('#prompt').summernote({
         height: 100,
@@ -156,9 +161,7 @@ $(document).ready(function() {
 // });
 
 //VERSION PRINCIPAL
-$("#btncargar").on("click", function () {
-
-    
+$("#btncargar").on("click", function() { 
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
     const decoded_id =  decodeURIComponent(cons_id);
@@ -699,7 +702,6 @@ function mostrar(id) {
         $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ ID de consulta inválido.</div>");
         return;
     }
-
     // Cargar info de la consulta
     $.ajax({
         url: "../../controller/consulta.php?op=mostrar",
@@ -707,6 +709,9 @@ function mostrar(id) {
         data: { cons_id: id },
         success: function (data) {
             try {
+
+                console.log("Respuesta cruda:", data);
+
                 let json = JSON.parse(data);
 
                 $('#lblnomconsulta').html("Consulta: " + json.cons_nom);
@@ -716,7 +721,7 @@ function mostrar(id) {
                 }
             } catch (err) {
                 console.error("Error parseando JSON mostrar():", data);
-                $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Error cargando datos de la consulta.</div>");
+                $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Ocurrió un error al cargar datos de la consulta.</div>"); //AQUI ES DONDE  A VECES FALLA
             }
         },
         error: function (err) {
@@ -744,7 +749,7 @@ function mostrar(id) {
         },
         error: function (err) {
             console.error("Error listardetalle:", err);
-            $('#lbldetalle').html("<div class='form-error-text-block'>❌ Error cargando el detalle.</div>");
+            $('#lbldetalle').html("<div class='form-error-text-block'>❌ Ocurrió un error al cargar el detalle.</div>");
         }
     });
 }
