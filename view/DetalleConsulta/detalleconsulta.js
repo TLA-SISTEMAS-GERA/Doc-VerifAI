@@ -38,7 +38,6 @@ $(document).ready(function() {
     if (cons_id) {
         cons_id = cons_id.replace(/ /g, "+")
     }
-    console.log(cons_id);
     
     $('#prompt').summernote({
         height: 100,
@@ -709,8 +708,6 @@ function mostrar(id) {
         data: { cons_id: id },
         success: function (data) {
             try {
-
-                console.log("Respuesta cruda:", data);
 
                 let json = JSON.parse(data);
 
