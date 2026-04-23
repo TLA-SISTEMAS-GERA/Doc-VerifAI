@@ -29,7 +29,7 @@ $(document).ready(function() {
             dataType : "json",	
             data:{ usu_id : usu_id },						
             error: function(e){
-                console.log(e.responseText);	
+                	
             }
         },
         "ordering": false,
@@ -70,7 +70,7 @@ $(document).on("click",".btn-inline","url-inline",function(){
 
     const ciphertext = $(this).attr("id");
 
-    console.log(ciphertext);
+   
     //DATO TEMPORAL (MIENTRAS EL USUARIO ENTRE A LA CONSULTA, EL VALOR EXISTIRÁ)
     sessionStorage.setItem("id_real", realId);                              
     window.location.href = 'http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+ciphertext;
@@ -96,8 +96,7 @@ $('.nav-link').on('click', function () {
 
 //Mover consulta a papelera
 function papelera(cons_id){
-    console.log("Funcion Eliminar Papelera");
-    console.log(cons_id);
+    
     swal(
         {
             title: "¿Transferir esta consulta a la Papelera?",
@@ -129,9 +128,7 @@ function papelera(cons_id){
 
 //Eliminar consulta
 function eliminar(cons_id){
-    console.log("Funcion Eliminar");
-    //console.log(object);
-    console.log(cons_id);
+    
     swal(
         {
             title: "¿Eliminar esta Consulta?",
@@ -155,7 +152,7 @@ function eliminar(cons_id){
                         //actualizarBarra(55, "Archivos procesados");
                         $.post("../../controller/consulta.php?op=delete_consulta", { cons_id: cons_id }, function (data){
                         });
-                        console.log("Bucket eliminado ", data);                          
+                                                
                         $('#cons_data').DataTable().ajax.reload();
                     },
                     error: function(err){
@@ -202,7 +199,7 @@ function cargarConsultas() {
             dataType : "json",	
             data:{ usu_id : usu_id },						
             error: function(e){
-                console.log(e.responseText);	
+                
             }
         },
         "ordering": false,
@@ -265,7 +262,7 @@ function cargarPapelera() {
             dataType : "json",	
             data:{ usu_id : usu_id },						
             error: function(e){
-                console.log(e.responseText);	
+                	
             }
         },
         "ordering": false,
