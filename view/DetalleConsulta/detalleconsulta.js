@@ -34,10 +34,6 @@ $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
     let cons_id = params.get("ID");
 
-    //CORRECCION DE '+' QUE SE REEMPLAZAN POR " " (ESPACIOS)
-    if (cons_id) {
-        cons_id = cons_id.replace(/ /g, "+")
-    }
     
     $('#prompt').summernote({
         height: 100,
@@ -162,7 +158,7 @@ $(document).ready(function() {
 //VERSION PRINCIPAL
 $("#btncargar").on("click", function() { 
     const params = new URLSearchParams(window.location.search);
-    const cons_id = params.get("ID");
+    let cons_id = params.get("ID");
     const decoded_id =  decodeURIComponent(cons_id);
     const encodedCiphertext = encodeURIComponent(cons_id);
     const id = decoded_id.replace(/\s/g, '+'); 
