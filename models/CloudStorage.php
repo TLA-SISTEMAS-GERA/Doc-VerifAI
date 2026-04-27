@@ -11,7 +11,7 @@ $dotenv = Dotenv::createImmutable($config->getEnvPath(), '.env.' . $config->getE
 $dotenv->load();
 
 use Google\Cloud\Storage\StorageClient;
-putenv('GOOGLE_APPLICATION_CREDENTIALS' . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
+putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
 class CloudStorage {
 
     public function crearBucketDinamico($nombreConsultaReferencia) {
@@ -111,23 +111,14 @@ class CloudStorage {
             // Crear un nombre único para el archivo dentro del bucket
             $objectName = basename($nombreOriginal);
 
+            error_log("PROJECT: " . $_ENV['PROJECT_ID']);
+            error_log("KEY PATH: " . $_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
+
             // SUBIDA DE ARCHIVO/S AL BUCKET ACTUAL
             $bucket->upload(
                 fopen($tmpFile, 'r'),
                 ['name' => $objectName]
             ); 
-
-            $object = $bucket->object($objectName);
-
-            $intentos = 0;
-            while (!$object->exists()) {
-                usleep(300000); // 0.3 segundos
-                $intentos++;
-
-                if ($intentos > 15) {
-                    throw new \Exception("El archivo $objectName no se confirmó en el bucket");
-                }
-            }
 
             // Regresar info para Gemini 
             $resultados[] = [
@@ -136,11 +127,7 @@ class CloudStorage {
             ];
         }
         
-        // return $resultados;
-        return json_encode([
-            "status" => "done",
-            "files" => $resultados
-        ]);
+        return $resultados;
         exit;
     }
 
@@ -206,45 +193,5 @@ class CloudStorage {
         return $contentType_GSutil;
     }
 
-    public function generarUrlsFirmadas($cons_id, $files) {
-
-        $PROJECT_ID = $_ENV['PROJECT_ID'];
-        $storage = new StorageClient([
-            'projectId' => $PROJECT_ID
-        ]);
     
-        $consulta = new Consulta();
-        $data = $consulta->obtenerBucketPorConsulta($cons_id);
-    
-        if (!$data || !isset($data[0]['nom_bucket'])) {
-            throw new \Exception("No se encontró bucket");
-        }
-    
-        $bucket = $storage->bucket($data[0]['nom_bucket']);
-    
-        $urls = [];
-
-        foreach ($files['name'] as $i => $nombreOriginal) {
-    
-            $objectName = time() . "_" . basename($nombreOriginal);
-    
-            $object = $bucket->object($objectName);
-    
-            $url = $object->signedUrl(
-                new DateTime('+15 minutes'),
-                [
-                    'method' => 'PUT',
-                    'contentType' => $files['type'][$i]
-                ]
-            );
-    
-            $urls[] = [
-                "url" => $url,
-                "file" => $objectName,
-                "type" => $files['type'][$i]
-            ];
-        }
-    
-        return json_encode($urls);
-    }
 }
