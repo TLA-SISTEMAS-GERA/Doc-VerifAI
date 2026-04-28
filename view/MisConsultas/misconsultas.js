@@ -68,13 +68,13 @@ $(document).ready(function() {
 $(document).on("click",".btn-inline","url-inline",function(){
     const realId = $(this).data("real-id");
 
-    const ciphertext = $(this).attr("id");
+    //const ciphertext = $(this).attr("id");
+    const ciphertext = $(this).data("ciphertext");
 
-   
     //DATO TEMPORAL (MIENTRAS EL USUARIO ENTRE A LA CONSULTA, EL VALOR EXISTIRÁ)
-    sessionStorage.setItem("id_real", realId);                              
-    window.location.href = 'http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+ciphertext;
-    //window.location.href = 'http://localhost:80/Doc-VerifAI/view/DetalleConsulta/?ID='+ciphertext;
+    sessionStorage.setItem("id_real", realId);
+    window.location.href = 'http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+encodeURIComponent(ciphertext);
+    //window.location.href = 'http://localhost:80/Doc-VerifAI/view/DetalleConsulta/?ID='+encodeURIComponent(ciphertext);
 });
 
 $('.nav-link').on('click', function () {
