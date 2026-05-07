@@ -73,8 +73,8 @@ $(document).on("click",".btn-inline","url-inline",function(){
 
     //DATO TEMPORAL (MIENTRAS EL USUARIO ENTRE A LA CONSULTA, EL VALOR EXISTIRÁ)
     sessionStorage.setItem("id_real", realId);
-    window.location.href = 'http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+encodeURIComponent(ciphertext);
-    //window.location.href = 'http://localhost:80/Doc-VerifAI/view/DetalleConsulta/?ID='+encodeURIComponent(ciphertext);
+    //window.location.href = 'http://doc-verifai.tecnologisticaaduanal.com/view/DetalleConsulta/?ID='+encodeURIComponent(ciphertext);
+    window.location.href = 'http://localhost:80/Doc-VerifAI/view/DetalleConsulta/?ID='+encodeURIComponent(ciphertext);
 });
 
 $('.nav-link').on('click', function () {
