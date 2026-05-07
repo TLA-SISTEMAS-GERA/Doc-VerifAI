@@ -43,9 +43,15 @@
 
         public function mostrar_consulta ($cons_id) {
             $conectar = parent::conexion();
-            $sql="SELECT *
-                  FROM tm_consulta 
-                  WHERE cons_id = ?;";
+            $sql="SELECT 
+                    tm_consulta.cons_id,
+                    tm_consulta.cons_nom,
+                    tm_consulta.est AS consulta_est,
+                    tm_usuario.rol_id
+                FROM tm_consulta
+                JOIN tm_usuario 
+                    ON tm_consulta.usu_id = tm_usuario.usu_id
+                WHERE cons_id = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$cons_id);
             $sql->execute();

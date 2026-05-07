@@ -12,8 +12,20 @@
         private static $cache = null;
         private static $lastModified = 0;
         private static $cacheTime = 3600; // 1 hora
-        public function obtenerPromptVertexAI() {
-            $promptPath = $_ENV['PROMPT_VERTEX_AI'];
+        public function obtenerPromptVertexAI($rol_id = null) {
+
+            switch ($rol_id) {
+                case 3:
+                    $promptPath = $_ENV['PROMPT_VERTEX_AI_CONTRATOS'];
+                    break;
+        
+                case 1:
+                default:
+                    $promptPath = $_ENV['PROMPT_VERTEX_AI'];
+                    break;
+            }
+
+            //$promptPath = $_ENV['PROMPT_VERTEX_AI'];
             $currentTime = time();
             $fileModified = filemtime($promptPath);
             //Verifica si el prompt está en caché y si no ha expirado
@@ -28,7 +40,8 @@
                 self::$lastModified = $currentTime;
                 return self::$cache;
             } else {
-                throw new Exception("El archivo de prompt no existe en la ruta especificada: " . $promptPath);
+                // throw new Exception("El archivo de prompt no existe en la ruta especificada: " . $promptPath);
+                throw new Exception("No existe el prompt para el rol: " . $rol_id);
             }
         }
     }

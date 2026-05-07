@@ -26,7 +26,7 @@
 		<div class="container-fluid">
 
 			<h2 id="lblnomconsulta">Consulta: </h2>
-	
+			
 			<div class="activity-line" id="lbldetalle">
 				
 			</div><!--.activity-line-->
@@ -41,6 +41,7 @@
 				<div id="barra_texto" class="progress-with-amount-number">0%</div>
 			</div> -->
 	
+			<img src="/public/img/icons8-ai.gif" alt="">
 			<div class="box-typical box-typical-padding" id="pnldetalle">
 				<div class="row">
 					<div class="col-lg-12">

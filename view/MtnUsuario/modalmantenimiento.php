@@ -37,6 +37,7 @@
                         <select class="select2" id="rol_id" name="rol_id">
                             <option value="1">Usuario</option>
                             <option value="2">Administrador</option>
+                            <option value="3">Contratos</option>
                         </select>
                     </div>
                     

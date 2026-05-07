@@ -1,40 +1,20 @@
 function init() {
 
 }
-function mostrarBarra() {
-    $("#barra_container").show();
-    $("#barra_progreso").val(0);
-    $("#barra_texto").text("0%");
-}
 
-function actualizarBarra(valor, texto = "") {
-
-    $("#barra_progreso").val(valor);
-
-    if (texto) {
-        $("#barra_texto").text(texto);
-    } else {
-        $("#barra_texto").text(valor + "%");
-    }
-}
-
-function ocultarBarra() {
-
-    $("#barra_progreso").val(100);
-    $("#barra_texto").text("Finalizado");
-
-    setTimeout(() => {
-        $("#barra_container").hide();
-        $("#barra_progreso").val(0);
-        $("#barra_texto").text("0%");
-    }, 800);
-}
+var rol_id = $('#rol_idx').val();
 
 $(document).ready(function() {
+    // const url = window.location.href;
+    // const params = new URLSearchParams(new URL(url).search);
+    // const cons_id = params.get("ID");
+    // const decoded_id =  decodeURIComponent(cons_id);
+    // const id = decoded_id.replace(/\s/g, '+'); 
+
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
+    console.log(rol_id);
 
-    
     $('#prompt').summernote({
         height: 100,
         lang: "es-ES",
@@ -76,84 +56,6 @@ $(document).ready(function() {
 
 
 //CARGAR DOCUMENTO/S
-
-// $("#btncargar").on("click", async function () {
-
-//     const cons_id = new URLSearchParams(window.location.search).get("ID");
-//     let files = $("#fileElem")[0].files;
-
-//     if (files.length === 0) {
-//         swal({
-//             title: "Bandeja vacía",
-//             text: "No has cargado documento/s",
-//             type: "warning"
-//         });
-//         return;
-//     }
-
-//     blockPnl('Preparando carga...');
-
-//     // 🔥 1. PEDIR URLS FIRMADAS
-//     let formData = new FormData();
-//     formData.append("cons_id", cons_id);
-
-//     for (let i = 0; i < files.length; i++) {
-//         formData.append("files[]", files[i]);
-//     }
-//     console.log("Pidiendo URLs firmadas...");
-
-//     let response = await $.ajax({
-//         url: "../../controller/consulta.php?op=generar_urls",
-//         type: "POST",
-//         data: formData,
-//         processData: false,
-//         contentType: false
-//     });
-//     console.log("Respuesta recibida:", response);
-
-//     let urls = JSON.parse(response);
-
-//     blockPnl('Subiendo archivos...');
-
-//     // 🔥 2. SUBIR DIRECTO A CLOUD
-//     await Promise.all(urls.map(async (item, i) => {
-
-//         let res = await fetch(item.url, {
-//             method: "PUT",
-//             body: files[i]
-//         });
-    
-//         console.log(`Archivo ${i}:`, res.status);
-    
-//         if (!res.ok) {
-//             let err = await res.text();
-//             console.error(err);
-//             throw new Error("Error subiendo archivo");
-//         }
-    
-//     }));
-
-//     //3. REGISTRAR EN BD
-//     blockPnl('Registrando documentos...');
-
-//     let registroData = new FormData();
-//     registroData.append("cons_id", cons_id);
-//     registroData.append("files", JSON.stringify(urls));
-
-//     $.ajax({
-//         url: "../../controller/consulta.php?op=insertdetalle",
-//         type: "POST",
-//         data: registroData,
-//         processData: false,
-//         contentType: false,
-//         success: function () {
-//             blockPnl('Carga finalizada');
-//             mostrar(cons_id);
-//             $("#fileElem").val('');
-//             unblockPnl();
-//         }
-//     });
-// });
 
 //VERSION PRINCIPAL
 $("#btncargar").on("click", function() { 
@@ -198,7 +100,7 @@ $("#btncargar").on("click", function() {
             success: function (uploadedURIsRaw) {
                 let resp = JSON.parse(uploadedURIsRaw); 
                 blockPnl('Registrando documento/s...');
-
+                console.log(uploadedURIsRaw);
                 $.ajax({
                     //INSERTO UN DETALLE DE CARGA DE ARCHIVOS SOLAMENTE
                     url: "../../controller/consulta.php?op=insertdetalle",
@@ -221,7 +123,7 @@ $("#btncargar").on("click", function() {
                 console.log("Archivos Subidos");                          
             },
             error: function(err){
-                console.error("Error subiendo archivos:", err);
+                console.error("Error subiendo archivos:", err); //aqui
                 blockPnl("Error al subir archivo/s");
                 setTimeout(unblockPnl, 2000);
                 // aún así intentamos enviar historial sin archivos
@@ -244,89 +146,26 @@ $("#btncargar").on("click", function() {
 
 });
 
-
-// $("#btncargar").on("click", async function () {
-
-//     const params = new URLSearchParams(window.location.search);
-//     const cons_id = params.get("ID");
-
-//     var usu_id = $('#user_idx').val();
-//     var prompt = $('#prompt').val();
-
-//     let files = $("#fileElem")[0].files;
-
-//     if (files.length === 0) {
-//         swal({
-//             title: "Bandeja vacía",
-//             text: "No has cargado documento/s",
-//             type: "warning",
-//             confirmButtonClass: "btn-warning"
-//         });
-//         return;
-//     }
-
-//     blockPnl('Subiendo documentos en lotes...');
-
-//     try {
-//         // 🔥 1. SUBIR ARCHIVOS EN LOTES
-//         await subirEnLotes(files, cons_id);
-
-//         // 🔥 2. REGISTRAR EN BD (UNA SOLA VEZ)
-//         blockPnl('Registrando documento/s...');
-
-//         var formData = new FormData();
-//         formData.append('cons_id', cons_id);
-//         formData.append('usu_id', usu_id);
-//         formData.append('det_contenido', prompt);
-
-//         // ⚠️ Opcional: si tu insertdetalle necesita archivos, los vuelves a mandar
-//         for (let i = 0; i < files.length; i++) {
-//             formData.append("files[]", files[i]);
-//         }
-
-//         $.ajax({
-//             url: "../../controller/consulta.php?op=insertdetalle",
-//             type: "POST",
-//             data: formData,
-//             contentType: false,
-//             processData: false,
-//             success: function () {
-//                 blockPnl('Carga finalizada.');
-//                 mostrar(cons_id);
-
-//                 $("#fileElem").val('');
-//                 unblockPnl();
-//             }
-//         });
-
-//     } catch (err) {
-//         console.error("Error en la carga:", err);
-//         blockPnl("Error al subir archivos");
-//         setTimeout(unblockPnl, 2000);
-//     }
-
-// });
-
 //ENVIAR PROMPT/ GENERAR RESPUESTA
 
 $("#btnenviar").on("click", function () {
 
     blockPnl('Cargando información...');
-    mostrarBarra();
-    actualizarBarra(5, "Procesando información...");
 
     const params = new URLSearchParams(window.location.search);
     const cons_id = params.get("ID");
     var usu_id = $('#user_idx').val();
     var prompt = $('#prompt').val();
-
-
+    
+    //console.log(object);
     // 1 GUARDAR MENSAJE DEL USUARIO
     var formData = new FormData();
     formData.append('cons_id', cons_id);
     formData.append('usu_id', usu_id);
     formData.append('det_contenido', prompt);
+    formData.append('rol_id',rol_id);
 
+    console.log(formData.rol_id);
     let files = $("#fileElem")[0].files;
     for (let i = 0; i < files.length; i++) {
         formData.append("files[]", files[i]);
@@ -342,13 +181,12 @@ $("#btnenviar").on("click", function () {
         contentType: false,
         processData: false,
         success: function () {
-            actualizarBarra(15, "Mensaje guardado");
             blockPnl('Espera un momento...');
             mostrar(cons_id); // Recarga chat del usuario
             $('#fileElem').val('');
             $('#prompt').summernote('reset');
             // 2 OBTENER HISTORIAL
-            actualizarBarra(20, "Cargando informacion");
+            
             $.post(
                 "../../controller/consulta.php?op=obtener_historial",
                 { cons_id: cons_id },
@@ -360,7 +198,6 @@ $("#btnenviar").on("click", function () {
                         parts: [{ text: row.det_contenido }]
                     }));
 
-                    actualizarBarra(25, "Cargando informacion");
                     console.log("Historial cargado");
                     blockPnl('Recopilando información...')
 
@@ -371,7 +208,6 @@ $("#btnenviar").on("click", function () {
                         function (contentType_GSutilRaw) {
                             if (contentType_GSutilRaw.length > 0){}
                             blockPnl('Obteniendo datos de los documentos adjuntos...')
-                            actualizarBarra(45, "Preparando documentos para IA");
 
                             let contentType_GSutil = JSON.parse(contentType_GSutilRaw);
                             
@@ -402,7 +238,6 @@ $("#btnenviar").on("click", function () {
                           
                             //SE ENVIA TODO EL CONTENIDO A VERTEX/GEMINI + ID DE LA CONSULTA
                             blockPnl('Carga de información a Gemini AI...')
-                            actualizarBarra(55, "Documentos en procesamiento");
 
                             enviarAGeminiYGuardar(mensajes, cons_id);
                         }   
@@ -424,65 +259,6 @@ function dividirArchivos(files, tamañoChunk = 10) {
         chunks.push(files.slice(i, i + tamañoChunk));
     }
     return chunks;
-}
-
-// async function subirEnLotes(files, cons_id) {
-//     const chunks = dividirArchivos(Array.from(files), 10);
-
-//     for (let i = 0; i < chunks.length; i++) {
-//         let formData = new FormData();
-//         formData.append("cons_id", cons_id);
-
-//         chunks[i].forEach(file => {
-//             formData.append("files[]", file);
-//         });
-
-//         await $.ajax({
-//             url: "../../controller/consulta.php?op=subir_archivos_cloud",
-//             type: "POST",
-//             data: formData,
-//             processData: false,
-//             contentType: false
-//         });
-
-//         console.log(`Lote ${i + 1} subido`);
-//     }
-// }
-
-async function subirEnLotes(files, cons_id) {
-
-    const chunks = dividirArchivos(Array.from(files), 10);
-
-    const CONCURRENCIA = 3; //cuantos lotes al mismo tiempo
-
-    for (let i = 0; i < chunks.length; i += CONCURRENCIA) {
-
-        let grupo = chunks.slice(i, i + CONCURRENCIA);
-
-        // 🔥 ejecuta varios a la vez
-        await Promise.all(
-            grupo.map((chunk, index) => {
-
-                let formData = new FormData();
-                formData.append("cons_id", cons_id);
-
-                chunk.forEach(file => {
-                    formData.append("files[]", file);
-                });
-
-                return $.ajax({
-                    url: "../../controller/consulta.php?op=subir_archivos_cloud",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false
-                }).then(() => {
-                    console.log(`Lote ${i + index + 1} subido`);
-                });
-
-            })
-        );
-    }
 }
 
 //ESCUCHO EL CLIC DE UN BOTON CREADO DINAMICAMENTE
@@ -542,7 +318,6 @@ $(document).on("click", ".btnEliminarDoc", function () {
 async function enviarAGeminiYGuardar(mensajes, cons_id){
 
     blockPnl('En espera de respuesta por parte del Agente...')
-    actualizarBarra(80, "Generando Respuesta...");
 
     let respuestaCompleta = "";
     let det_id = null;
@@ -576,8 +351,12 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
                 <div class="activity-line-action-list">
                     <section class="activity-line-action">
                         
-                        <div class="time">Generando Respuesta...</div>
-
+                        
+                        <p class="texto">
+                            <img src="../../public/img/icons8-ai.gif" alt=""> 
+                            Generando respuesta...
+                        </p>
+                        
                         <div class="cont">
                             <div class="cont-in">
                                 <p class="texto"></p>
@@ -596,7 +375,10 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
         --------------------------------------------------*/
         const formData = new FormData();
         formData.append('mensajes', JSON.stringify(mensajes));
-
+        //EMITO EL ID DEL ROL PARA DETERMINAR PROMPT
+        formData.append('rol_id', rol_id)
+        
+        
         const response = await fetch('../../controller/consulta.php?op=ai_prompt', {
             method: 'POST',
             body: formData
@@ -704,14 +486,14 @@ function mostrar(id) {
         data: { cons_id: id },
         success: function (data) {
             try {
-
                 let json = JSON.parse(data);
-
-                $('#lblnomconsulta').html("Consulta: " + json.cons_nom);
-
-                if (json.est == 2) {
+                console.log(json);
+                console.log(json.est);
+                if (json.consulta_est == 2) {
                     $('#pnldetalle').hide();
                 }
+                $('#lblnomconsulta').html("Consulta: " + json.cons_nom);
+
             } catch (err) {
                 console.error("Error parseando JSON mostrar():", data);
                 $('#lblnomconsulta').html("<div class='form-error-text-block'>❌ Ocurrió un error al cargar datos de la consulta.</div>"); //AQUI ES DONDE  A VECES FALLA

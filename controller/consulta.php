@@ -94,8 +94,7 @@
         break;
 
         case "mostrar":
-            
-            
+                
             $iv_dec = substr(base64_decode($_POST["cons_id"]), 0, openssl_cipher_iv_length($cipher));
             $cifradoSinIV= substr(base64_decode($_POST["cons_id"]), openssl_cipher_iv_length($cipher));
             $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
@@ -108,79 +107,21 @@
             if(is_array($datos) == true and count($datos)>0){
                 foreach($datos as $row)
                 {
+                    // CONSULTA
                     $output["cons_id"] = $row["cons_id"];
                     $output["cons_nom"] = $row["cons_nom"];
-                    $output["est"] = $row["est"];
+                    $output["consulta_est"] = $row["consulta_est"];
+
+                    // ROL DE USUARIO
+                    $output["rol_id"] = $row["rol_id"];
                 }
                 echo json_encode($output);
             }
         break;
-        
-        // case "mostrar":
-        //     file_put_contents("debug.txt", "ENTRÓ mostrar\n", FILE_APPEND);
-            
-        //     $iv_dec = substr(base64_decode($_POST["cons_id"]), 0, openssl_cipher_iv_length($cipher));
-        //     $cifradoSinIV= substr(base64_decode($_POST["cons_id"]), openssl_cipher_iv_length($cipher));
-        //     $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
-        
-        //     file_put_contents("debug.txt", "ID DESCIFRADO: ".$descifrado."\n", FILE_APPEND);
-        
-        //     $datos = $consulta -> mostrar_consulta($descifrado);
-        
-        //     file_put_contents("debug.txt", "DATOS: ".print_r($datos, true)."\n", FILE_APPEND);
-        
-        //     if(is_array($datos) == true and count($datos)>0){
-        
-        //         file_put_contents("debug.txt", "ENTRÓ AL IF\n", FILE_APPEND);
-        
-        //         foreach($datos as $row)
-        //         {
-        //             $output["cons_id"] = $row["cons_id"];
-        //             $output["cons_nom"] = $row["cons_nom"];
-        //             $output["est"] = $row["est"];
-        //         }
-        
-        //         file_put_contents("debug.txt", "ANTES DE RESPONDER JSON\n", FILE_APPEND);
-        
-        //         echo json_encode($output);
-        
-        //     } else {
-        
-        //         // 🔥 ESTE ES CLAVE
-        //         file_put_contents("debug.txt", "NO HAY DATOS\n", FILE_APPEND);
-        
-        //         echo json_encode([
-        //             "error" => true,
-        //             "msg" => "No se encontraron datos"
-        //         ]);
-        //     }
-        
-        //     file_put_contents("debug.txt", "FIN DEL CASE\n", FILE_APPEND);
-        
-        // break;
-
-        // case "ai_prompt":
-        //     $mensajesRaw = $_POST["mensajes"] ?? null;
-        
-        //     if (!$mensajesRaw) {
-        //         echo json_encode(["error" => "No llegaron mensajes"]);
-        //         exit;
-        //     }
-        //     // Convertir string JSON → array PHP
-        //     $mensajes = json_decode($mensajesRaw, true);
-        
-        //     // LOG para verificar
-        //     file_put_contents("debug_gemini.txt", print_r($mensajes, true));
-        
-        //     // $ai = new AIController();
-        //     // $respuesta = $ai->procesarPrompt($mensajes);
-        //     $vertex = new VertexAI();
-        //     $respuesta = $vertex->generarRespuestaVertex($mensajes);
-        //     echo $respuesta;
-        // break;
 
         case "ai_prompt":
             $mensajesRaw = $_POST["mensajes"] ?? null;
+            $rol_id = $_POST["rol_id"] ?? null;
         
             if (!$mensajesRaw) {
                 echo json_encode(["error" => "No llegaron mensajes"]);
@@ -195,7 +136,7 @@
             // $ai = new AIController();
             // $respuesta = $ai->procesarPrompt($mensajes);
             $vertex = new VertexAI();
-            $respuesta = $vertex->generarRespuestaStream($mensajes);
+            $respuesta = $vertex->generarRespuestaStream($mensajes, $rol_id);
             // $vertexStream = new VertexStreamAI();
             // $respuesta = $vertexStream->generarRespuestaVertexStream($mensajes);
             exit;
@@ -278,43 +219,6 @@
             }
             echo json_encode($output);
         break;
-
-        // case "insertdetalle":
-
-        //     $iv_dec = substr(base64_decode($_POST["cons_id"]), 0, openssl_cipher_iv_length($cipher));
-        //     $cifradoSinIV= substr(base64_decode($_POST["cons_id"]), openssl_cipher_iv_length($cipher));
-        //     $descifrado = openssl_decrypt($cifradoSinIV, $cipher, $key, OPENSSL_RAW_DATA, $iv_dec);
-        
-        //     $datos = $consulta->insert_detalle($descifrado, $_POST["usu_id"], $_POST["det_contenido"]);
-        
-        //     if (is_array($datos) && count($datos) > 0){
-        
-        //         foreach ($datos as $row) {
-        
-        //             $output["det_id"] = $row["det_id"];
-        //             $output["cons_id"] = $row["cons_id"];
-        
-        //             // 🔥 NUEVO: leer archivos desde JSON
-        //             if(isset($_POST["files"])) {
-        
-        //                 $files = json_decode($_POST["files"], true);
-        
-        //                 foreach ($files as $file) {
-        
-        //                     $nombreArchivo = $file["file"]; // nombre generado
-        
-        //                     $documento->insert_documento_detalle(
-        //                         $output["det_id"],
-        //                         $nombreArchivo
-        //                     );
-        //                 }
-        //             }
-        //         }
-        //     }
-        
-        //     echo json_encode($output);
-        
-        // break;
 
         case "listardetalle":
             $iv_dec = substr(base64_decode($_POST["cons_id"]), 0, openssl_cipher_iv_length($cipher));
@@ -458,10 +362,10 @@
             $archivos = $cloud -> subirArchivos($descifrado, $_FILES["files"]);         
             $resultado = [];
 
-            file_put_contents(
-                __DIR__ . "/debug_files_api.json",
-                json_encode($resultado, JSON_PRETTY_PRINT)
-            );            
+            // file_put_contents(
+            //     __DIR__ . "/debug_files_api.json",
+            //     json_encode($resultado, JSON_PRETTY_PRINT)
+            // );            
             error_log("RESPUESTA FINAL:");
             error_log(json_encode($resultado));
             echo json_encode($resultado);

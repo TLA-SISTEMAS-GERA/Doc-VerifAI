@@ -54,6 +54,8 @@
                 }else if($row["rol_id"]=="2"){
                     // $sub_array[] = '<span class="label label-pill label-info aquamarine">Administrador</span>';
                     $sub_array[] = '⚙️ Administrador';
+                } else if ($row["rol_id"]=="3") {
+                    $sub_array[] = 'Contratos';
                 }
 
                 $sub_array[] = '<button type="button" onClick="editar('.$row["usu_id"].');"  id="'.$row["usu_id"].'" class="btn btn-rounded btn-inline btn-warning-outline">✏️ Editar</button>';

@@ -72,7 +72,7 @@ class VertexAI {
         return $response;
     }
 
-    public function generarRespuestaStream($mensajes) {
+    public function generarRespuestaStream($mensajes, $rol_id) {
 
         header('Content-Type: text/plain; charset=utf-8');
         header('Cache-Control: no-cache');
@@ -80,6 +80,11 @@ class VertexAI {
         
         if (empty($mensajes)) {
             echo "[ERROR: No se recibió mensaje]";
+            exit;
+        }
+
+        if (empty($rol_id)) {
+            echo "[ERROR: No hay un id de rol]";
             exit;
         }
             
@@ -99,8 +104,18 @@ class VertexAI {
         }
 
         //Obtener el prompt desde el archivo
-        $promptObj = new PromptVertex();
-        $prompt = $promptObj->obtenerPromptVertexAI();
+
+        try {
+            $promptObj = new PromptVertex();
+            $prompt = $promptObj->obtenerPromptVertexAI($rol_id);
+        } catch (Exception $e) {
+            echo "data: [ERROR PROMPT: " . $e->getMessage() . "]\n\n";
+            flush();
+            exit;
+        }
+
+        // $promptObj = new PromptVertex();
+        // $prompt = $promptObj->obtenerPromptVertexAI($rol_id);
 
         //OCONFIGURACION DE LA SOLICITUD
         $projectId = $_ENV['PROJECT_ID'];

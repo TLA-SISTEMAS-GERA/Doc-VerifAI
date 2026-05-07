@@ -47,6 +47,7 @@
 
 					<!-- VARIABLE GLOBAL DEL ID DEL USUARIO -->
 					<input type="hidden" id="user_idx" value="<?php echo $_SESSION["usu_id"] ?>"><!-- ID del Usuario-->
+					<input type="hidden" id="rol_idx" value="<?php echo $_SESSION["rol_id"] ?>"><!-- ID del Rol-->
 
 					<div class="dropdown dropdown-typical">	
 							<!-- <i class="fa fa-user" aria-hidden="true"></i> -->
