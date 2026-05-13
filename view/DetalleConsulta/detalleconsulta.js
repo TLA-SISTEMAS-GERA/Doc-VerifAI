@@ -576,8 +576,12 @@ async function enviarAGeminiYGuardar(mensajes, cons_id){
                 <div class="activity-line-action-list">
                     <section class="activity-line-action">
                         
-                        <div class="time">Generando Respuesta...</div>
-
+                        
+                        <p class="texto">
+                            <img src="../../public/img/icons8-ai.gif" alt=""> 
+                            Generando respuesta...
+                        </p>
+                        
                         <div class="cont">
                             <div class="cont-in">
                                 <p class="texto"></p>
