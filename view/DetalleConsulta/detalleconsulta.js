@@ -488,7 +488,7 @@ function mostrar(id) {
             try {
                 let json = JSON.parse(data);
                 console.log(json);
-                console.log(json.est);
+                
                 if (json.consulta_est == 2) {
                     $('#pnldetalle').hide();
                 }
