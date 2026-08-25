@@ -5,6 +5,8 @@
 
     use Dotenv\Dotenv;
 
+    // NOMRBE PROPIO DE COOKIE DE SESION (comparte dominio con Toolbox; sin esto se pisan las sesiones)
+    session_name("DOCVERIFAISESSID");
     session_start();
 
     $config = App\Config::getInstance();
